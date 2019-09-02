@@ -1,0 +1,217 @@
+/* 自定义 公共 css */
+.jl_layout_center {
+  text-align: center;
+}
+
+.mar_t15 {
+  margin-bottom: 15px;
+}
+
+.mar_t10 {
+  margin-top: 10px;
+}
+
+.pad_t2 {
+  padding-top: 2px;
+}
+
+.pad_l34 {
+  padding-left: 34px;
+}
+
+.pad_5 {
+  padding: 5px;
+}
+
+.wid_140 {
+  width: 140px !important;
+}
+
+.wid_160 {
+  width: 160px !important
+}
+.wid_175 {
+  width: 175px !important;
+}
+.wid_185 {
+  width: 185px !important;
+}
+.wid_181 {
+  width: 180px !important;
+}
+.wid_190 {
+  width: 190px !important;
+}
+
+.wid_68 {
+  width: 68px !important;
+}
+
+.wid_90 {
+  width: 94px !important;
+}
+
+.light_blue {
+  background-color: #27A9E3;
+}
+
+.dark_blue {
+  background-color: #2255A4;
+}
+
+.green {
+  background-color: #28B779;
+}
+
+.posi_rela {
+  position: relative;
+}
+
+.txt_tip {
+  position: absolute;
+
+}
+/* 省市 */
+/* 省市不需要 右外边距 */
+.marg_r0{
+  margin-right:0 !important;
+}
+/* 嵌套的el-item 不需要 下外边距 */
+.marg_b0{
+  margin-bottom:0 !important;
+}
+.handle_timerange .el-date-editor--daterange.el-input,
+.handle_timerange .el-date-editor--daterange.el-input__inner,
+.handle_timerange .el-date-editor--timerange.el-input,
+.handle_timerange .el-date-editor--timerange.el-input__inner{
+    width: 362px;
+}
+
+/* 特殊处理140px */
+.wid_parent .el-form-item__content {
+  width: 140px;
+}
+
+/* 查询 */
+.query_fields {
+  padding: 12px 8px;
+  margin-bottom: 5px;
+  background-color: #fff;
+}
+
+.query_fields.pad_b_no {
+  padding-bottom: 0;
+}
+
+.query_fields .el-form-item--mini.el-form-item,
+.query_fields .el-form-item--small.el-form-item {
+  margin-bottom: 6px;
+}
+
+.box_shadow {
+  padding: 10px;
+  height: 200px;
+  width: 80%;
+  border-radius: 10px;
+  margin: auto;
+  border: 1px solid #EEE;
+  box-shadow: 0 0 28px 3px rgba(63, 112, 179, 0.5)
+}
+
+/* 控制 dialog的样式 */
+/* label */
+label {
+  font-weight: 400;
+}
+
+.el-form-item__label {
+  line-height: 24px;
+}
+
+/* content */
+.el-form-item__content {
+  line-height: 24px;
+}
+
+.el-input__inner {
+  height: 24px;
+  line-height: 24px;
+}
+
+.el-input__icon {
+  line-height: 25px;
+}
+
+.form_title {
+
+  margin-top: 0;
+  margin-bottom: 4px;
+  color: #222;
+}
+
+/* 控制table */
+/* 斑马纹 */
+.el-table--striped .el-table__body tr.el-table__row--striped td {
+  /* background-color: #E6EFFB; */
+}
+
+/* 表格 */
+.el-table__header th {
+  padding: 5px 0;
+}
+
+/*  */
+.el-table__body td {
+  padding: 2px 0;
+}
+/* 通用弹框：高 */
+.el-dialog__body {
+  height: 50vh;
+  overflow: auto;
+}
+.agent_detail .el-dialog__body {
+  height: 60vh;
+  overflow: auto;
+}
+
+/* 发票展示 */
+.invoiceimg_wrap .el-dialog__body{
+  height: 70vh;
+  overflow: auto;
+}
+/* 出行工作记录 */
+.travel_record .el-dialog__body{
+  height: 72vh;
+  overflow: auto;
+}
+/* 解决table 错位问题 */
+
+body .el-table th.gutter {
+  display: table-cell !important;
+}
+
+body .el-table colgroup.gutter {
+  display: table-cell !important;
+}
+
+/* 控制表格中的上下临近 */
+.el-form-item {
+  margin-bottom: 12px;
+}
+
+.valid_form .el-form-item {
+  margin-bottom: 20px;
+}
+
+/*  */
+
+.inl_block{
+  display: inline-block;
+}
+.pp_label{
+  font-size: 14px;
+  
+}
+.mar_r10{
+  margin-right:10px;
+}
