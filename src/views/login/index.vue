@@ -92,7 +92,7 @@ export default {
         this.$refs.password.focus()
       })
     },
-    
+
     //  点击登录
     async handleLogin() {
       // 先校验
@@ -103,8 +103,8 @@ export default {
         }
         this.loading = true
         const res = await this.$http.post(`${commonUrl.baseUrl}/web/login`, qs.stringify(param));
-        if(res.data.code == '0000'){  
-          console.log(res)
+        if(res.data.code == '0000'){
+          // console.log(res)
           // 存roleId
           this.$store.commit('user/SET_ROLEID', res.data.data.sysRole.id)
           localStorage.setItem('pp_roleId',JSON.stringify(res.data.data.sysRole.id))
@@ -114,12 +114,12 @@ export default {
           // 存roles  String:   res.data.data.sysRole.role_name
           //this.$store.commit('user/SET_ROLES', ['admin']) // 早期先写固定值，让后端写下，roles: ['admin']
           // 存 token
-          // const authorization = res.headers.authorization;  //令牌        
+          // const authorization = res.headers.authorization;  //令牌
           // this.$store.commit('user/SET_TOKEN', authorization) //请求用户信息
           // setToken(authorization) // 存到cookie里面
-          
-          // 存 userId        
-          this.$store.commit('user/SET_USERID', res.data.data.user.id) 
+
+          // 存 userId
+          this.$store.commit('user/SET_USERID', res.data.data.user.id)
           localStorage.setItem('pp_userId',JSON.stringify(res.data.data.user.id))
 
           // 存 real_name
@@ -128,23 +128,23 @@ export default {
 
           this.loading = false
           this.$router.push({path: '/'}) //这里 这么写 ？
-          
+
         } else {
           this.m_message(res.data.msg, 'warning')
           this.loading = false
         }
       }
-                            
+
     },
     // 校验
     m_valid_addForm(formName) {
-      let  flag  = false ;      
+      let  flag  = false ;
       this.$refs[formName].validate((valid) => {
-          if (valid) {  
-          flag = true;             
+          if (valid) {
+          flag = true;
           return true
-          } else {   
-          flag = false;       
+          } else {
+          flag = false;
           return false;
           }
       });

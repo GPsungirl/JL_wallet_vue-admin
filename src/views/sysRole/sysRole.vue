@@ -16,8 +16,13 @@
     <el-table-column prop="role_name" label="角色名称" width="">
     </el-table-column>
     <el-table-column prop="role_describe" label="角色描述" width="">
+
     </el-table-column>
-    <el-table-column prop="permission" label="权限" width="">
+    <el-table-column prop="" label="权限" width="">
+      <template slot-scope="scope">
+        <span v-if="scope.row.permission.indexOf('view')>-1">查看</span>
+        <span v-if="scope.row.permission.indexOf('edit')>-1">编辑</span>
+      </template>
     </el-table-column>
 
     <el-table-column prop="" label="操作" width="">
@@ -28,12 +33,12 @@
   </el-table>
 
   <!--module3 分页 -->
-  <div class="block mar_t10">  
+  <div class="block mar_t10">
     <el-pagination
-      
+
       @current-change="handleCurrentChange"
-      :current-page="currentPage"      
-      
+      :current-page="currentPage"
+
       background
       layout="total, prev, pager, next, jumper"
       :total="pageTotal">
@@ -47,7 +52,7 @@
     width="40%"
     center
     class="modiUsers_dialog dialog_tip"
-    :close-on-click-modal="false" 
+    :close-on-click-modal="false"
     v-loading="modi_loading"
     element-loading-text="拼命加载中"
     element-loading-spinner="el-icon-loading"
@@ -68,15 +73,15 @@
               </el-form-item>
               <el-form-item label="角色权限" prop="permission">
                 <el-select v-model="valid_modiForm.permission" multiple="" placeholder="角色权限">
-                  <el-option 
+                  <el-option
                     v-for="(item, index) in valid_modiForm.permissions"
                     :key="index"
-                    :label="item"
-                    :value="item"
+                    :label="item.txt"
+                    :value="item.id"
                     ></el-option>
                 </el-select>
-                
-              </el-form-item>                 
+
+              </el-form-item>
             </el-form>
           </div>
         </el-col>
@@ -86,7 +91,7 @@
             <!-- 修改 树 -->
             <el-tree
               :data="modiDialog_tree"
-              show-checkbox  
+              show-checkbox
               node-key="id"
               ref="modiTree"
               :default-expanded-keys = "modi_default_ids"
@@ -110,12 +115,12 @@
   <!--module5 新增 dialog2 -->
   <el-dialog
     title="新增角色"
-    :visible.sync="addUsers_dialogVisible"    
+    :visible.sync="addUsers_dialogVisible"
     width="40%"
     class="addUsers_dialog dialog_tip"
     center
-    
-    :close-on-click-modal="false" 
+
+    :close-on-click-modal="false"
     v-loading="add_loading"
     element-loading-text="拼命加载中"
     element-loading-spinner="el-icon-loading"
@@ -136,15 +141,15 @@
               </el-form-item>
               <el-form-item label="角色权限" prop="permission">
                 <el-select v-model="valid_addForm.permission" multiple placeholder="选择角色权限">
-                  <el-option 
+                  <el-option
                     v-for="(item, index) in valid_addForm.permissions"
                     :key="index"
-                    :label="item"
-                    :value="item"
+                    :label="item.txt"
+                    :value="item.id"
                     ></el-option>
                 </el-select>
-                
-              </el-form-item>              
+
+              </el-form-item>
             </el-form>
           </div>
         </el-col>
@@ -154,7 +159,7 @@
             <!-- 新增 树 -->
             <el-tree
               :data="addDialog_tree"
-              show-checkbox  
+              show-checkbox
               node-key="id"
               ref="add_tree"
               highlight-current
@@ -163,7 +168,7 @@
             </el-tree>
           </div>
         </el-col>
-      </el-row>               
+      </el-row>
     </div>
     <span slot="footer" class="dialog-footer">
       <el-button type="info" @click="addUsers_dialogVisible = false" size='mini'>取 消</el-button>
@@ -171,9 +176,9 @@
     </span>
   </el-dialog>
 
-  
-  
-  </div> 
+
+
+  </div>
 </template>
 
 <script>
@@ -188,7 +193,7 @@ export default {
       tableLoading: false,
       //M2 分页
       pageTotal: 100,
-      currentPage: 1,     
+      currentPage: 1,
       //M3 俩弹框
       permission_dialogVisible: false,
       addUsers_dialogVisible: false,
@@ -215,20 +220,27 @@ export default {
         permission:[],
         // 角色权限
         permissions:[
-          'edit', 'view'
+          {
+            id:'edit',
+            txt:'编辑'
+          },
+          {
+            id:'view',
+            txt:'查看'
+          }
         ],
       },
       add_rules: {
         name: [
-          { required: true, message: '请输入角色名称', trigger: 'blur' },          
+          { required: true, message: '请输入角色名称', trigger: 'blur' },
         ],
         txt: [
-          { required: true, message: '请输入角色描述', trigger: 'blur' },          
+          { required: true, message: '请输入角色描述', trigger: 'blur' },
         ],
         permission: [
-          { required: true, message: '请选择角色权限', trigger: 'change' },          
+          { required: true, message: '请选择角色权限', trigger: 'change' },
         ],
-          
+
       },
       // 修改权限
       valid_modiForm:{
@@ -236,20 +248,27 @@ export default {
         txt: '',
         permission:[],
         permissions:[
-          'edit', 'view'
+          {
+            id:'edit',
+            txt:'编辑'
+          },
+          {
+            id:'view',
+            txt:'查看'
+          }
         ],
       },
       modi_rules: {
         name: [
-          { required: true, message: '请输入角色名称', trigger: 'blur' },          
+          { required: true, message: '请输入角色名称', trigger: 'blur' },
         ],
         txt: [
-          { required: true, message: '请输入角色描述', trigger: 'blur' },          
+          { required: true, message: '请输入角色描述', trigger: 'blur' },
         ],
         permission: [
-          { required: true, message: '请选择角色权限', trigger: 'change' },          
+          { required: true, message: '请选择角色权限', trigger: 'change' },
         ],
-          
+
       },
       // 待修改的 用户信息
       d_modi_userPermission: {
@@ -268,7 +287,7 @@ export default {
     this.getList_userPermission(1);
     // 获取当前登录者权限
     //this.getData_onePermission();
-    
+
   },
   methods: {
     // 刷新
@@ -291,8 +310,8 @@ export default {
         }
       }
       const res = await this.$http.post(`${commonUrl.baseUrl}/sysRole/selectSysRole`, param)
-      if (res.data.code == '0000') {      
-        
+      if (res.data.code == '0000') {
+
         let result = res.data.data.sysRoleList
         // 隐藏管理员
         // for(let i=0;i<result.length;i++){
@@ -300,8 +319,8 @@ export default {
         //     result.splice(i,1)
         //   }
         // }
-        
-        this.tableData = result        
+        console.log(result)
+        this.tableData = result
         // 分页 总数
         this.pageTotal = res.data.data.page.pageTotal;
         this.tableLoading = false
@@ -310,9 +329,9 @@ export default {
     // 新增按钮 (点击《新增用户权限》)
     async handle_addUserPermisson() {
       // 弹框
-      this.addUsers_dialogVisible = true  
+      this.addUsers_dialogVisible = true
       // 清空 值
-      this.resetForm('valid_addForm')    
+      this.resetForm('valid_addForm')
       // 清空选中的权限
       if(this.$refs.add_tree){
         this.$refs.add_tree.setCheckedKeys([]);
@@ -324,16 +343,16 @@ export default {
           signInRoleId: this.$store.getters.roleId,
         }
       }
-      this.add_loading = true 
-      const res = await this.$http.post(`${commonUrl.baseUrl}/sysRole/addSysRole`, param)                                                              
-      if (res.data.code == '0000') {        
+      this.add_loading = true
+      const res = await this.$http.post(`${commonUrl.baseUrl}/sysRole/addSysRole`, param)
+      if (res.data.code == '0000') {
         // 处理数据
-        let menuList = gpCommonJs.designData_tree(res.data.data.sysMenuList);        
+        let menuList = gpCommonJs.designData_tree(res.data.data.sysMenuList);
         this.addDialog_tree = menuList
         this.add_loading = false
-      }            
+      }
     },
-    // 为新增获取某个 ：菜单权限 
+    // 为新增获取某个 ：菜单权限
     async getData_onePermission() {
       let param = {
         data: {
@@ -341,33 +360,33 @@ export default {
           signInRoleId: this.$store.getters.roleId,
         }
       }
-      const res = await this.$http.post(`${commonUrl.baseUrl}/sysRole/addSysRole`, param)                                                              
-      if (res.data.code == '0000') {        
+      const res = await this.$http.post(`${commonUrl.baseUrl}/sysRole/addSysRole`, param)
+      if (res.data.code == '0000') {
         // 处理数据
-        let menuList = gpCommonJs.designData_tree(res.data.data.sysMenuList);        
+        let menuList = gpCommonJs.designData_tree(res.data.data.sysMenuList);
         this.addDialog_tree = menuList
         this.modiDialog_tree = menuList
       }
     },
-    
+
     // 新增=保存按钮  (点击弹框中的《确定》)
     save_addSysRole(){
       // valid  右侧必选！  左侧必填！
       // 全选
       let  treeIds = this.$refs.add_tree.getCheckedKeys()
-      
+
       // 半选
       let  halfIds = this.$refs.add_tree.getHalfCheckedKeys()
       if(halfIds.length>0){
         treeIds = treeIds.concat(halfIds)
       }
-      
+
         //判断 树是否选了
-      if(treeIds.length == 0){          
+      if(treeIds.length == 0){
         this.m_message('请为该用户分配权限', 'warning')
         return ;
-      }         
-      if(this.m_valid_addForm('valid_addForm')){   
+      }
+      if(this.m_valid_addForm('valid_addForm')){
 
         // 保存到 后台
         let param = {
@@ -375,12 +394,12 @@ export default {
             // 用户 角色 id
             signInUserId: this.$store.getters.userId,
             signInRoleId: this.$store.getters.roleId,
-            //  权限  介绍 名称 
+            //  权限  介绍 名称
             mid:treeIds.join(','),
             permission:this.valid_addForm.permission.join(','),
             role_describe:this.valid_addForm.txt,
             role_name:this.valid_addForm.name
-          }       
+          }
         }
         this.add_loading = true;
         this.$http.post(`${ commonUrl.baseUrl }/sysRole/saveSysRole`, param).then( res =>{
@@ -395,14 +414,14 @@ export default {
           }else{
             this.add_loading = false;
             this.m_message(res.data.msg, 'success')
-          }          
+          }
         }).catch( err => {
           console.log(err)
         })
-        
+
       }
-      
-      
+
+
     },
     // 获取选中菜单节点
     getTreeNode() {
@@ -410,17 +429,17 @@ export default {
     },
     // 调整权限 操作
     modi_permisson(row) {
-      
+
       // 展开弹框
-      this.permission_dialogVisible = true      
+      this.permission_dialogVisible = true
       // 存储当前行数据
       this.d_modi_userPermission.permission = row.permission;
       this.d_modi_userPermission.role_name = row.role_name;
       this.d_modi_userPermission.role_describe = row.role_describe;
-      this.d_modi_userPermission.id = row.id;             
+      this.d_modi_userPermission.id = row.id;
       // 先清空  选中
-      this.modi_default_ids = []                             
-      this.d_modi_userPermission.modi_title ='调整'+ row.role_name + '的权限'            
+      this.modi_default_ids = []
+      this.d_modi_userPermission.modi_title ='调整'+ row.role_name + '的权限'
       // 获取当前待修改角色的权限菜单
       let param = {
         data: { id:row.id, signInUserId: this.$store.getters.userId, signInRoleId: this.$store.getters.roleId }
@@ -428,14 +447,14 @@ export default {
       this.modi_loading = true
       this.$http.post(`${ commonUrl.baseUrl }/sysRole/updateSysRole`, param).then(res2=>{
         if(res2.data.code == '0000'){
-          
+
           // 1赋值总体树
-          let _menuList = gpCommonJs.designData_tree(res2.data.data.menuList); 
-          
+          let _menuList = gpCommonJs.designData_tree(res2.data.data.menuList);
+
           this.modiDialog_tree = _menuList
-          // 2赋值当前待修改树 
-          let ids2_arr = []  // 用来存返回的id组成的数组                      
-          if(res2.data.data.sysMenuList.length > 0){            
+          // 2赋值当前待修改树
+          let ids2_arr = []  // 用来存返回的id组成的数组
+          if(res2.data.data.sysMenuList.length > 0){
             for(let item of res2.data.data.sysMenuList){
               this.modi_default_ids.push(item.id)
               ids2_arr.push(item.id)
@@ -457,14 +476,14 @@ export default {
             }
           }
           // 修复数据：去除那些半选中状态的id
-          
+
           this.modi_default_ids = ids2_arr;
 
           if(this.$refs.modiTree){
-            this.$refs.modiTree.setCheckedKeys(this.modi_default_ids);          
-          }          
+            this.$refs.modiTree.setCheckedKeys(this.modi_default_ids);
+          }
           // 角色名称 描述  权限 赋值
-          let result = res2.data.data.sysRole                          
+          let result = res2.data.data.sysRole
           this.valid_modiForm.name = result.role_name
           this.valid_modiForm.txt = result.role_describe
           this.valid_modiForm.permission = result.permission.split(',')
@@ -473,23 +492,23 @@ export default {
 
         }
       }).catch(err=>{  })
-      
-    },   
+
+    },
     // 保存 修改权限
     modiData_userPermission(){
       // console.log(this.d_modi_userPermission)
       // valid  右侧必选！  左侧必填！   判断 树是否选了
       // 全选
-      let  treeIds = this.$refs.modiTree.getCheckedKeys()      
-      // if(treeIds.length == 0){          
+      let  treeIds = this.$refs.modiTree.getCheckedKeys()
+      // if(treeIds.length == 0){
       //     this.m_message('请为该用户分配权限', 'warning')
       //     return ;
-      // }  
+      // }
       // 半选
       let  halfIds = this.$refs.modiTree.getHalfCheckedKeys()
       if(halfIds.length>0){
         treeIds = treeIds.concat(halfIds)
-      } 
+      }
       // 校验
       if(this.m_valid_addForm('valid_modiForm')){
         // 保存到 后台
@@ -498,13 +517,13 @@ export default {
             // 用户 角色 id
             signInUserId: this.$store.getters.userId,
             signInRoleId: this.$store.getters.roleId,
-            //  权限  介绍 名称 
+            //  权限  介绍 名称
             id:this.d_modi_userPermission.id,
             mid:treeIds.join(','),
             permission:this.valid_modiForm.permission.join(','),
             role_describe:this.valid_modiForm.role_describe,
             role_name:this.valid_modiForm.name,
-          }       
+          }
         }
         this.modi_loading = true;
         this.$http.post(`${ commonUrl.baseUrl }/sysRole/saveSysRole`, param).then( res =>{
@@ -518,16 +537,16 @@ export default {
             this.permission_dialogVisible = false
           }else{
             this.m_message(res.data.msg, 'success')
-          }          
+          }
         }).catch( err => {
           console.log(err)
         })
-      }                         
-                    
-           
+      }
+
+
     },
     handleCurrentChange(val) {
-      this.currentPage = val       
+      this.currentPage = val
       // 获取单前页数据列表
       this.getList_userPermission(val);
       //console.log(`当前页: ${val}`);
@@ -536,11 +555,11 @@ export default {
     m_valid_addForm(formName) {
       let  flag  = false ;
       this.$refs[formName].validate((valid) => {
-        if (valid) {  
-          flag = true;             
+        if (valid) {
+          flag = true;
           return true
-        } else {   
-          flag = false;       
+        } else {
+          flag = false;
           return false;
         }
       });
@@ -557,10 +576,10 @@ export default {
     resetForm(formName) {
       if(this.$refs[formName]){
         this.$refs[formName].resetFields();
-      }      
+      }
     },
     // 递归取 半选 的数据
-    
+
     diguiquchu(datas, arr, v, i, needdelarr) {
       //递归找出半选中的数据
       arr.map((item, index) => {
@@ -593,8 +612,8 @@ export default {
   .query_field {
     padding: 12px 8px;
     background-color: #fff;
-  } 
-  
+  }
+
   .addUsers_dialog .el-dialog__body,
   .modiUsers_dialog .el-dialog__body{height: 50vh;overflow: auto;}
 }
