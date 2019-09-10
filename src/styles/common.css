@@ -173,7 +173,10 @@ label {
   height: 60vh;
   overflow: auto;
 }
-
+.refuse_cause .el-dialog__body{
+  height:30vh;
+  overflow: auto;
+}
 /* 发票展示 */
 .invoiceimg_wrap .el-dialog__body{
   height: 70vh;
@@ -210,7 +213,7 @@ body .el-table colgroup.gutter {
 }
 .pp_label{
   font-size: 14px;
-  
+
 }
 .mar_r10{
   margin-right:10px;
