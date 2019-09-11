@@ -287,9 +287,19 @@ export default {
     this.getList_userPermission(1);
     // 获取当前登录者权限
     //this.getData_onePermission();
-
+    // 测试数据
+    // this.test();
   },
   methods: {
+    test(){
+      let treeStr = JSON.parse('[{"checked":false,"icon":"verify","id":749,"name":"审核管理","pId":0,"parentMenu":null,"sort":1,"nodes":[{"checked":false,"icon":"","id":750,"name":"审核管理","pId":749,"parentMenu":null,"sort":1,"nodes":[],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=750"}],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=749"},{"checked":false,"icon":"ad","id":751,"name":"广告管理","pId":0,"parentMenu":null,"sort":2,"nodes":[{"checked":false,"icon":"","id":752,"name":"广告管理","pId":751,"parentMenu":null,"sort":1,"nodes":[],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=752"},{"checked":false,"icon":"","id":753,"name":"广告位管理","pId":751,"parentMenu":null,"sort":2,"nodes":[],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=753"}],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=751"},{"checked":false,"icon":"news","id":754,"name":"消息管理","pId":0,"parentMenu":null,"sort":3,"nodes":[{"checked":false,"icon":"","id":755,"name":"消息管理","pId":754,"parentMenu":null,"sort":1,"nodes":[],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=755"}],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=754"},{"checked":false,"icon":"users","id":756,"name":"用户管理","pId":0,"parentMenu":null,"sort":4,"nodes":[{"checked":false,"icon":"","id":757,"name":"用户管理","pId":756,"parentMenu":null,"sort":1,"nodes":[],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=757"}],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=756"},{"checked":false,"icon":"messages","id":758,"name":"留言管理","pId":0,"parentMenu":null,"sort":5,"nodes":[{"checked":false,"icon":"","id":759,"name":"留言管理","pId":758,"parentMenu":null,"sort":1,"nodes":[],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=759"}],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=758"},{"checked":false,"icon":"complaint","id":760,"name":"投诉管理","pId":0,"parentMenu":null,"sort":6,"nodes":[{"checked":false,"icon":"","id":761,"name":"投诉管理","pId":760,"parentMenu":null,"sort":1,"nodes":[],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=761"}],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=760"},{"checked":false,"icon":"function","id":762,"name":"功能建议","pId":0,"parentMenu":null,"sort":7,"nodes":[{"checked":false,"icon":"","id":763,"name":"功能建议","pId":762,"parentMenu":null,"sort":1,"nodes":[],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=763"}],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=762"},{"checked":false,"icon":"back","id":764,"name":"后台用户管理","pId":0,"parentMenu":null,"sort":8,"nodes":[{"checked":false,"icon":"","id":765,"name":"用户管理","pId":764,"parentMenu":null,"sort":1,"nodes":[],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=765"},{"checked":false,"icon":"","id":766,"name":"角色管理","pId":764,"parentMenu":null,"sort":2,"nodes":[],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=766"},{"checked":false,"icon":"","id":767,"name":"菜单管理","pId":764,"parentMenu":null,"sort":3,"nodes":[],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=767"}],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=764"}]')
+      console.log(treeStr)
+      debugger
+      let arr = []
+      for(let i=0;i<treeStr.length;i++){
+
+      }
+    },
     // 刷新
     refreshData(){
       // 初始化数据列表

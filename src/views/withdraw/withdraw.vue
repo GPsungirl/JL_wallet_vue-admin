@@ -128,7 +128,7 @@
 </template>
 <script>
 import commonUrl from '../../utils/common';
-
+import { getToken } from '../../utils/auth.js'
 export default {
     name: 'withdraw',
     data(){
@@ -223,33 +223,23 @@ export default {
         },
         // 导出数据
         exportData(){
-            let param = {
-                data:{
-                    // 公有
-                    signInUserId: this.$store.getters.usreId,
-                    signInRoleId: this.$store.getters.roleId,
-                    // 私有
-                    // 收益类型
-                    account_class:this.queryForm.account_class,
-                    // 所属市级机构
-                    city_agent_name:this.queryForm.city_agent_name,
-                    // 向导ID
-                    customid:this.queryForm.customid,
-                    // 出行项目
-                    travel_projects:this.queryForm.travel_projects,
-                    // 出行开始时间
-                    startTime:this.queryForm.startTime,
-                    // 出行结束时间
-                    endTime:this.queryForm.endTime,
-                }
-            }
-            // 其他收益的数据导出
-            window.location.href = `${commonUrl.baseUrl}/accountProfit/exportAccountProfit?signInUserId=${param.data.signInUserId}&signInRoleId=${param.data.signInRoleId}&customid=${param.data.customid}&account_class=${param.data.account_class}&city_agent_name=${param.data.city_agent_name}&startTime=${param.data.startTime}&endTime=${param.data.endTime}`
-            // this.$http.post(`${ commonUrl.baseUrl}/accountProfit/exportAccountProfit`, param).then(res=>{
-            //     if(res.data.code == '0000'){
-            //         this.m_message(res.data.msg, 'success')
-            //     }
-            // }).catch(err=>{})
+
+          const token = getToken();
+          // console.log(token)
+          // debugger
+          // 导出出账
+          window.location.href = `
+          ${commonUrl.baseUrl}/withdrawInfo/exportWithdrawInfo?
+          signInUserId=${this.$store.getters.userId}&
+          signInRoleId=${this.$store.getters.roleId}&
+          travelerName=${this.queryForm.travelerName}&
+          cardno=${this.queryForm.cardno}&
+          finish_time=${this.queryForm.finish_time}&
+          phone=${this.queryForm.phone}&
+          withdraw_type=${this.queryForm.withdraw_type}&
+          withdraw_status=${this.queryForm.withdraw_status}&
+          Authorization=${token}
+          `
         },
         // 刷新
         handle_refresh(){
@@ -288,6 +278,7 @@ export default {
         },
         // 查询按钮
         queryData(){
+          // console.log(this.queryForm)
           this.getTabelDataList(1);
         },
         // 重置按钮

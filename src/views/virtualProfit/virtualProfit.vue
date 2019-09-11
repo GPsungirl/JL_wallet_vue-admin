@@ -224,6 +224,7 @@ export default {
         },
         // 查询按钮
         queryData(){
+
             if(this.queryForm.allTime.length > 0){
                 // 修正 开始 和结束 时间
                 this.queryForm.startTime = this.queryForm.allTime[0]

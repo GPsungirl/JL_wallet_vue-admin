@@ -18,7 +18,7 @@ function hasPermission(roles, route) {
 }
 //处理 动态路由数据
 function setServeMap(routerMap) {
-  console.log(routerMap)
+  // console.log(routerMap)
   //深克隆
   let cloneData = JSON.parse(JSON.stringify(routerMap))
 
