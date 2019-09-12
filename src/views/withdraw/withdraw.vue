@@ -223,23 +223,23 @@ export default {
         },
         // 导出数据
         exportData(){
-
           const token = getToken();
-          // console.log(token)
-          // debugger
+          let  data = {
+            signInUserId: this.$store.getters.userId,
+            signInRoleId: this.$store.getters.roleId,
+            travelerName: this.queryForm.travelerName,
+            cardno: this.queryForm.cardno,
+            finish_time: this.queryForm.finish_time,
+            phone: this.queryForm.phone,
+            withdraw_type: this.queryForm.withdraw_type,
+            withdraw_status: this.queryForm.withdraw_status,
+            Authorization: token
+          };
+          let testStr = `${commonUrl.baseUrl}/withdrawInfo/exportWithdrawInfo?signInUserId=${data.signInUserId}&signInRoleId=${data.signInRoleId}&travelerName=${data.travelerName}&cardno=${data.cardno}&finish_time=${data.finish_time}&phone=${data.phone}&withdraw_type=${data.withdraw_type}&withdraw_status=${data.withdraw_status}`
+          console.log(testStr)
+          debugger
           // 导出出账
-          window.location.href = `
-          ${commonUrl.baseUrl}/withdrawInfo/exportWithdrawInfo?
-          signInUserId=${this.$store.getters.userId}&
-          signInRoleId=${this.$store.getters.roleId}&
-          travelerName=${this.queryForm.travelerName}&
-          cardno=${this.queryForm.cardno}&
-          finish_time=${this.queryForm.finish_time}&
-          phone=${this.queryForm.phone}&
-          withdraw_type=${this.queryForm.withdraw_type}&
-          withdraw_status=${this.queryForm.withdraw_status}&
-          Authorization=${token}
-          `
+          window.location.href = `${commonUrl.baseUrl}/withdrawInfo/exportWithdrawInfo?signInUserId=${data.signInUserId}&signInRoleId=${data.signInRoleId}&travelerName=${data.travelerName}&cardno=${data.cardno}&finish_time=${data.finish_time}&phone=${data.phone}&withdraw_type=${data.withdraw_type}&withdraw_status=${data.withdraw_status}`
         },
         // 刷新
         handle_refresh(){

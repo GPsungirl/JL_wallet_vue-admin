@@ -529,7 +529,14 @@ export default {
           revenue_status:this.queryForm.revenue_status,
         }
       }
-      window.location.href = `${commonUrl.baseUrl}/agentAccount/exportAgentAccount?signInUserId=${param.data.signInUserId}&signInRoleId=${param.data.signInRoleId}&agentName=${param.data.agentName}&month=${param.data.month}&revenue_status=${param.data.revenue_status}`
+      window.location.href = `
+      ${commonUrl.baseUrl}/agentAccount/exportAgentAccount?
+      signInUserId=${param.data.signInUserId}&
+      signInRoleId=${param.data.signInRoleId}&
+      agentName=${param.data.agentName}&
+      month=${param.data.month}&
+      revenue_status=${param.data.revenue_status}
+      `
       // this.$http.post(`${ commonUrl.baseUrl }/agentAccount/exportAgentAccount`, param).then(res=>{
       //   if(res.data.code == '0000'){
       //     this.m_message(res.data.msg, 'success')

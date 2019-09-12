@@ -142,7 +142,7 @@ export default {
 
         loading.close();
       })
-      .catch(err => {})
+      .catch(err => { loading.close() })
     },
     // 获取 昨日 日期
     getYestoday() {
