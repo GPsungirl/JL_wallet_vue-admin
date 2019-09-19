@@ -98,12 +98,12 @@
                     <span v-else-if="scope.row.withdraw_status == 3">作废</span>
                   </template>
                 </el-table-column>
-                <!-- 操作 -->
-                <el-table-column prop="" label="操作" width="60px">
+                <!-- 操作 admin无操作权限-->
+                <el-table-column prop="" label="操作" width="60px" v-if="roleId != 1">
                   <template slot-scope="scope">
                     <!-- 0处理中 1提现成功 2提现失败 3作废 -->
                     <el-button
-                      v-if="scope.row.withdraw_status == 0"
+                      v-if="scope.row.withdraw_status == 0 "
                       @click="handle_upload(scope.row)"
                       type="text" size="small"
                       >
@@ -133,6 +133,7 @@ export default {
     name: 'withdraw',
     data(){
         return {
+          roleId:'',
             // 主列表
             tableLoading:false,
             tableData:[],
@@ -181,6 +182,8 @@ export default {
         }
     },
     created(){
+      // 初始化roleid
+      this.roleId = this.$store.getters.roleId
         // 初始化主列表
         this.getTabelDataList(1)
     },
@@ -235,11 +238,13 @@ export default {
             withdraw_status: this.queryForm.withdraw_status,
             Authorization: token
           };
-          let testStr = `${commonUrl.baseUrl}/withdrawInfo/exportWithdrawInfo?signInUserId=${data.signInUserId}&signInRoleId=${data.signInRoleId}&travelerName=${data.travelerName}&cardno=${data.cardno}&finish_time=${data.finish_time}&phone=${data.phone}&withdraw_type=${data.withdraw_type}&withdraw_status=${data.withdraw_status}`
-          console.log(testStr)
-          debugger
+          // let testStr = `${commonUrl.baseUrl}/withdrawInfo/exportWithdrawInfo?signInUserId=${data.signInUserId}&signInRoleId=${data.signInRoleId}&travelerName=${data.travelerName}&cardno=${data.cardno}&finish_time=${data.finish_time}&phone=${data.phone}&withdraw_type=${data.withdraw_type}&withdraw_status=${data.withdraw_status}`
+          // console.log(data)
+          // console.log(testStr)
+          // debugger
           // 导出出账
-          window.location.href = `${commonUrl.baseUrl}/withdrawInfo/exportWithdrawInfo?signInUserId=${data.signInUserId}&signInRoleId=${data.signInRoleId}&travelerName=${data.travelerName}&cardno=${data.cardno}&finish_time=${data.finish_time}&phone=${data.phone}&withdraw_type=${data.withdraw_type}&withdraw_status=${data.withdraw_status}`
+          window.location.href = `${commonUrl.baseUrl}/withdrawInfo/exportWithdrawInfo?travelerName=${data.travelerName}&cardno=${data.cardno}&phone=${data.phone}&withdraw_type=${data.withdraw_type}&withdraw_status=${data.withdraw_status}&finish_time=${data.finish_time}`
+          // travelerName=${data.travelerName}&cardno=${data.cardno}&finish_time=${data.finish_time}&phone=${data.phone}&withdraw_type=${data.withdraw_type}&withdraw_status=${data.withdraw_status}
         },
         // 刷新
         handle_refresh(){

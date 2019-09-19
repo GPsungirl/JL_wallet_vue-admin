@@ -59,7 +59,33 @@
                         end-placeholder="结束日期">
                     </el-date-picker>
                 </el-form-item>
-
+                <!-- 流水类别 consume_type-->
+                <el-form-item label="支付类别" prop="">
+                  <el-select v-model="queryForm.consume_type"
+                        class="wid_140"
+                        placeholder="请选择流水类别"
+                        @change="handleChangeconsume_refund_status($event)"
+                        >
+                        <el-option v-for="(item, index) in queryForm.consume_types"
+                            :key="index"
+                            :label=" item.value "
+                            :value=" item.id ">
+                        </el-option>
+                  </el-select>
+                </el-form-item>
+                <!-- 流水状态 consume_refund_status-->
+                <el-form-item label="支付状态" prop="">
+                  <el-select v-model="queryForm.consume_refund_status"
+                        class="wid_140"
+                        placeholder="请选择流水状态"
+                        >
+                        <el-option v-for="(item, index) in queryForm.consume_refund_statuss"
+                            :key="index"
+                            :label=" item.value "
+                            :value=" item.id ">
+                        </el-option>
+                  </el-select>
+                </el-form-item>
                 <!-- 查询 -->
                 <el-form-item>
                     <el-button type="primary" size='mini' @click="queryData">查询</el-button>
@@ -105,7 +131,7 @@
                 <!-- 状态 -->
                 <!--consume_refund_status 0待支付/退款 1支付/退款成功 2支付/退款失败 3支付/退款超时 -->
                 <!-- 流水类别 consume_type 1支付 2退款 -->
-                <el-table-column prop="" label="状态" width="80px">
+                <el-table-column prop="" label="支付状态" width="80px">
                     <template slot-scope="scope">
                       <!-- 支付 -->
                       <span v-if="scope.row.consume_type == 1 && scope.row.consume_refund_status == 0">待支付</span>
@@ -153,6 +179,62 @@ export default {
             currentPage:1,
             // 查询参数
             queryForm: {
+                // 流水类别  consume_type
+                // 1支付 2退款
+                consume_types:[
+                  {
+                    id:1,
+                    value:'支付',
+                  },
+                  {
+                    id:2,
+                    value:'退款',
+                  }
+                ],
+                consume_type:'',
+
+                // 流水状态  consume_refund_status
+                // 0待支付/退款 1支付/退款成功 2支付/退款失败 3支付/退款超时
+                consume_refund_statuss:[
+
+                ],
+                consume_refund_status:'',
+                pay11:[
+                  {
+                    id:0,
+                    value:'待支付'
+                  },
+                  {
+                    id:1,
+                    value:'支付成功'
+                  },
+                  {
+                    id:2,
+                    value:'支付失败'
+                  },
+                  {
+                    id:3,
+                    value:'支付超时'
+                  }
+                ],
+                tui11:[
+                  {
+                    id:0,
+                    value:'待退款'
+                  },
+                  {
+                    id:1,
+                    value:'退款成功'
+                  },
+                  {
+                    id:2,
+                    value:'退款失败'
+                  },
+                  {
+                    id:3,
+                    value:'退款超时'
+                  }
+                ],
                 // 消费用途     1订单支付 2充值 3会员
                 business_types:[
                     {
@@ -234,14 +316,18 @@ export default {
                     nickname:this.queryForm.nickname,
                     // 支付方式  1支付宝 2微信
                     pay_type:this.queryForm.pay_type,
+                    // 流水类别
+                    consume_type:this.queryForm.consume_type,
+                    // 流水状态
+                    consume_refund_status:this.queryForm.consume_refund_status
                 }
             }
             this.tableLoading = true
             this.$http.post(`${ commonUrl.baseUrl }/consumeOrderUnion/getConsumeOrderUnion`, param).then(res=>{
 
                 if(res.data.code == '0000'){
-                    console.log(res)
-                    debugger
+                    // console.log(res)
+                    // debugger
                     this.tableData =  res.data.data.consumeOrderUnionList
                     // 分页 总数
                     this.pageTotal = res.data.data.page.pageTotal;
@@ -250,6 +336,19 @@ export default {
                 }
             }).catch(err=>{})
         },
+        // 根据流水类别 更改 流水状态的下拉列表
+        handleChangeconsume_refund_status(e){
+          //1 支付  2 退款
+          if(e == 1){
+
+            this.queryForm.consume_refund_statuss = this.queryForm.pay11
+            this.queryForm.consume_refund_status = 0
+          }else if(e == 2){
+
+            this.queryForm.consume_refund_statuss = this.queryForm.tui11
+            this.queryForm.consume_refund_status = 0
+          }
+        },
         // 刷新 主列表
         handle_refresh(){
             this.getTabelDataList(1);
@@ -257,6 +356,7 @@ export default {
         },
         // 查询按钮
         queryData(){
+            console.log(this.queryForm)
             // 修正一下 开始时间和结束时间
             this.queryForm.startTime = this.queryForm.businessTime[0]
             this.queryForm.endTime = this.queryForm.businessTime[1]
