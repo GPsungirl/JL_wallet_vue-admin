@@ -119,7 +119,7 @@ const fya_routerMap = {
   manageAreaAgent: () => import('@/views/manageAreaAgent/manageAreaAgent'), //区域机构管理
 
   // 机构管理      mechanism
-  agentCheck: () => import('@/views/agentCheck/agentCheck'), //机构审核
+  agentCheck: () => import('@/views/agentCheck/agentCheck'), //机构列表
   agentDetails: () => import('@/views/agentDetails/agentDetails'), //机构详情
   subordinateAgent: () => import('@/views/subordinateAgent/subordinateAgent'), // 机构下属查询
   travelerCheck: () => import('@/views/travelerCheck/travelerCheck'), // 角落向导审核

@@ -33,5 +33,13 @@ export function isvalidPhone(str) {
 export function validNum100(val){
   const reg = /^((?!0)\d{1,2}|100)$/;
   return reg.test(Number(val))
-  
+
+}
+
+/**
+ * 过滤银行卡号中间的空格
+ */
+export function filterSpace(val){
+  let sstr = val.replace(/\s*/g, '')
+  return sstr;
 }
