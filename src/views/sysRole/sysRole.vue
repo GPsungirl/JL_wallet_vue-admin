@@ -313,7 +313,7 @@ export default {
       // 参数
       let param = {
         data: {
-          signInUserId: this.$store.getters.usreId,
+          signInUserId: this.$store.getters.userId,
           signInRoleId: this.$store.getters.roleId,
           pageNum: pageNum,
           pageSize: 10,

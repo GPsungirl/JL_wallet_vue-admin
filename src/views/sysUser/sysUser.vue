@@ -6,7 +6,7 @@
     <el-row>
       <el-button type="primary" size='mini' @click="handle_addUser">新增用户</el-button>
       <el-button type="primary" size='mini' @click="refreshData">刷新</el-button>
-      
+
     </el-row>
   </div>
 
@@ -23,7 +23,7 @@
     <el-table-column prop="phone" label="电话" width="">
     </el-table-column>
      <el-table-column prop="sex" label="性别" width="">
-    </el-table-column>    
+    </el-table-column>
     <el-table-column prop="" label="操作" width="">
       <template slot-scope="scope">
           <el-button @click="modi_permisson(scope.row)" type="text" size="small">修改</el-button>
@@ -32,12 +32,12 @@
   </el-table>
 
   <!--module3 分页 -->
-  <div class="block mar_t10">  
+  <div class="block mar_t10">
     <el-pagination
-      
+
       @current-change="handleCurrentChange"
-      :current-page="currentPage"      
-      
+      :current-page="currentPage"
+
       background
       layout="total, prev, pager, next, jumper"
       :total="pageTotal">
@@ -69,7 +69,7 @@
         <!-- 右侧 tree -->
         <el-col :span="19">
           <div class="grid-content bg-purple-dark ">
-            
+
           </div>
         </el-col>
       </el-row>
@@ -84,7 +84,7 @@
   <!--module5 新增 dialog2 -->
   <el-dialog
     :title="dialog_title"
-    :visible.sync="addUsers_dialogVisible"    
+    :visible.sync="addUsers_dialogVisible"
     width="42%"
     class="addUsers_dialog dialog_tip"
     center
@@ -93,9 +93,9 @@
     element-loading-text="拼命加载中"
     element-loading-spinner="el-icon-loading"
     element-loading-background="rgba(0, 0, 0, 0.8)"
-    >    
+    >
     <!--新增 body -->
-    <div class="dialogBody_addPermission">                  
+    <div class="dialogBody_addPermission">
       <div class="grid-content bg-purple-dark pad_t2">
         <el-form :inline="true" :model="valid_addForm" :rules="add_rules" ref="valid_addForm" label-width="80px" class="demo-form-inline valid_form">
           <el-form-item label="姓名" prop="real_name">
@@ -109,7 +109,7 @@
           </el-form-item> -->
           <el-form-item label="手机号" prop="phone">
             <el-input v-model="valid_addForm.phone" @blur="setUserName_add" placeholder="请输入手机号" class="wid_140"></el-input>
-          </el-form-item> 
+          </el-form-item>
           <el-form-item label="邮箱" prop="email">
             <el-input v-model="valid_addForm.email" placeholder="请输入邮箱" class="wid_140"></el-input>
           </el-form-item>
@@ -133,17 +133,17 @@
           </el-form-item>
           <el-form-item label="角色名称" prop="role_id">
             <el-select v-model="valid_addForm.role_id" placeholder="请选择角色名称" class="wid_140">
-              <el-option 
+              <el-option
                 v-for="(item, index) of valid_addForm.role_names"
                 :key="index"
                 :label="item.role_name"
                 :value="item.id"
                 >
-              </el-option>             
+              </el-option>
             </el-select>
           </el-form-item>
         </el-form>
-      </div>                     
+      </div>
     </div>
     <span slot="footer" class="dialog-footer">
       <el-button type="info" @click="addUsers_dialogVisible = false" size='mini'>取 消</el-button>
@@ -154,8 +154,8 @@
   <!-- M6  修改 弹框 -->
    <el-dialog
     :title="modiSys_dialogTitle"
-    :visible.sync="modiUsers_dialogVisible" 
-    :close-on-click-modal="false"   
+    :visible.sync="modiUsers_dialogVisible"
+    :close-on-click-modal="false"
     width="42%"
     class="addUsers_dialog dialog_tip"
     center
@@ -164,9 +164,9 @@
     element-loading-text="拼命加载中"
     element-loading-spinner="el-icon-loading"
     element-loading-background="rgba(0, 0, 0, 0.8)"
-    >    
+    >
     <!--新增 body -->
-    <div class="dialogBody_addPermission">                  
+    <div class="dialogBody_addPermission">
       <div class="grid-content bg-purple-dark pad_t2">
         <el-form :inline="true" :model="valid_modiForm" :rules="modi_rules" ref="valid_modiForm" label-width="80px" class="demo-form-inline valid_form">
           <el-form-item label="姓名" prop="real_name">
@@ -180,7 +180,7 @@
           </el-form-item> -->
           <el-form-item label="手机号" prop="phone">
             <el-input v-model="valid_modiForm.phone" :disabled="true" @blur="setUserName_modi" placeholder="请输入手机号" class="wid_140"></el-input>
-          </el-form-item> 
+          </el-form-item>
           <el-form-item label="邮箱" prop="email">
             <el-input v-model="valid_modiForm.email" placeholder="请输入邮箱" class="wid_140"></el-input>
           </el-form-item>
@@ -199,29 +199,29 @@
           <el-form-item label="账号" prop="user_name">
             <el-input v-model="valid_modiForm.user_name" :disabled="true" placeholder="请输入账号" class="wid_140"></el-input>
           </el-form-item>
-          
+
           <el-form-item label="角色名称" prop="role_id">
             <el-select v-model="valid_modiForm.role_id" placeholder="请选择角色名称" class="wid_140">
-              <el-option 
+              <el-option
                 v-for="(item, index) of valid_modiForm.role_names"
                 :key="index"
                 :label="item.role_name"
                 :value="item.id"
                 >
-              </el-option>             
+              </el-option>
             </el-select>
           </el-form-item>
         </el-form>
-      </div>                     
+      </div>
     </div>
     <span slot="footer" class="dialog-footer">
       <el-button type="info" @click="modiUsers_dialogVisible = false" size='mini'>取 消</el-button>
       <el-button type="primary" @click="save_modiUser" size='mini'>确 定</el-button>
     </span>
   </el-dialog>
-  
-  
-  </div> 
+
+
+  </div>
 </template>
 
 <script>
@@ -230,7 +230,7 @@ import gpCommonJs from '../../utils/functions'
 
 export default {
   name: 'sysUser',
-  
+
   data() {
     let validMobile=(rule,value,callback)=>{
       if(value==''||value==undefined){
@@ -243,7 +243,7 @@ export default {
       }
     };
     return {
-      
+
       //M1 主列表
       tableData: [],
       tableLoading: false,
@@ -251,7 +251,7 @@ export default {
       add_loading: false,
       //M2 分页
       pageTotal: 100,
-      currentPage: 1,     
+      currentPage: 1,
       //M3 俩弹框
       permission_dialogVisible: false,
       addUsers_dialogVisible: false,
@@ -281,7 +281,7 @@ export default {
         real_name:'',
         // 预固定
         role_names:'',
-        
+
         role_name:'',
         role_id:'',
         sex:'男',
@@ -293,25 +293,25 @@ export default {
         user_name:'',
         password:'',
       },
-      
+
       // 修改时的id
       modi_id:'',
       add_rules: {
         real_name: [
-          { required: true, message: '请输入真实姓名', trigger: 'blur' },          
-        ],              
+          { required: true, message: '请输入真实姓名', trigger: 'blur' },
+        ],
         phone: [
-          { required: true, validator: validMobile, trigger: 'blur' },          
+          { required: true, validator: validMobile, trigger: 'blur' },
         ],
         user_name: [
-          { required: true, message: '请输入账号', trigger: 'blur' },          
+          { required: true, message: '请输入账号', trigger: 'blur' },
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' }
         ],
         role_id:[
           { required: true, message: '请选择角色', trigger: 'change' }
-        ],                          
+        ],
       },
       // 修改弹框
       valid_modiForm: {
@@ -328,18 +328,18 @@ export default {
         birth:'',
         birth_model:'',
         email:'',
-        user_name:'',     
+        user_name:'',
       },
       modi_rules:{
          real_name: [
-          { required: true, message: '请输入真实姓名', trigger: 'blur' },          
-        ],         
+          { required: true, message: '请输入真实姓名', trigger: 'blur' },
+        ],
         phone: [
-          { required: true, validator: validMobile, trigger: 'blur' },          
+          { required: true, validator: validMobile, trigger: 'blur' },
         ],
         user_name: [
-          { required: true, message: '请输入账号', trigger: 'blur' },          
-        ],      
+          { required: true, message: '请输入账号', trigger: 'blur' },
+        ],
         role_id:[
           { required: true, message: '请选择角色', trigger: 'change' }
         ],
@@ -352,24 +352,24 @@ export default {
         permission:'',
         role_describe: ''
       },
-      
+
     }
   },
   created() {
     // 初始化数据列表
-    this.getList_user(1);   
+    this.getList_user(1);
     // 预获取新增所需数据
     //this.get_addInfo();
-    
+
   },
   methods: {
-    
+
     // 主列表（获取所有用户信息列表)
-    async getList_user(pageNum) {      
+    async getList_user(pageNum) {
       // 参数
       let param = {
         data: {
-          signInUserId: this.$store.getters.usreId,
+          signInUserId: this.$store.getters.userId,
           signInRoleId: this.$store.getters.roleId,
           pageNum: pageNum,
           pageSize: 10,
@@ -377,62 +377,62 @@ export default {
       }
       this.tableLoading = true
       const res = await this.$http.post(`${commonUrl.baseUrl}/sysUser/selectSysUser`, param)
-      if (res.data.code == '0000') { 
-        this.tableLoading = false    
-        console.log(res)         
-        this.tableData = res.data.data.sysUsersList        
+      if (res.data.code == '0000') {
+        this.tableLoading = false
+        console.log(res)
+        this.tableData = res.data.data.sysUsersList
         // 分页 总数
-        this.pageTotal = res.data.data.page.pageTotal;       
+        this.pageTotal = res.data.data.page.pageTotal;
       }
     },
-    
+
     // 预获取新增所需数据
     get_addInfo(){
       let param = {
         data: {
           // 公参
-          signInUserId: this.$store.getters.usreId,
+          signInUserId: this.$store.getters.userId,
           signInRoleId: this.$store.getters.roleId,
         }
       }
       this.$http.post(`${ commonUrl.baseUrl }/sysUser/addSysUser`, param).then( res =>{
-        let arr = [];        
+        let arr = [];
         if(res.data.code === '0000'){
-          
+
           for(let item of res.data.data.sysRoleList){
             arr.push({ id:item.id, role_name:item.role_describe })
           }
           this.valid_addForm.role_names = arr;
           this.valid_modiForm.role_names = arr;
-          
+
         }
-        
+
       }).catch( err =>{  })
     },
     // 刷新界面(目前刷新 数据列表)
     refreshData(){
       // 初始化数据列表
-      this.getList_user(1); 
+      this.getList_user(1);
       // 分页 回到第一页
-      this.currentPage = 1   
+      this.currentPage = 1
     },
     // 新增按钮 (点击《新增用户权限》)
     async handle_addUser() {
       // 弹框
-      this.dialog_title = '新增用户'            
-      // 清空    
+      this.dialog_title = '新增用户'
+      // 清空
       this.valid_addForm.birth_model = ''
-      this.valid_addForm.role_id = ''                    
-      // 请求 登录者 用户权限 
+      this.valid_addForm.role_id = ''
+      // 请求 登录者 用户权限
       let param = {
         data: {
           // 公参
-          signInUserId: this.$store.getters.usreId,
+          signInUserId: this.$store.getters.userId,
           signInRoleId: this.$store.getters.roleId,
         }
       }
       this.$http.post(`${ commonUrl.baseUrl }/sysUser/addSysUser`, param).then( res =>{
-        let arr = [];        
+        let arr = [];
         if(res.data.code === '0000'){
           console.log(res)
           // 角色名称
@@ -440,22 +440,22 @@ export default {
             arr.push({ id:item.id, role_name:item.role_describe })
           }
           this.valid_addForm.role_names = arr;
-          
+
           // 打开弹框
-          this.addUsers_dialogVisible = true 
+          this.addUsers_dialogVisible = true
           this.resetForm('valid_addForm')
-          
+
         }
-        
+
       }).catch( err =>{ console.log(err) })
 
-    },        
+    },
     // 新增=保存按钮  (点击弹框中的《确定》)
     save_addUser(){
-      
-      if(this.m_valid_addForm('valid_addForm')){                                           
+
+      if(this.m_valid_addForm('valid_addForm')){
         let param = {
-          
+
           data:{
             // 用户 角色 id
             signInUserId: this.$store.getters.userId,
@@ -471,36 +471,36 @@ export default {
             password:this.$md5(this.valid_addForm.password),
             // 角色参数
             rid:this.valid_addForm.role_id,
-            
-          }       
+
+          }
         }
         this.add_loading = true;
         this.$http.post(`${ commonUrl.baseUrl }/sysUser/saveSysUser`, param).then( res =>{
-          
+
           if(res.data.code == '0000'){
             this.add_loading = false;
-            // 成功提示           
+            // 成功提示
             this.m_message(res.data.msg, 'success')
-            // 重新初始化数据列表          
+            // 重新初始化数据列表
             this.getList_user( this.currentPage );
             // 关闭 弹框
             this.addUsers_dialogVisible = false
-            
+
           }else{
             this.add_loading = false;
             this.m_message(res.data.msg, 'warning')
-          }          
+          }
         }).catch( err => {
           console.log(err)
-        })        
-      }            
+        })
+      }
     },
     // 修改保存
     save_modiUser(){
-       if(this.m_valid_addForm('valid_modiForm')){                             
-        // 保存到 后台               
+       if(this.m_valid_addForm('valid_modiForm')){
+        // 保存到 后台
         let param = {
-          
+
           data:{
             // 用户 角色 id
             signInUserId: this.$store.getters.userId,
@@ -513,68 +513,68 @@ export default {
             birth:this.valid_modiForm.birth_model,
             email:this.valid_modiForm.email,
             user_name:this.valid_modiForm.user_name,
-            
+
             // 角色参数
             rid:this.valid_modiForm.role_id,
             id:this.modi_id,
-          }       
+          }
         }
         this.modiUser_loading = true;
         this.$http.post(`${ commonUrl.baseUrl }/sysUser/saveSysUser`, param).then( res =>{
-          
+
           if(res.data.code == '0000'){
             this.modiUser_loading = false;
-            // 成功提示           
+            // 成功提示
             this.m_message(res.data.msg, 'success')
-            // 重新初始化数据列表          
+            // 重新初始化数据列表
             this.getList_user( 1 );
             // 关闭 弹框
             this.modiUsers_dialogVisible = false
-            
+
           }else{
             this.m_message(res.data.msg, 'warning')
-          }          
+          }
         }).catch( err => {
           console.log(err)
-        })        
-      }         
+        })
+      }
     },
     // 设置账号(新增弹框)
     setUserName_add(){
-      this.valid_addForm.user_name = this.valid_addForm.phone      
+      this.valid_addForm.user_name = this.valid_addForm.phone
     },
     // 设置账号(修改弹框)
     setUserName_modi(){
-      this.valid_modiForm.user_name = this.valid_modiForm.phone   
+      this.valid_modiForm.user_name = this.valid_modiForm.phone
     },
     // 获取选中菜单节点
     getTreeNode() {
       console.log(this.$refs.add_tree.getCheckedKeys());
     },
     // 修改 操作
-    modi_permisson(row) { 
-      // 打开 弹框      
-      this.modiUsers_dialogVisible = true             
+    modi_permisson(row) {
+      // 打开 弹框
+      this.modiUsers_dialogVisible = true
       // 保存修改时需要id
-      this.modi_id = row.id  
-      
+      this.modi_id = row.id
+
       // 获取所有角色名称：作下拉项；
       let p_add = this.$http.post(`${ commonUrl.baseUrl }/sysUser/addSysUser`, {
         data: {
           // 公参
-          signInUserId: this.$store.getters.usreId,
+          signInUserId: this.$store.getters.userId,
           signInRoleId: this.$store.getters.roleId,
         }
-      })      
+      })
       // 获取当前数据：作数据回显
       let p_modi = this.$http.post(`${ commonUrl.baseUrl }/sysUser/updateSysUser`, {
-        data: { 
+        data: {
           // 公参
-          signInUserId: this.$store.getters.usreId,
+          signInUserId: this.$store.getters.userId,
           signInRoleId: this.$store.getters.roleId,
           // 私参
           id:row.id
-        } 
+        }
       })
       this.modiUser_loading = true
       // 同时成功后处理数据
@@ -583,53 +583,53 @@ export default {
         if(res1.data.code == '0000' && res2.data.code == '0000'){
           //&1 p_add 接口赋值下拉项
           // 角色名称
-          let arr1 = []; 
+          let arr1 = [];
           for(let item of res1.data.data.sysRoleList){
             arr1.push({ id:item.id, role_name:item.role_describe })
           }
           this.valid_modiForm.role_names = arr1;
           //&2 p_modi 数据回显
-          let result = res2.data.data                      
+          let result = res2.data.data
           this.modiSys_dialogTitle = '修改'+result.sysUser.real_name
-          this.valid_modiForm.real_name = result.sysUser.real_name 
+          this.valid_modiForm.real_name = result.sysUser.real_name
           this.valid_modiForm.role_id = result.sysUserRole.rid
-          this.valid_modiForm.sex = result.sysUser.sex 
-          this.valid_modiForm.phone = result.sysUser.phone 
-          this.valid_modiForm.address = result.sysUser.address 
-          this.valid_modiForm.birth_model = result.sysUser.birth 
-          this.valid_modiForm.email = result.sysUser.email 
-          this.valid_modiForm.user_name = result.sysUser.user_name 
-          this.valid_modiForm.password = result.sysUser.password  
+          this.valid_modiForm.sex = result.sysUser.sex
+          this.valid_modiForm.phone = result.sysUser.phone
+          this.valid_modiForm.address = result.sysUser.address
+          this.valid_modiForm.birth_model = result.sysUser.birth
+          this.valid_modiForm.email = result.sysUser.email
+          this.valid_modiForm.user_name = result.sysUser.user_name
+          this.valid_modiForm.password = result.sysUser.password
           // 结束加载
           this.modiUser_loading = false
         }else{
-          
+
         }
-      }).catch(err=>{ console.log(err) })                 
-    },   
+      }).catch(err=>{ console.log(err) })
+    },
     // 保存 修改权限
     modiData_userPermission(){
       console.log(this.d_modi_userPermission)
       // valid  右侧必选！  左侧必填！   判断 树是否选了
-      let  treeIds = this.$refs.modiTree.getCheckedKeys()      
-      // if(treeIds.length == 0){          
+      let  treeIds = this.$refs.modiTree.getCheckedKeys()
+      // if(treeIds.length == 0){
       //     this.m_message('请为该用户分配权限', 'warning')
       //     return ;
-      // }   
-                                                 
+      // }
+
       // 保存到 后台
       let param = {
         data:{
           // 用户 角色 id
           signInUserId: this.$store.getters.userId,
           signInRoleId: this.$store.getters.roleId,
-          //  权限  介绍 名称 
+          //  权限  介绍 名称
           id:this.d_modi_userPermission.id,
           mid:treeIds.join(','),
           permission:this.d_modi_userPermission.permission,
           role_describe:this.d_modi_userPermission.role_describe,
           role_name:this.d_modi_userPermission.role_name,
-        }       
+        }
       }
       this.modi_loading = true;
       this.$http.post(`${ commonUrl.baseUrl }/sysRole/saveSysRole`, param).then( res =>{
@@ -643,29 +643,29 @@ export default {
           this.permission_dialogVisible = false
         }else{
           this.m_message(res.data.msg, 'success')
-        }          
+        }
       }).catch( err => {
         console.log(err)
-      })              
-           
+      })
+
     },
     // 分页
     handleCurrentChange(val) {
-      this.currentPage = val       
+      this.currentPage = val
       // 获取单前页数据列表
       this.getList_user(val);
-      
+
       //console.log(`当前页: ${val}`);
     },
     // 新增 校验规则
     m_valid_addForm(formName) {
-      let  flag  = false ;      
+      let  flag  = false ;
       this.$refs[formName].validate((valid) => {
-        if (valid) {  
-          flag = true;             
+        if (valid) {
+          flag = true;
           return true
-        } else {   
-          flag = false;       
+        } else {
+          flag = false;
           return false;
         }
       });
@@ -682,7 +682,7 @@ export default {
     resetForm(formName) {
       if(this.$refs[formName]){
         this.$refs[formName].resetFields();
-      }      
+      }
     }
 
 
@@ -703,8 +703,8 @@ export default {
   .query_field {
     padding: 12px 8px;
     background-color: #fff;
-  } 
-  
+  }
+
   .addUsers_dialog .el-dialog__body,
   .modiUsers_dialog .el-dialog__body{height: 50vh;overflow: auto;}
 }

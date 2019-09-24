@@ -222,7 +222,7 @@ export default {
                     nickname:this.queryForm.nickname,
                     member_status:this.queryForm.member_status,
 
-                    signInUserId: this.$store.getters.usreId,
+                    signInUserId: this.$store.getters.userId,
                     signInRole: this.$store.getters.roleId,
                     pageNum: pageNum,
                     pageSize: 10,
@@ -268,7 +268,7 @@ export default {
             let param = {
                 data:{
                      // 公有
-                    signInUserId: this.$store.getters.usreId,
+                    signInUserId: this.$store.getters.userId,
                     signInRole: this.$store.getters.roleId,
                     // 参数 私有
                     custom_status: row.custom_status == 1 ? 2 : 1,
@@ -297,7 +297,7 @@ export default {
             let param = {
                 data:{
                     // 公有
-                    signInUserId: this.$store.getters.usreId,
+                    signInUserId: this.$store.getters.userId,
                     signInRole: this.$store.getters.roleId,
                     // 私有 当前id
                     customid:row.customid

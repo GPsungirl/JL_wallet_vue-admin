@@ -208,7 +208,7 @@ export default {
       let param = {
         data: {
           // 公参
-          signInUserId: this.$store.getters.usreId,
+          signInUserId: this.$store.getters.userId,
           signInRoleId: this.$store.getters.roleId,
         }
       }

@@ -119,26 +119,34 @@ export default {
           let result = res1.data.data.accountProfitPlatform
           // 昨日出行
           this.yesterday_accountamount = result.amount / 100 + '元'
-        }else{setTimeout(()=>{this.m_message(res1.data.msg, 'warning')},1)}
+        }else{
+          // setTimeout(()=>{this.m_message(res1.data.msg, 'warning')},1)
+        }
 
         if(res2.data.code == '0000'){
           let result = res2.data.data.virtualProfitPlatform
           // 昨日贝壳
           this.yesterday_virtualamount = result.amount + '贝壳'
-        }else{setTimeout(()=>{this.m_message(res2.data.msg, 'warning')},1)}
+        }else{
+          // setTimeout(()=>{this.m_message(res2.data.msg, 'warning')},1)
+        }
 
         // 上月 出行收益 贝壳收益
         if(res3.data.code == '0000'){
           let result = res3.data.data.lastMonthAccountProfitPlatform
           // 上月 出行
           this.lastMonth_accountamount = result.account_amount_total / 100 + '元'
-        }else{setTimeout(()=>{this.m_message(res3.data.msg, 'warning')},1)}
+        }else{
+          // setTimeout(()=>{this.m_message(res3.data.msg, 'warning')},1)
+        }
 
         if(res4.data.code == '0000'){
           let result = res4.data.data.lastMonthVirtualProfitPlatform
           // 上月 贝壳
           this.lastMonth_virtualamount = result.virtual_amount_total +'贝壳'
-        }else{setTimeout(()=>{this.m_message(res4.data.msg, 'warning')},1)}
+        }else{
+          // setTimeout(()=>{this.m_message(res4.data.msg, 'warning')},1)
+        }
 
         loading.close();
       })

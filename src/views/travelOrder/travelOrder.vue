@@ -139,7 +139,7 @@ export default {
             let param = {
                 data: {
                     // 公有
-                    signInUserId: this.$store.getters.usreId,
+                    signInUserId: this.$store.getters.userId,
                     signInRoleId: this.$store.getters.roleId,
                     pageNum: pageNum,
                     pageSize: 10,
