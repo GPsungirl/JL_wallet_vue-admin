@@ -37,6 +37,7 @@
             <el-form-item>
                 <el-button type="primary" size='mini' @click="queryData">查询</el-button>
                 <el-button type="success" size='mini' @click="resetData('queryForm')">重置</el-button>
+                <el-button type="primary" size='mini' @click="handle_refresh">刷新</el-button>
             </el-form-item>
             </el-form>
         </div>
@@ -44,26 +45,26 @@
         <div>
             <!-- 表格 -->
             <el-table :data="tableData" v-loading="tableLoading" border stripe style="width: 100%">
-                <el-table-column prop="customid" label="用户ID" width="" >
+                <el-table-column prop="customid" label="用户ID" width="70px" >
                 </el-table-column>
-                <el-table-column prop="custom_name" label="用户姓名" width="">
+                <el-table-column prop="custom_name" label="用户姓名" width="80px">
                 </el-table-column>
                 <!-- 用户电话 -->
-                <el-table-column prop="custom_phone" label="用户电话" width="">
+                <el-table-column prop="custom_phone" label="用户电话" width="110px">
                 </el-table-column>
                 <!--出行项目 1晨光出行2暖阳午后3星空夜景 -->
-                <el-table-column prop="travel_projects" label="出行项目" width="">
+                <el-table-column prop="travel_projects" label="出行项目" width="80px">
                 </el-table-column>
                 <el-table-column prop="traveler_customid" label="向导ID" width="80px">
                 </el-table-column>
-                <el-table-column prop="traveler_custom_nickname" label="向导昵称" width="">
+                <el-table-column prop="traveler_custom_nickname" label="向导昵称" width="80px">
                 </el-table-column>
-                <el-table-column prop="agentName" label="所属机构" width="">
+                <el-table-column prop="agentName" :show-overflow-tooltip="true" label="所属机构" width="">
                 </el-table-column>
-                <el-table-column prop="travel_time" label="出行日期" width="">
+                <el-table-column prop="travel_time" label="出行日期" :show-overflow-tooltip="true" width="100px">
                 </el-table-column>
                 <!--订单状态 0下单 1订单完成 2待支付 3支付成功 4订单确认 5订单取消 6订单取消已退款 7订单 -->
-                <el-table-column prop="" label="订单状态" width="">
+                <el-table-column prop="" label="订单状态" width="80px">
                     <template slot-scope="scope">
                         <span v-if="scope.row.order_status == 0">下单</span>
                         <span v-else-if="scope.row.order_status == 1">订单完成</span>
@@ -75,7 +76,10 @@
                         <span v-else-if="scope.row.order_status == 7">订单</span>
                     </template>
                 </el-table-column>
-                <el-table-column prop="custom_evaluate" label="对用户评价" width="">
+                <!-- 支付时间 -->
+                <el-table-column prop="pay_time" label="支付时间" :show-overflow-tooltip="true" width="100px">
+                </el-table-column>
+                <el-table-column prop="custom_evaluate" label="对用户评价" width="100px">
                 </el-table-column>
 
             </el-table>
@@ -161,7 +165,8 @@ export default {
             }
             this.tableLoading = true
             this.$http.post(`${ commonUrl.baseUrl }/customOrder/getCustomOrder`, param).then(res=>{
-                console.log(res)
+                // console.log(res)
+                // debugger
                 if(res.data.code == '0000'){
                     this.tableData =  res.data.data.customOrderList
                     // 分页 总数
@@ -179,6 +184,11 @@ export default {
             this.queryForm.endTime = this.queryForm.allTime[1]
             console.log(this.queryForm)
             this.getTabelDataList(1);
+        },
+        // 刷新按钮
+        handle_refresh(){
+            this.getTabelDataList(1);
+            this.currentPage = 1
         },
         // 重置按钮
         resetData(formName){

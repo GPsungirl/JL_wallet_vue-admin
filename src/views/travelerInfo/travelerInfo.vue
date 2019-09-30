@@ -107,6 +107,7 @@
                         <span v-else-if="scope.row.sex == '02'">女</span>
                     </template>
                 </el-table-column>
+
                 <el-table-column prop="" label="贝壳分成" width="80px">
                     <template slot-scope="scope">
                         {{ scope.row.virtual_rate +'%'}}
@@ -117,14 +118,16 @@
                         {{ scope.row.account_rate +'%'}}
                     </template>
                 </el-table-column>
-                <el-table-column prop="birthday" label="出生日期" width="">
+                <el-table-column prop="birthday" label="出生日期"
+:show-overflow-tooltip="true" width="">
                 </el-table-column>
                 <el-table-column prop="" label="所属机构" width="">
                     <template slot-scope="scope">
                         <el-button @click="handle_agent_name(scope.row)" type="text" size="small">{{ scope.row.agent_name }}</el-button>
                     </template>
                 </el-table-column>
-                <el-table-column prop="" label="居住地" width="">
+                <el-table-column prop="" label="居住地"
+:show-overflow-tooltip="true"  width="">
                     <template slot-scope="scope">
                         {{ scope.row.province + scope.row.city }}
                     </template>
@@ -143,6 +146,9 @@
                         <span v-else-if="scope.row.traveler_status == 2">审批拒绝</span>
                         <span v-else-if="scope.row.traveler_status == 3">不可用</span>
                     </template>
+                </el-table-column>
+                <!-- 注册时间 createtime-->
+                <el-table-column prop="createtime" label="注册时间" :show-overflow-tooltip="true" width="">
                 </el-table-column>
                 <el-table-column prop="" label="操作" width="">
                 <template slot-scope="scope">

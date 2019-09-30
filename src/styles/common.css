@@ -218,3 +218,11 @@ body .el-table colgroup.gutter {
 .mar_r10{
   margin-right:10px;
 }
+/* table 里的操作列 紧凑一些*/
+.cell .el-button--small,
+.cell .el-button--small.is-round{
+  padding:3px 0px;
+}
+.cell .el-button+.el-button{
+  margin-left: 1px;
+}

@@ -79,9 +79,9 @@
             <el-table :data="tableData" v-loading="tableLoading" border stripe style="width: 100%">
                 <el-table-column prop="merchant_name" label="招商名称" width="" >
                 </el-table-column>
-                <el-table-column prop="charger" label="联系人" width="">
+                <el-table-column prop="charger" label="联系人" width="80px">
                 </el-table-column>
-                <el-table-column prop="phone" label="联系电话" width="">
+                <el-table-column prop="phone" label="联系电话" width="120px">
                 </el-table-column>
                 <!-- 业务地区：省+市 -->
                 <!-- <el-table-column prop="" label="业务地区" width="210">
@@ -89,20 +89,20 @@
                         {{ scope.row.province + scope.row.city }}
                     </template>
                 </el-table-column>-->
-                <el-table-column prop="" label="贝壳分成" width="">
+                <el-table-column prop="" label="贝壳分成" width="80px">
                     <template slot-scope="scope">
                         {{ scope.row.virtual_rate + '%'}}
                     </template>
                 </el-table-column>
-                <el-table-column prop="" label="出行分成" width="">
+                <el-table-column prop="" label="出行分成" width="80px">
                     <template slot-scope="scope">
                         {{ scope.row.account_rate + '%'}}
                     </template>
                 </el-table-column>
-                <el-table-column prop="contract_no" label="合同编号" width="120">
+                <el-table-column prop="contract_no" label="合同编号" width="">
                 </el-table-column>
                 <!-- 审核状态 -->
-                <el-table-column prop="" label="状态" width="120">
+                <el-table-column prop="" label="状态" width="80px">
                     <template slot-scope="scope">
                         <span v-if="scope.row.merchant_check == 1">待审核</span>
                         <span v-else-if="scope.row.merchant_check == 2">审核通过</span>

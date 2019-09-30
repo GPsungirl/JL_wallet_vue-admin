@@ -50,13 +50,13 @@
         <div>
             <!-- 表格 -->
             <el-table :data="tableData" v-loading="tableLoading" border stripe style="width: 100%">
-                <el-table-column prop="" label="收益类型" width="" >
+                <el-table-column prop="" label="收益类型" width="80px" >
                     <template slot-scope="scope">
                         <span v-if="scope.row.account_class == 1">出行</span>
                     </template>
                 </el-table-column>
 
-                <el-table-column prop="" label="订单信息" width="">
+                <el-table-column prop="" label="订单信息" width="80px">
                     <template slot-scope="scope">
                         <!-- 1晨光出行2暖阳午后3星空夜景 -->
                         <span v-if="scope.row.order_travel_type == 1">晨光出行</span>
@@ -64,33 +64,38 @@
                         <span v-else-if="scope.row.order_travel_type == 3">星空夜景</span>
                     </template>
                 </el-table-column>
-
-                <el-table-column prop="totalPrice" label="订单金额" width="">
+                <!-- 下单时间 createtime-->
+                <el-table-column prop="createtime" :show-overflow-tooltip="true" label="订单时间" width="">
                 </el-table-column>
-                <el-table-column prop="customid" label="收益来源ID" width="">
+                <!-- 出行时间 -->
+                <!-- <el-table-column prop="travel_time" :show-overflow-tooltip="true" label="出行时间" width="">
+                </el-table-column> -->
+                <el-table-column prop="totalPrice" label="订单金额" width="80px">
                 </el-table-column>
-                <el-table-column prop="customid" label="向导ID" width="">
+                <el-table-column prop="customid" label="收益来源ID" width="90px">
                 </el-table-column>
-                <el-table-column prop="custom_name" label="姓名" width="">
+                <el-table-column prop="customid" label="向导ID" width="70px">
                 </el-table-column>
-                <el-table-column prop="city_agent_name" label="所属机构" width="">
+                <el-table-column prop="custom_name" label="姓名" width="70px">
                 </el-table-column>
-                <el-table-column prop="up_custom_name" label="所属上级" width="">
+                <el-table-column prop="city_agent_name" label="所属机构" :show-overflow-tooltip="true" width="">
                 </el-table-column>
-                <el-table-column prop="customAmount" label="向导分成" width="">
+                <el-table-column prop="up_custom_name" label="所属上级" width="80px">
                 </el-table-column>
-
-                <el-table-column prop="cityAmount" label="市机构分成" width="">
-                </el-table-column>
-
-
-
-                <el-table-column prop="upAmount" label="上级分成" width="">
+                <el-table-column prop="customAmount" label="向导分成" width="70px">
                 </el-table-column>
 
-                <el-table-column prop="platAmount" label="平台收益" width="">
+                <el-table-column prop="cityAmount" label="市机构分成" width="70px">
                 </el-table-column>
-                <el-table-column prop="totalPrice" label="总价" width="">
+
+
+
+                <el-table-column prop="upAmount" label="上级分成" width="50px">
+                </el-table-column>
+
+                <el-table-column prop="platAmount" label="平台收益" width="50px">
+                </el-table-column>
+                <el-table-column prop="totalPrice" label="总价" width="50px">
                 </el-table-column>
                 <el-table-column prop="createtime" show-overflow-tooltip label="订单时间" width="">
                 </el-table-column>
@@ -180,7 +185,8 @@ export default {
             // 其他   virtualProfit/selectVirtualProfit
             this.tableLoading = true
             this.$http.post(`${ commonUrl.baseUrl }/accountProfit/selectAccountProfit`, param).then(res=>{
-
+                console.log(res)
+                debugger
                 if(res.data.code == '0000'){
 
                     this.tableData =  res.data.data.accountProfitList

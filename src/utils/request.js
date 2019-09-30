@@ -19,7 +19,7 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     // console.log('hello, this is requrst before.')
-    console.log(config)
+    // console.log(config)
     // if (store.getters.token) {
     // let each request carry token
     // ['X-Token'] is a custom headers key
@@ -49,7 +49,7 @@ service.interceptors.response.use(
       setToken(authorization) // 存到cookie里面
       return response
     } else if (response.data.code == 2000 ) {
-      alert(111)
+      // alert(111)
       console.error(response)
       console.error('token过期')
       localStorage.removeItem('pp_userId')

@@ -60,7 +60,7 @@
                     </el-date-picker>
                 </el-form-item>
                 <!-- 流水类别 consume_type-->
-                <el-form-item label="支付类别" prop="">
+                <el-form-item label="支付类别" prop="consume_type">
                   <el-select v-model="queryForm.consume_type"
                         class="wid_140"
                         placeholder="请选择流水类别"
@@ -74,7 +74,7 @@
                   </el-select>
                 </el-form-item>
                 <!-- 流水状态 consume_refund_status-->
-                <el-form-item label="支付状态" prop="">
+                <el-form-item label="支付状态" prop="consume_refund_status">
                   <el-select v-model="queryForm.consume_refund_status"
                         class="wid_140"
                         placeholder="请选择流水状态"
@@ -120,12 +120,17 @@
                         <span v-else-if="scope.row.business_type == 3">会员</span>
                     </template>
                 </el-table-column>
-                <!-- 支付方式  1支付宝 2微信-->
+                <!-- 订单时间 -->
+                 <el-table-column prop="createtime" :show-overflow-tooltip="true" label="订单时间" width="">
+                </el-table-column>
+                <!-- 支付方式  1支付宝 2微信 -->
                 <el-table-column prop="" label="支付方式" width="80px">
                     <template slot-scope="scope">
-                        <span v-if="scope.row.pay_type == 1">支付宝支付</span>
-                        <span v-else-if="scope.row.pay_type == 2">微信支付</span>
-                        <span v-else-if="scope.row.pay_type == 3">苹果支付</span>
+                      <!-- 待支付时，支付方式不显示 -->
+                      <span v-if="scope.row.consume_type == 1 && scope.row.consume_refund_status ==0 "></span>
+                      <span v-else-if="scope.row.pay_type == 1">支付宝支付</span>
+                      <span v-else-if="scope.row.pay_type == 2">微信支付</span>
+                      <span v-else-if="scope.row.pay_type == 3">苹果支付</span>
                     </template>
                 </el-table-column>
                 <!-- 状态 -->
@@ -326,8 +331,8 @@ export default {
             this.$http.post(`${ commonUrl.baseUrl }/consumeOrderUnion/getConsumeOrderUnion`, param).then(res=>{
 
                 if(res.data.code == '0000'){
-                    // console.log(res)
-                    // debugger
+                    console.log(res)
+                    debugger
                     this.tableData =  res.data.data.consumeOrderUnionList
                     // 分页 总数
                     this.pageTotal = res.data.data.page.pageTotal;

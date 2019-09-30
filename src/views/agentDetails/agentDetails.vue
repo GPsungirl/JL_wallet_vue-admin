@@ -667,7 +667,7 @@ export default {
                 signInRoleId: this.$store.getters.roleId,
             }}).then(res=>{
                 if(res.data.code == '0000'){
-
+                    console.log(res)
                     this.bankInfo =this.detail_form.bankInfo= this.detail_check_form.bankInfo = res.data.data.bankList
                 }
             }).catch(err=>{

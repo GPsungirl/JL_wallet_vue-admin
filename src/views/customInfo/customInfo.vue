@@ -26,7 +26,7 @@
             <el-form-item>
                 <el-button type="primary" size='mini' @click="queryData">查询</el-button>
                 <el-button type="success" size='mini' @click="resetData">重置</el-button>
-
+                <el-button type="primary" size='mini' @click="handle_refresh">刷新</el-button>
             </el-form-item>
             </el-form>
         </div>
@@ -37,6 +37,9 @@
                 <el-table-column prop="customid" label="用户ID" width="" >
                 </el-table-column>
                 <el-table-column prop="nickname" label="昵称" width="">
+                </el-table-column>
+                <!-- 注册时间 -->
+                <el-table-column prop="createtime" label="注册时间" :show-overflow-tooltip="true" width="">
                 </el-table-column>
                 <el-table-column prop="phone" label="电话" width="">
                 </el-table-column>
@@ -230,7 +233,6 @@ export default {
             }
             this.tableLoading = true;
             this.$http.post(`${ commonUrl.baseUrl }/customInfo/getCustomInfo`, param).then( res =>{
-                // console.log(res)
 
                 if (res.data.code == '0000') {
 
@@ -260,6 +262,11 @@ export default {
             this.queryForm.nickname = '';
             this.queryForm.member_status = '';
 
+        },
+        // 刷新按钮
+        handle_refresh(){
+            this.getTableDataList(1);
+            this.currentPage = 1
         },
         // 冻结/解冻 解冻1 冻结2
         handle_frozen(row){

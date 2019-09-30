@@ -24,8 +24,8 @@
                 <el-form-item label="向导ID" prop="customid" label-width="68px">
                     <el-input v-model="queryForm.customid" placeholder="请输入向导ID" class="wid_140"></el-input>
                 </el-form-item>
-                <!-- 出行时间 -->
-                <el-form-item label="出行时间" prop="allTime">
+                <!-- 订单时间 -->
+                <el-form-item label="订单时间" prop="allTime">
                     <el-date-picker
                         v-model="queryForm.allTime"
                         type="daterange"
@@ -60,15 +60,15 @@
                 </el-table-column>
                 <el-table-column prop="giftPrice" label="礼物单价" width="">
                 </el-table-column>
-                <el-table-column prop="virtual_gift_num" label="数量" width="">
+                <el-table-column prop="virtual_gift_num" label="数量" width="40px">
                 </el-table-column>
-                <el-table-column prop="totalPrice" label="总价" width="">
+                <el-table-column prop="totalPrice" label="总价" width="50px">
                 </el-table-column>
                 <el-table-column prop="customid" label="向导ID" width="">
                 </el-table-column>
                 <el-table-column prop="custom_name" label="向导姓名" width="">
                 </el-table-column>
-                <el-table-column prop="city_agent_name" label="所属机构" width="">
+                <el-table-column prop="city_agent_name" :show-overflow-tooltip="true" label="所属机构" width="">
                 </el-table-column>
 
                 <el-table-column prop="up_custom_name" label="所属上级" width="">

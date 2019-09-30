@@ -43,26 +43,25 @@
         <div>
             <!-- 表格 -->
             <el-table :data="tableData" v-loading="tableLoading" border stripe style="width: 100%">
-                <el-table-column prop="customid" label="用户ID" width="" >
+                <el-table-column prop="customid" label="用户ID" width="68px" >
                 </el-table-column>
-                <el-table-column prop="custom_name" label="用户姓名" width="">
+                <el-table-column prop="custom_name" label="用户姓名" width="80px">
                 </el-table-column>
                 <!-- 用户电话 -->
                 <el-table-column prop="custom_phone" label="用户电话" width="">
                 </el-table-column>
                 <!--出行项目 1晨光出行2暖阳午后3星空夜景 -->
-                <el-table-column prop="travel_projects" label="出行项目" width="">
+                <el-table-column prop="travel_projects" label="出行项目" width="80px">
                 </el-table-column>
                 <el-table-column prop="traveler_customid" label="向导ID" width="80px">
                 </el-table-column>
-                <el-table-column prop="traveler_custom_nickname" label="向导昵称" width="">
+                <el-table-column prop="traveler_custom_nickname" label="向导昵称" width="96px">
                 </el-table-column>
-                <el-table-column prop="agentName" label="所属机构" width="">
+                <el-table-column prop="agentName" label="所属机构" :show-overflow-tooltip="true" width="">
                 </el-table-column>
-                <el-table-column prop="travel_time" label="出行日期" width="">
-                </el-table-column>
+
                 <!--订单状态 0下单 1订单完成 2待支付 3支付成功 4订单确认 5订单取消 6订单取消已退款 7订单 -->
-                <el-table-column prop="" label="订单状态" width="">
+                <el-table-column prop="" label="订单状态" width="80px">
                     <template slot-scope="scope">
                         <span v-if="scope.row.order_status == 0">下单</span>
                         <span v-else-if="scope.row.order_status == 1">订单完成</span>
@@ -74,9 +73,13 @@
                         <span v-else-if="scope.row.order_status == 7">订单</span>
                     </template>
                 </el-table-column>
-                <el-table-column prop="custom_evaluate" label="对用户评价" width="">
+                <el-table-column prop="custom_evaluate" :show-overflow-tooltip="true" label="对用户评价" width="96px">
                 </el-table-column>
-
+                <!-- 订单时间 -->
+                <el-table-column prop="createtime" :show-overflow-tooltip="true" label="订单时间" width="">
+                </el-table-column>
+                <el-table-column prop="travel_time" :show-overflow-tooltip="true" label="出行时间" width="">
+                </el-table-column>
             </el-table>
             <!-- 分页 -->
             <div class="block mar_t10">
@@ -161,7 +164,7 @@ export default {
             this.tableLoading = true
             this.$http.post(`${ commonUrl.baseUrl }/travelerInfo/getGuideTravel`, param).then(res=>{
                 console.log(res)
-                // debugger
+                debugger
                 if(res.data.code == '0000'){
                     this.tableData =  res.data.data.customOrderList
                     // 分页 总数
