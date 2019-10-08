@@ -577,6 +577,7 @@ export default {
             this.$http.post(`${ commonUrl.baseUrl }/travelerInfo/travelRecordList`, param).then(res=>{
                 if(res.data.code == '0000'){
                     console.log(res)
+                    debugger
                     this.tableData = res.data.data.travelerInfoList
                     // 分页总数
                     this.pageTotal = res.data.data.page.pageTotal;
@@ -632,6 +633,7 @@ export default {
             this.$http.post(`${commonUrl.baseUrl}/travelerInfo/findByUpCustomId`, param).then(res=>{
                 if(res.data.code == '0000'){
                     console.log(res)
+                    debugger
                     let result = res.data.data.travelerInfo
 
                     // 向导姓名
