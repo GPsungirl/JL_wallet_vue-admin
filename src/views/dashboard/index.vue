@@ -118,7 +118,7 @@ export default {
         if(res1.data.code == '0000'){
           let result = res1.data.data.accountProfitPlatform
           // 昨日出行
-          this.yesterday_accountamount = result.amount / 100 + '元'
+          this.yesterday_accountamount = result.accountAmout  + ' 元'
         }else{
           // setTimeout(()=>{this.m_message(res1.data.msg, 'warning')},1)
         }
@@ -126,7 +126,7 @@ export default {
         if(res2.data.code == '0000'){
           let result = res2.data.data.virtualProfitPlatform
           // 昨日贝壳
-          this.yesterday_virtualamount = result.amount + '贝壳'
+          this.yesterday_virtualamount = result.virtualAmount + ' 贝壳'
         }else{
           // setTimeout(()=>{this.m_message(res2.data.msg, 'warning')},1)
         }
@@ -135,7 +135,7 @@ export default {
         if(res3.data.code == '0000'){
           let result = res3.data.data.lastMonthAccountProfitPlatform
           // 上月 出行
-          this.lastMonth_accountamount = result.account_amount_total / 100 + '元'
+          this.lastMonth_accountamount = result.accountAmountTotal  + ' 元'
         }else{
           // setTimeout(()=>{this.m_message(res3.data.msg, 'warning')},1)
         }
@@ -143,7 +143,7 @@ export default {
         if(res4.data.code == '0000'){
           let result = res4.data.data.lastMonthVirtualProfitPlatform
           // 上月 贝壳
-          this.lastMonth_virtualamount = result.virtual_amount_total +'贝壳'
+          this.lastMonth_virtualamount = result.virtualAmountTotal +' 贝壳'
         }else{
           // setTimeout(()=>{this.m_message(res4.data.msg, 'warning')},1)
         }
@@ -161,7 +161,7 @@ export default {
           ? "0" + (day1.getMonth() + 1)
           : day1.getMonth() + 1;
       var _date = day1.getDate() < 10 ? "0" + day1.getDate() : day1.getDate();
-      var s1 = day1.getFullYear() + _month + _date;
+      var s1 = day1.getFullYear() +''+ _month +''+ _date;
       return s1;
     },
     // 获取 上月

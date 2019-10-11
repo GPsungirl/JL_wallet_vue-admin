@@ -15,7 +15,10 @@
             <el-form-item label="向导ID" prop="traveler_customid" label-width="68px">
                 <el-input v-model="queryForm.traveler_customid" placeholder="请输入向导ID" class="wid_140"></el-input>
             </el-form-item>
-
+            <!-- 向导姓名 -->
+            <el-form-item label="向导姓名" prop="name" label-width="68px">
+                <el-input v-model="queryForm.name" placeholder="请输入向导姓名" class="wid_140"></el-input>
+            </el-form-item>
 
             <!-- 出行项目 -->
             <el-form-item label="出行项目" prop="travel_projects" label-width="68px">
@@ -57,7 +60,7 @@
                 </el-table-column>
                 <el-table-column prop="traveler_customid" label="向导ID" width="80px">
                 </el-table-column>
-                <el-table-column prop="traveler_custom_nickname" label="向导昵称" width="80px">
+                <el-table-column prop="name" label="向导姓名" width="80px">
                 </el-table-column>
                 <el-table-column prop="agentName" :show-overflow-tooltip="true" label="所属机构" width="">
                 </el-table-column>
@@ -127,6 +130,8 @@ export default {
                 travel_projects:'',
                 // 向导ID
                 traveler_customid:'',
+                // 向导姓名
+                name:'',
 
             },
 
@@ -155,6 +160,8 @@ export default {
                     customid:this.queryForm.customid,
                     // 向导ID
                     traveler_customid:this.queryForm.traveler_customid,
+                    // 向导姓名
+                    name:this.queryForm.name,
                     // 出行项目
                     travel_projects:this.queryForm.travel_projects,
                     // 出行开始时间
@@ -165,7 +172,7 @@ export default {
             }
             this.tableLoading = true
             this.$http.post(`${ commonUrl.baseUrl }/customOrder/getCustomOrder`, param).then(res=>{
-                // console.log(res)
+                console.log(res)
                 // debugger
                 if(res.data.code == '0000'){
                     this.tableData =  res.data.data.customOrderList

@@ -43,7 +43,10 @@
                 <el-form-item label="向导姓名" prop="name">
                     <el-input v-model="queryForm.name" placeholder="请输入向导姓名" class="wid_140"></el-input>
                 </el-form-item>
-
+                <!-- 向导ID -->
+                <el-form-item label="向导ID" prop="customid">
+                    <el-input v-model="queryForm.customid" placeholder="请输入向导ID" class="wid_140"></el-input>
+                </el-form-item>
                 <!-- 上级姓名 -->
                 <!-- <el-form-item label="上级姓名" prop="up_name">
                     <el-input v-model="queryForm.up_name" placeholder="请输入上级姓名" class="wid_140"></el-input>
@@ -436,6 +439,8 @@ export default {
                 city_code:'',
                 // 姓名
                 name:'',
+                // 向导id
+                customid:'',
                 // 向导状态
                 traveler_statuss:[
                     {
@@ -596,16 +601,18 @@ export default {
         // 获取视频主列表
         getTableDataList(pageNum){
             let param = {
-               data:{
-                    // 公有
-                    signInUserId: this.$store.getters.userId,
-                    signInRoleId: this.$store.getters.roleId,
-                    pageNum: pageNum,
-                    pageSize: 10,
-                    // 私有
-                    // 所属机构 姓名
-                    agentName:this.queryForm.agentName,
-                    name:this.queryForm.name,
+              data:{
+                // 公有
+                signInUserId: this.$store.getters.userId,
+                signInRoleId: this.$store.getters.roleId,
+                pageNum: pageNum,
+                pageSize: 10,
+                // 私有
+                // 所属机构 姓名
+                agentName:this.queryForm.agentName,
+                name:this.queryForm.name,
+                // 向导id
+                customid:this.queryForm.customid
 
 
                }

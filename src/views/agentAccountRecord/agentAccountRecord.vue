@@ -63,11 +63,13 @@
       <el-table :data="tableData" v-loading="tableLoading" border stripe style="width: 100%">
           <el-table-column prop="agentName" label="机构名称" width="" >
           </el-table-column>
-          <el-table-column prop="totalAmont" label="总收益金额" width="">
+
+          <el-table-column prop="virtualMonthTotal" label="贝壳收益(元)" width="">
           </el-table-column>
-          <el-table-column prop="virtualTotal" label="贝壳收益" width="">
+          <el-table-column prop="accountMonthTotal" label="出行收益(元)" width="">
           </el-table-column>
-          <el-table-column prop="accountTotal" label="出行收益" width="">
+          <el-table-column prop="totalAmont" label="总收益(元)" width="">
+            
           </el-table-column>
           <el-table-column prop="month" label="收益周期" width="">
           </el-table-column>

@@ -8,6 +8,11 @@
               <el-form-item label="向导姓名" prop="travelerName" label-width="">
                   <el-input v-model="queryForm.travelerName" placeholder="请输入向导姓名" class="wid_140"></el-input>
               </el-form-item>
+              <!-- 向导ID -->
+              <el-form-item label="向导ID" prop="customid" label-width="">
+                  <el-input v-model="queryForm.customid" placeholder="请输入向导ID" class="wid_140"></el-input>
+              </el-form-item>
+
               <!-- 银行卡号 -->
               <el-form-item label="银行卡号" prop="cardno" label-width="">
                   <el-input v-model="queryForm.cardno" placeholder="请输入银行卡号" class="wid_140"></el-input>
@@ -64,15 +69,17 @@
         <div>
             <!-- 表格 -->
             <el-table :data="tableData" v-loading="tableLoading" border stripe style="width: 100%">
-
+                <!-- 向导id -->
+                <el-table-column prop="customid" label="向导ID" width="80px">
+                </el-table-column>
                 <!-- 向导姓名 -->
                 <el-table-column prop="travelerName" label="向导姓名" width="80px">
                 </el-table-column>
                 <!-- 提现总金额 -->
-                <el-table-column prop="money" label="提现总金额(元)" width="">
+                <el-table-column prop="countMoney" label="提现总金额(元)" width="">
                 </el-table-column>
                 <!-- 电话 -->
-                <el-table-column prop="phone" label="电话" width="">
+                <el-table-column prop="phone" label="向导电话" width="">
                 </el-table-column>
                 <!-- 银行卡号 -->
                 <el-table-column prop="cardno" label="银行卡号" width="">
@@ -144,6 +151,8 @@ export default {
             queryForm: {
               travelerName:'',
               cardno:'',
+              // 向导id
+              customid:'',
               finish_time:'',
               phone:'',
               // 提现类型 1现金 2贝壳
@@ -199,6 +208,8 @@ export default {
                     pageNum: pageNum,
                     pageSize: 10,
                     // 私有
+                    // 向导id
+                    customid:this.queryForm.customid,
                     travelerName:this.queryForm.travelerName,
                     cardno:this.queryForm.cardno,
                     finish_time:this.queryForm.finish_time,

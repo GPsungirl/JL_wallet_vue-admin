@@ -55,11 +55,13 @@
           <!-- <el-table-column prop="userName" label="用户名称" width="" >
           </el-table-column> -->
 
-          <el-table-column prop="account_month_total" label="出行收益(元)" width="" >
+          <el-table-column prop="accountMonthTotal" label="出行收益(元)" width="" >
           </el-table-column>
-          <!-- <el-table-column prop="total_amont" label="收益金额" width="" >
-          </el-table-column> -->
-          <el-table-column prop="virtual_month_total" label="贝壳收益(元)" width="">
+
+          <el-table-column prop="virtualMonthTotal" label="贝壳收益(元)" width="">
+          </el-table-column>
+          <el-table-column prop="totalAmont" label="总收益(元)" width="" >
+           
           </el-table-column>
           <!-- <el-table-column prop="virtual_src_total" label="贝壳数" width="" >
           </el-table-column>

@@ -119,8 +119,8 @@ const fya_routerMap = {
   manageAreaAgent: () => import('@/views/manageAreaAgent/manageAreaAgent'), //区域机构管理
 
   // 机构管理      mechanism
-  agentCheck: () => import('@/views/agentCheck/agentCheck'), //机构列表
-  agentDetails: () => import('@/views/agentDetails/agentDetails'), //机构详情
+  agentCheck: () => import('@/views/agentCheck/agentCheck'), //机构审核
+  agentDetails: () => import('@/views/agentDetails/agentDetails'), //机构列表
   subordinateAgent: () => import('@/views/subordinateAgent/subordinateAgent'), // 机构下属查询
   travelerCheck: () => import('@/views/travelerCheck/travelerCheck'), // 角落向导审核
 
@@ -129,7 +129,7 @@ const fya_routerMap = {
   accountProfit: () => import('@/views/accountProfit/accountProfit'), // 其他收益
   agentAccountExamine: () => import('@/views/agentAccountExamine/agentAccountExamine'), //机构受益划拨审核
   agentAccountRecord: () => import('@/views/agentAccountRecord/agentAccountRecord'), //机构受益划拨记录
-  withdraw: () => import('@/views/withdraw/withdraw'), //向导体现
+  withdraw: () => import('@/views/withdraw/withdraw'), //向导提现
 
   // 向导管理       guide
   travelerInfo: () => import('@/views/travelerInfo/travelerInfo'), //向导查询,
@@ -143,7 +143,7 @@ const fya_routerMap = {
   customOrder: () => import('@/views/customOrder/customOrder'), //出行记录
   // 系统设置     system
   sysRole: () => import('@/views/sysRole/sysRole'), // 角色管理
-  sysUser: () => import('@/views/sysUser/sysUser'), // 用户管理
+  sysUser: () => import('@/views/sysUser/sysUser'), // 平台账号管理
   refusedCause: () => import('@/views/refusedCause/refusedCause') //审核原因
 
 }
@@ -177,7 +177,8 @@ const actions = {
 
       const fya_list = setServeMap(list)
       const gp_list = modifyKeys(fya_list)
-
+      console.dir(gp_list)
+      debugger
 
       // 测试 后台 传来的 路由表
       const asyncRouterMap = generateAsyncRouter(fya_routerMap, gp_list)

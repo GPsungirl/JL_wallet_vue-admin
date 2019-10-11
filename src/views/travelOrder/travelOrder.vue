@@ -15,6 +15,10 @@
             <el-form-item label="向导ID" prop="traveler_customid" label-width="68px">
                 <el-input v-model="queryForm.traveler_customid" placeholder="请输入向导ID" class="wid_140"></el-input>
             </el-form-item>
+            <!-- 向导姓名 -->
+            <el-form-item label="向导姓名" prop="name" label-width="68px">
+                <el-input v-model="queryForm.name" placeholder="请输入向导姓名" class="wid_140"></el-input>
+            </el-form-item>
             <!-- 出行项目 -->
             <el-form-item label="出行项目" prop="travel_projects" label-width="68px">
                 <el-input v-model="queryForm.travel_projects" placeholder="请输入出行项目" class="wid_140"></el-input>
@@ -48,16 +52,19 @@
                 <el-table-column prop="custom_name" label="用户姓名" width="80px">
                 </el-table-column>
                 <!-- 用户电话 -->
-                <el-table-column prop="custom_phone" label="用户电话" width="">
+                <el-table-column prop="custom_phone" label="用户电话" width="110">
                 </el-table-column>
                 <!--出行项目 1晨光出行2暖阳午后3星空夜景 -->
                 <el-table-column prop="travel_projects" label="出行项目" width="80px">
                 </el-table-column>
-                <el-table-column prop="traveler_customid" label="向导ID" width="80px">
+                <!-- 集合地点 -->
+                <el-table-column prop="meet_address" :show-overflow-tooltip="true" label="集合地点" width="80px">
                 </el-table-column>
-                <el-table-column prop="traveler_custom_nickname" label="向导昵称" width="96px">
+                <el-table-column prop="traveler_customid" label="向导ID" width="70px">
                 </el-table-column>
-                <el-table-column prop="agentName" label="所属机构" :show-overflow-tooltip="true" width="">
+                <el-table-column prop="name" label="向导姓名" width="80px">
+                </el-table-column>
+                <el-table-column prop="agentName" label="机构名称" :show-overflow-tooltip="true" width="">
                 </el-table-column>
 
                 <!--订单状态 0下单 1订单完成 2待支付 3支付成功 4订单确认 5订单取消 6订单取消已退款 7订单 -->
@@ -115,6 +122,8 @@ export default {
                 agentName:'',
                 // 用户ID
                 customid:'',
+                // 向导姓名
+                name:'',
                 // 记录 开始和结束时间的数组
                 allTime:'',
                 // 开始时间
@@ -151,6 +160,8 @@ export default {
                     agentName:this.queryForm.agentName,
                     // 用户ID
                     customid:this.queryForm.customid,
+                    // 向导姓名
+                    name:this.queryForm.name,
                     // 向导ID
                     traveler_customid:this.queryForm.traveler_customid,
                     // 出行项目

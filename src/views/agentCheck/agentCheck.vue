@@ -64,7 +64,7 @@
             <el-table :data="tableData" v-loading="tableLoading" border stripe style="width: 100%">
                 <el-table-column prop="agent_name" label="机构名称" width="" >
                 </el-table-column>
-                <el-table-column prop="charger" label="联系人" width="">
+                <el-table-column prop="charger" label="联系人" width="70px">
                 </el-table-column>
                 <el-table-column prop="phone" label="联系电话" width="">
                 </el-table-column>

@@ -5,39 +5,43 @@
         <div class="query_fields pad_b_no">
             <el-form :inline="true" ref="queryForm" :model="queryForm" size="mini" class="demo-form-inline">
             <!-- 姓名 -->
-            <el-form-item label="姓名" prop="name" label-width="68px">
+            <el-form-item label="向导姓名" prop="name" label-width="68px">
                 <el-input v-model="queryForm.name" placeholder="请输入姓名" class="wid_140"></el-input>
             </el-form-item>
+            <!-- 向导ID customid-->
+            <el-form-item label="向导ID" prop="customid" label-width="68px">
+                <el-input v-model="queryForm.customid" placeholder="请输入向导ID" class="wid_140"></el-input>
+            </el-form-item>
             <!-- 现居住地 -->
-           <el-form-item label="籍贯地" >
-                <el-col :span="12">
-                    <el-form-item prop="province_code">
-                        <el-select v-model="queryForm.province_code"
-                            placeholder="选择省"
-                            class="wid_140"
-                            @change="changeOption_province($event)">
-                            <el-option v-for="(item, index) in queryForm.regions"
-                                :key="index"
-                                :label=" item.province "
-                                :value=" item.adcode ">
-                            </el-option>
-                        </el-select>
-                    </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                    <el-form-item prop="city_code">
-                        <el-select v-model="queryForm.city_code"
-                            placeholder="选择市"
-                            class="wid_140"
-                            @change="changeOption_city($event)">
-                            <el-option v-for="(item, index) in queryForm.cities"
-                                :key="index"
-                                :label=" item.city "
-                                :value=" item.adcode ">
-                            </el-option>
-                        </el-select>
-                    </el-form-item>
-                </el-col>
+            <el-form-item label="籍贯地" >
+              <el-col :span="12">
+                  <el-form-item prop="province_code">
+                      <el-select v-model="queryForm.province_code"
+                          placeholder="选择省"
+                          class="wid_140"
+                          @change="changeOption_province($event)">
+                          <el-option v-for="(item, index) in queryForm.regions"
+                              :key="index"
+                              :label=" item.province "
+                              :value=" item.adcode ">
+                          </el-option>
+                      </el-select>
+                  </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                  <el-form-item prop="city_code">
+                      <el-select v-model="queryForm.city_code"
+                          placeholder="选择市"
+                          class="wid_140"
+                          @change="changeOption_city($event)">
+                          <el-option v-for="(item, index) in queryForm.cities"
+                              :key="index"
+                              :label=" item.city "
+                              :value=" item.adcode ">
+                          </el-option>
+                      </el-select>
+                  </el-form-item>
+              </el-col>
             </el-form-item>
             <!-- 上级姓名 -->
             <el-form-item label="上级姓名" prop="up_name">
@@ -76,14 +80,14 @@
             <el-table :data="tableData" v-loading="tableLoading" border stripe style="width: 100%">
                 <el-table-column prop="customid" label="向导ID" width="" >
                 </el-table-column>
-                <el-table-column prop="name" label="姓名" width="80px">
+                <el-table-column prop="name" label="向导姓名" width="80px">
                 </el-table-column>
                  <el-table-column prop="" label="籍贯地" width="">
                     <template slot-scope="scope">
                         {{ scope.row.province + scope.row.city }}
                     </template>
                 </el-table-column>
-                <el-table-column prop="up_customid" label="上级ID" width="">
+                <el-table-column prop="up_customid" label="上级ID" width="80">
                 </el-table-column>
                 <el-table-column prop="" label="上级姓名" width="80px">
                     <template slot-scope="scope">
@@ -96,7 +100,7 @@
                         <span v-else>女</span>
                     </template>
                 </el-table-column>
-                <el-table-column prop="" label="所属机构" width="">
+                <el-table-column prop="" label="所属机构" width="300">
                     <template slot-scope="scope">
                         <el-button @click="handle_agent_name(scope.row)" type="text" size="small">{{ scope.row.agent_name }}</el-button>
                     </template>
@@ -450,6 +454,7 @@ export default {
                 city_param: '',
 
                 name:'',
+                customid:'',
                 up_name:'',
                 up_customid:'',
                 agent_name:'',
@@ -564,6 +569,8 @@ export default {
                     // 所属机构 姓名 向导状态 上级id  上级姓名
                     agent_name:this.queryForm.agent_name,
                     name:this.queryForm.name,
+                    // 向导id
+                    customid:this.queryForm.customid,
                     live_month:this.queryForm.live_month,
                     up_customid:this.queryForm.up_customid,
                     up_name:this.queryForm.up_name,

@@ -79,30 +79,30 @@
             <el-table :data="tableData" v-loading="tableLoading" border stripe style="width: 100%">
                 <el-table-column prop="agent_name" label="机构名称" width="" >
                 </el-table-column>
-                <el-table-column prop="charger" label="联系人" width="">
+                <el-table-column prop="charger" label="联系人" width="70px">
                 </el-table-column>
-                <el-table-column prop="phone" label="联系电话" width="">
+                <el-table-column prop="phone" label="联系电话" width="120">
                 </el-table-column>
                 <!-- 业务地区：省+市 -->
-                <el-table-column prop="" label="业务地区" width="210">
+                <el-table-column prop="" label="业务地区" width="150">
                     <template slot-scope="scope">
                         {{ scope.row.province + scope.row.city }}
                     </template>
                 </el-table-column>
-                <el-table-column prop="" label="贝壳分成" width="">
+                <el-table-column prop="" label="贝壳分成" width="80">
                     <template slot-scope="scope">
                         {{ scope.row.virtual_rate + '%'}}
                     </template>
                 </el-table-column>
-                <el-table-column prop="" label="出行分成" width="">
+                <el-table-column prop="" label="出行分成" width="80">
                     <template slot-scope="scope">
                         {{ scope.row.account_rate + '%'}}
                     </template>
                 </el-table-column>
-                <el-table-column prop="contract_no" label="合同编号" width="120">
+                <el-table-column prop="contract_no" label="合同编号" width="140">
                 </el-table-column>
                 <!-- 状态 -->
-                <el-table-column prop="agent_check" label="状态" width="120">
+                <el-table-column prop="agent_check" label="状态" width="90">
                     <template slot-scope="scope">
                         <span v-if="scope.row.agent_check == 1">待审核</span>
                         <span v-else-if="scope.row.agent_check == 2">审核通过</span>

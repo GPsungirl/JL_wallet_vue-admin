@@ -6,7 +6,7 @@
             <el-form :inline="true" :model="queryForm" ref="queryForm" size="mini" class="demo-form-inline">
              <!-- 收益类型 -->
             <el-form-item label="收益类型" prop="account_class" label-width="68px">
-                <el-select v-model="queryForm.account_class" placeholder="请选择收益类型">
+                <el-select v-model="queryForm.account_class" placeholder="请选择收益类型" class="wid_140">
                    <el-option
                     v-for="(item, index) of queryForm.account_classs"
                     :key="index"
@@ -17,14 +17,29 @@
                 </el-select>
             </el-form-item>
             <!-- 所属市级机构 -->
-            <el-form-item label="所属机构" prop="city_agent_name" label-width="100px">
+            <el-form-item label="所属机构" prop="city_agent_name" label-width="68px">
                 <el-input v-model="queryForm.city_agent_name" placeholder="请输入所属市级机构" class="wid_140"></el-input>
             </el-form-item>
-            <!-- 向导ID -->
-            <el-form-item label="收益来源ID" prop="customid" label-width="">
-                <el-input v-model="queryForm.customid" placeholder="请输入收益来源ID" class="wid_140"></el-input>
+            <!-- 收益来源ID accountSourceCustomid-->
+            <el-form-item label="收益来源ID" prop="accountSourceCustomid" label-width="88px">
+                <el-input v-model="queryForm.accountSourceCustomid" placeholder="请输入收益来源ID" class="wid_140"></el-input>
             </el-form-item>
-            <!--  -->
+            <!-- 向导ID -->
+            <el-form-item label="向导ID" prop="customid" label-width="">
+                <el-input v-model="queryForm.customid" placeholder="请输入向导ID" class="wid_140"></el-input>
+            </el-form-item>
+            <!-- 向导姓名 -->
+            <el-form-item label="向导姓名" prop="custom_name" label-width="">
+                <el-input v-model="queryForm.custom_name" placeholder="请输入向导姓名" class="wid_140"></el-input>
+            </el-form-item>
+            <!-- 上级ID -->
+            <el-form-item label="上级ID" prop="up_customid" label-width="68px">
+                <el-input v-model="queryForm.up_customid" placeholder="请输入上级ID" class="wid_140"></el-input>
+            </el-form-item>
+            <!-- 上级姓名 -->
+            <el-form-item label="上级姓名" prop="up_custom_name" label-width="">
+                <el-input v-model="queryForm.up_custom_name" placeholder="请输入上级姓名" class="wid_140"></el-input>
+            </el-form-item>
             <!-- 出行时间 -->
             <el-form-item label="出行时间" prop="allTime">
                 <el-date-picker
@@ -72,15 +87,17 @@
                 </el-table-column> -->
                 <el-table-column prop="totalPrice" label="订单金额" width="80px">
                 </el-table-column>
-                <el-table-column prop="customid" label="收益来源ID" width="90px">
+                <el-table-column prop="accountSourceCustomid" label="收益来源ID" width="96px">
                 </el-table-column>
                 <el-table-column prop="customid" label="向导ID" width="70px">
                 </el-table-column>
-                <el-table-column prop="custom_name" label="姓名" width="70px">
+                <el-table-column prop="custom_name" label="向导姓名" width="80px">
                 </el-table-column>
                 <el-table-column prop="city_agent_name" label="所属机构" :show-overflow-tooltip="true" width="">
                 </el-table-column>
-                <el-table-column prop="up_custom_name" label="所属上级" width="80px">
+                <el-table-column prop="up_customid" label="上级ID" width="80px">
+                </el-table-column>
+                <el-table-column prop="up_custom_name" label="上级姓名" width="80px">
                 </el-table-column>
                 <el-table-column prop="customAmount" label="向导分成" width="70px">
                 </el-table-column>
@@ -140,8 +157,16 @@ export default {
                 account_class:'',
                 // 所属市级机构
                 city_agent_name:'',
+                // 收益来源ID
+                accountSourceCustomid:'',
                 // 向导id
                 customid:'',
+                // 向导姓名
+                custom_name:'',
+                // 上级id
+                up_customid:'',
+                // 上级姓名
+                up_custom_name:'',
                 // 所有时间
                 allTime:'',
                 // 结束时间
@@ -171,8 +196,16 @@ export default {
                     account_class:this.queryForm.account_class,
                     // 所属市级机构
                     city_agent_name:this.queryForm.city_agent_name,
+                    // 收益来源ID
+                    accountSourceCustomid:this.queryForm.accountSourceCustomid,
                     // 向导ID
                     customid:this.queryForm.customid,
+                    // 向导姓名
+                    custom_name:this.queryForm.custom_name,
+                    // 上级id
+                    up_customid:this.queryForm.up_customid,
+                    // 上级姓名
+                    up_custom_name:this.queryForm.up_custom_name,
                     // 出行项目
                     travel_projects:this.queryForm.travel_projects,
                     // 出行开始时间

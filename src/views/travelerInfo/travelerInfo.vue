@@ -52,6 +52,10 @@
                         </el-form-item>
                     </el-col>
                 </el-form-item>
+                <!-- 向导id -->
+                <el-form-item label="向导ID" prop="customid">
+                    <el-input v-model="queryForm.customid" placeholder="请输入向导ID" class="wid_140"></el-input>
+                </el-form-item>
                 <!-- 向导姓名 -->
                 <el-form-item label="向导姓名" prop="name">
                     <el-input v-model="queryForm.name" placeholder="请输入向导姓名" class="wid_140"></el-input>
@@ -92,7 +96,7 @@
             <el-table :data="tableData" v-loading="tableLoading" border stripe style="width: 100%">
                 <el-table-column prop="customid" label="向导ID" width="" >
                 </el-table-column>
-                <el-table-column prop="name" label="姓名" width="80px">
+                <el-table-column prop="name" label="向导姓名" width="80px">
                 </el-table-column>
                 <el-table-column prop="up_customid" label="上级ID" width="">
                 </el-table-column>
@@ -514,6 +518,8 @@ export default {
                 city_code:'',
                 // 姓名
                 name:'',
+                // 向导id
+                customid:'',
                 // 向导状态
                 traveler_statuss:[
                     {
@@ -723,6 +729,8 @@ export default {
                     // 所属机构 姓名 向导状态 上级id  上级姓名
                     agent_name:this.queryForm.agent_name,
                     name:this.queryForm.name,
+                    // 向导id
+                    customid:this.queryForm.customid,
                     traveler_status:this.queryForm.traveler_status,
                     up_customid:this.queryForm.up_customid,
                     up_name:this.queryForm.up_name,

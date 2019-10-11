@@ -17,11 +17,11 @@
               value-format="yyyy-MM"
               placeholder="请选择时间">
             </el-date-picker>
-          </el-form-item>         
+          </el-form-item>
           <!-- 查询 -->
-          <el-form-item>                               
-              <el-button type="primary" size='mini' @click="queryData">查询</el-button>                  
-              <el-button type="success" size='mini' @click="resetData('queryForm')">重置</el-button>                
+          <el-form-item>
+              <el-button type="primary" size='mini' @click="queryData">查询</el-button>
+              <el-button type="success" size='mini' @click="resetData('queryForm')">重置</el-button>
               <el-button type="primary" size='mini' @click="handle_refresh">刷新</el-button>
           </el-form-item>
         </el-form>
@@ -32,16 +32,18 @@
       <el-table :data="tableData" v-loading="tableLoading" border stripe style="width: 100%">
           <el-table-column prop="agentName" label="机构名称" width="" >
           </el-table-column>
-          <el-table-column prop="totalAmont" label="总收益金额" width="">
+
+          <el-table-column prop="virtualMonthTotal" label="贝壳收益(元)" width="">
           </el-table-column>
-          <el-table-column prop="virtualTotal" label="贝壳收益" width="">
+          <el-table-column prop="accountMonthTotal" label="出行收益(元)" width="">
           </el-table-column>
-          <el-table-column prop="accountTotal" label="其他收益" width="">
+          <el-table-column prop="totalAmont" label="总收益(元)" width="">
+           
           </el-table-column>
           <el-table-column prop="month" label="收益周期" width="">
           </el-table-column>
           <el-table-column prop="" label="操作" width="">
-          <template slot-scope="scope">              
+          <template slot-scope="scope">
               <!-- <el-button v-if="scope.row.revenue_status == 1 || scope.row.revenue_status == 5" @click="handle_upload(scope.row)" type="text" size="small">上传发票</el-button> -->
               <el-button @click="view_upload(scope.row)" type="text" size="small">查看发票</el-button>
               <!-- admin 不显示 -->
@@ -50,11 +52,11 @@
           </el-table-column>
       </el-table>
       <!-- 分页 -->
-      <div class="block mar_t10">  
-          <el-pagination                
+      <div class="block mar_t10">
+          <el-pagination
           @current-change="handleCurrentChange"
           :current-page="currentPage"
-          :total="pageTotal"                      
+          :total="pageTotal"
           background
           layout="total, prev, pager, next, jumper"
           >
@@ -63,17 +65,17 @@
     </div>
     <!-- M3 dialog 上传发票-->
     <el-dialog
-      
+
       title="上传发票"
-      :visible.sync="add_dialog"  
-      width="30%"          
-      center  
+      :visible.sync="add_dialog"
+      width="30%"
+      center
 
       v-loading="invoice_loading"
       element-loading-text="拼命加载中"
       element-loading-spinner="el-icon-loading"
-      element-loading-background="rgba(0, 0, 0, 0.8)"                           
-      > 
+      element-loading-background="rgba(0, 0, 0, 0.8)"
+      >
       <!-- body append-to-body-->
       <!-- :http-request="handleUpload" -->
       <div class="wid_b75">
@@ -101,7 +103,7 @@
           >
           <img width="100%" :src="dialogImageUrl" alt="">
         </el-dialog>
-      </div>   
+      </div>
       <!-- footer  -->
       <span slot="footer" class="dialog-footer">
       <el-button @click="add_dialog = false" size='mini'>取 消</el-button>
@@ -111,53 +113,53 @@
     <!-- M4 dialog 查看发票 -->
     <el-dialog
       title="查看发票"
-      :visible.sync="view_dialog"  
-      width="30%"  
-             
-      center  
+      :visible.sync="view_dialog"
+      width="30%"
+
+      center
       v-loading="view_loading"
       element-loading-text="拼命加载中"
       element-loading-spinner="el-icon-loading"
-      element-loading-background="rgba(0, 0, 0, 0.8)" 
-      
+      element-loading-background="rgba(0, 0, 0, 0.8)"
+
       >
-      
+
       <img width="100%" :src="viewImageUrl" alt="">
-      
+
       <!-- footer -->
       <span slot="footer" class="dialog-footer">
-        <el-button @click="view_dialog = false" size='mini'>取 消</el-button>      
+        <el-button @click="view_dialog = false" size='mini'>取 消</el-button>
       </span>
     </el-dialog>
     <!-- M5 dialog 审核-->
     <el-dialog
       title="审核"
-      :visible.sync="detail_check_dialogVisible"  
-      width="30%"  
-             
-      center  
+      :visible.sync="detail_check_dialogVisible"
+      width="30%"
+
+      center
       v-loading="detail_check_loading"
       element-loading-text="拼命加载中"
       element-loading-spinner="el-icon-loading"
-      element-loading-background="rgba(0, 0, 0, 0.8)"       
+      element-loading-background="rgba(0, 0, 0, 0.8)"
       >
-      <!-- 业务审核 -->            
-      <el-form :inline="true" :model="detail_check_form" :rules="detail_check_rules" ref="detail_check_form"  class="demo-ruleForm demo-form-inline valid_form">               
+      <!-- 业务审核 -->
+      <el-form :inline="true" :model="detail_check_form" :rules="detail_check_rules" ref="detail_check_form"  class="demo-ruleForm demo-form-inline valid_form">
           <el-form-item label="审核状态" prop="merchant_check" label-width="80px">
             <!-- 1待审核2通过3拒绝 -->
-            <el-radio-group 
+            <el-radio-group
               v-model="detail_check_form.merchant_check"
               @change="selectedAgentCheck($event)">
               <!-- <el-radio label="1">待审核</el-radio> -->
               <el-radio label="3">拒绝</el-radio>
               <el-radio label="2">通过</el-radio>
-              
+
             </el-radio-group>
           </el-form-item>
           <el-form-item label="审核说明" prop="check_remark" label-width="80px">
               <el-input type="textarea" v-model="detail_check_form.check_remark" ></el-input>
-          </el-form-item>                
-      </el-form>              
+          </el-form-item>
+      </el-form>
       <!-- footer -->
       <span slot="footer" class="dialog-footer">
         <el-button @click="detail_check_dialogVisible = false" size='mini'>取 消</el-button>
@@ -166,7 +168,7 @@
       </span>
     </el-dialog>
  </div>
- 
+
 </template>
 
 <script>
@@ -190,7 +192,7 @@ export default {
           tableLoading: false,
           view_loading: false,
           tableData: [],
-          
+
           invoice_loading:false,
           invoiceDialogVisible:false,
 
@@ -202,7 +204,7 @@ export default {
             profitTime:'',
 
           },
-          // 分页          
+          // 分页
           pageTotal: 0,
           currentPage:1,
           // 弹框
@@ -210,13 +212,13 @@ export default {
           view_dialog:false,
 
           dialogImageUrl:'',
-          viewImageUrl:'', // 查看发票  
+          viewImageUrl:'', // 查看发票
           // 机构id (每次上传时都要存一下)
           agent_accountid:'',
           _key:'' ,// 记录一下上传时的key
 
 
-          //审核 
+          //审核
           check_dialog:false,
           check_loading:false,
           detail_check_form:{
@@ -256,7 +258,7 @@ export default {
     this.roleId = this.$store.getters.roleId
     // 获取cos参数
     this.getCOSParam();
-    //  获取所有数据    
+    //  获取所有数据
     this.getTableDataList(1);
   },
   computed: {
@@ -268,7 +270,7 @@ export default {
   methods: {
     // 获取cos参数
     getCOSParam(){
-      let vm  = this 
+      let vm  = this
       this.$http.post(`${commonUrl.baseUrl}/agentAccount/getCosKey`)
       .then(function (res) {
         if(res.data.code == '0000'){
@@ -283,11 +285,11 @@ export default {
           vm.Bucket = result.Bucket
           vm.Region = result.Region
         }
-        
+
       })
       .catch(function (err) {
         console.log(err);
-      });     
+      });
     },
     // 初始化 主列表 数据
     getTableDataList(pageNum){
@@ -301,13 +303,13 @@ export default {
           // 私有参数
           month:this.queryForm.profitTime,
           agentName:this.queryForm.agentName,
-                   
+
         }
       }
-      this.tableLoading = true                             
+      this.tableLoading = true
       this.$http.post(`${ commonUrl.baseUrl }/agentAccount/getAgentAccountAuditor`, param).then(res=>{
         if(res.data.code == '0000'){
-          
+
           // 数据
           this.tableData = res.data.data.agentAccountList
           // 分页总数
@@ -322,13 +324,13 @@ export default {
     handle_check(row){
       this.detail_check_form.agent_accountid = row.agent_accountid
       // 清空数据
-      
+
       this.detail_check_dialogVisible = true
       this.resetData('detail_check_form');
     },
     // 选中审核状态
     selectedAgentCheck(e){
-      
+
       if(e == '2'){ // 通过
           this.detail_check_rules.check_remark = null
       }else{
@@ -348,14 +350,14 @@ export default {
                 userid: this.detail_check_form.userid,
                 // 私参
                 agent_accountid:this.detail_check_form.agent_accountid,
-                check_status:this.detail_check_form.merchant_check,            
+                check_status:this.detail_check_form.merchant_check,
                 check_remark:this.detail_check_form.check_remark,
             }
         }
         this.detail_check_loading = true
         this.$http.post(`${ commonUrl.baseUrl}/agentAccount/agentAccountAuditor`, param).then(res=>{
             if(res.data.code == '0000'){
-                
+
                 this.detail_check_loading = false
                 this.detail_check_dialogVisible = false
                 this.m_message(res.data.msg, 'success')
@@ -366,13 +368,13 @@ export default {
     },
     // 新增 校验规则
     m_valid_addForm(formName) {
-        let  flag  = false ;      
+        let  flag  = false ;
         this.$refs[formName].validate((valid) => {
-            if (valid) {  
-            flag = true;             
+            if (valid) {
+            flag = true;
             return true
-            } else {   
-            flag = false;       
+            } else {
+            flag = false;
             return false;
             }
         });
@@ -389,19 +391,19 @@ export default {
     },
     // 预检 上传
     beforeInvoiceUpload(file){
-      
+
       const isJPG = file.type === 'image/jpeg' || file.type === 'image/png';
       if(!isJPG){
         this.m_message('只能上传图片', 'warning')
         return false
-      }      
-      
+      }
+
     },
      // 上传 发票
     handleUpload(param){
-      
+
       const vm = this
-      
+
       let file = param.file;
       if (!file) return;
       let originName = file.name;
@@ -409,7 +411,7 @@ export default {
       let originType = file.type;
       // 文件夹 文件名
       let  fileName =  new Date().getTime() + originName
-      let  fileFolder = 'InvoiceImg/' 
+      let  fileFolder = 'InvoiceImg/'
       let  key = 'InvoiceImg/' + new Date().getTime() + originName   // fileFolder + fileName
       this._key = key;
       vm.invoice_loading = true
@@ -422,9 +424,9 @@ export default {
             /* 上传进度 */
             console.log(progressData);
         }
-      }, function (err, data) {  
+      }, function (err, data) {
 
-          if (data.statusCode == 200) { // 上传成功返回url 
+          if (data.statusCode == 200) { // 上传成功返回url
             vm.invoice_loading = false
           }
 
@@ -432,11 +434,11 @@ export default {
 
     },
     handlePictureCardPreview(file){
-     
+
       this.dialogImageUrl = file.url;
       this.invoiceDialogVisible = true;
     },
-    handleRemove(file, fileList) {      
+    handleRemove(file, fileList) {
       console.log(file, fileList);
     },
     // 个数限制
@@ -445,12 +447,12 @@ export default {
     },
     // 上传发票
     handle_upload(row){
-      // 清空 imgUrl      
+      // 清空 imgUrl
       this.dialogImageUrl = ''
-     
+
       this.add_dialog = true
-      
-      this.agent_accountid = row.agent_accountid      
+
+      this.agent_accountid = row.agent_accountid
     },
     // 保存上传发票
     saveData(){
@@ -462,18 +464,18 @@ export default {
       }
       this.invoice_loading = true
       // 将数据传给后台
-      this.$http.post(`${commonUrl.baseUrl}/agentAccount/uploadInvoice`, param).then(res=>{        
+      this.$http.post(`${commonUrl.baseUrl}/agentAccount/uploadInvoice`, param).then(res=>{
         if(res.data.code == '0000'){
           this.invoice_loading = false
           this.add_dialog = false
           // 提示成功
-          this.m_message(res.data.msg, 'success')  
+          this.m_message(res.data.msg, 'success')
           this.$refs.uploadRef.clearFiles()
-          
+
           // 刷新 主数据列表
           this.getTableDataList(1);
-        }        
-      }).catch(err=>{  }) 
+        }
+      }).catch(err=>{  })
     },
     // 查看发票
     view_upload(row){
@@ -487,11 +489,11 @@ export default {
 
       this.view_dialog = true
       this.view_loading= true
-      
+
       this.$http.post(`${commonUrl.baseUrl}/agentAccount/checkInvoices`, param).then(res=>{
         if(res.data.code == '0000'){
-          //console.log(res)  
-                  
+          //console.log(res)
+
           this.viewImageUrl = res.data.data.agentAccount.invoice_url
           // 加载 结束
           this.view_loading = false
@@ -500,19 +502,19 @@ export default {
     },
     // 收益状态 change事件
     changeProfitState(e){
-      
+
     },
     // 分页
     handleCurrentChange(val){
-      this.currentPage = val       
-      // 获取主页列表数据(loading状态) 
-      this.getTableDataList(val)          
+      this.currentPage = val
+      // 获取主页列表数据(loading状态)
+      this.getTableDataList(val)
       //console.log(`当前页: ${val}`);
     },
-    // 重置查询条件         
+    // 重置查询条件
     resetData(formName){
-        this.$refs[formName].resetFields();            
-    },    
+        this.$refs[formName].resetFields();
+    },
     // 提示信息 message:提示信息   type 提示类型
     m_message(message,type){
       this.$message({
