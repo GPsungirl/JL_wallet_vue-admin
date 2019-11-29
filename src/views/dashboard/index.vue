@@ -49,6 +49,7 @@
         </div>
       </el-col>-->
     </el-row>
+
   </div>
 </template>
 
@@ -56,10 +57,25 @@
 import { mapGetters } from 'vuex'
 import commonUrl from '../../utils/common';
 import qs from 'qs';
+import { validNum100, validNum15, validDyNum, filterSpace} from '../../utils/validate'
+import {
+  isvalidPhone
+} from "../../utils/validate";
 export default {
   name: 'Dashboard',
   data() {
+     // 校验手机号
+    let validPhone=(rule, value,callback)=>{
+        if (!value){
+            callback(new Error('请输入电话号码'))
+        }else  if (!isvalidPhone(value)){
+            callback(new Error('请输入正确手机号码'))
+        }else {
+            callback()
+        }
+    }
     return {
+
       agent_name: "",
       agentid: "",
       // 昨日收益
@@ -80,6 +96,7 @@ export default {
       'roles'
     ])
   },
+
   methods: {
     // 获取昨日收益 上月收益
     getEarnings() {
@@ -152,6 +169,7 @@ export default {
       })
       .catch(err => { loading.close() })
     },
+   
     // 获取 昨日 日期
     getYestoday() {
       var day1 = new Date();
@@ -187,6 +205,7 @@ export default {
         type
       });
     },
+
   }
 }
 </script>

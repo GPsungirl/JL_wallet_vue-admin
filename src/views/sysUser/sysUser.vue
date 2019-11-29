@@ -26,6 +26,8 @@
       </el-table-column>
       <el-table-column prop label="操作" width>
         <template slot-scope="scope">
+          <!-- 重置密码 admin有权限 -->
+          <el-button v-if="roleId == 1" @click="resetPsw(scope.row)" type="text" size="small">重置密码</el-button>
           <el-button @click="modi_permisson(scope.row)" type="text" size="small">修改</el-button>
           <!-- 冻结 -->
           <!-- 可用 -->
@@ -211,7 +213,6 @@
             <el-form-item label="手机号" prop="phone">
               <el-input
                 v-model="valid_modiForm.phone"
-
                 @blur="setUserName_modi"
                 placeholder="请输入手机号"
                 class="wid_140"
@@ -259,6 +260,7 @@
         <el-button type="primary" @click="save_modiUser" size="mini">确 定</el-button>
       </span>
     </el-dialog>
+
   </div>
 </template>
 
@@ -283,6 +285,9 @@ export default {
       }
     };
     return {
+      // 密码重置弹框
+
+      roleId: "",
       //M1 主列表
       tableData: [],
       tableLoading: false,
@@ -384,6 +389,8 @@ export default {
     this.getList_user(1);
     // 预获取新增所需数据
     //this.get_addInfo();
+    // 初始化roleId
+    this.roleId = this.$store.getters.roleId;
   },
   methods: {
     // 主列表（获取所有用户信息列表)
@@ -411,9 +418,39 @@ export default {
         this.pageTotal = res.data.data.page.pageTotal;
       }
     },
+    // 重置密码操作
+    resetPsw(row) {
+      this.$confirm("是否重置密码", "重置密码", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+        size: "mini",
+        center: true
+      }).then(() => {
+        let param = {
+          data: {
+            id: row.id,
+            signInRoleId:this.roleId
+          }
+        };
+        this.$http
+          .post(`${commonUrl.baseUrl}/sysUser/resetPassword`, param)
+          .then(res => {
+            if (res.data.code == "0000") {
+              this.m_message(res.data.msg, "success");
+              // 刷新
+              this.refreshData();
+            } else {
+              this.m_message(res.data.msg, "warning");
+            }
+          })
+          .catch(err => {});
+      });
+    },
+
     // 冻结操作
     handle_frozen(row) {
-      console.log(row)
+      console.log(row);
       let _flag = "";
       let _flag_txt = "";
       if (row.is_del == 0) {
@@ -436,8 +473,8 @@ export default {
             // signInUserId: this.$store.getters.userId,
             // signInRoleId: this.$store.getters.roleId,
             // 角色参数
-            id:row.id,
-            is_del:_flag
+            id: row.id,
+            is_del: _flag
           }
         };
         this.$http

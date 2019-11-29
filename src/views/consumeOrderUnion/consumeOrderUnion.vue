@@ -133,9 +133,10 @@
           <template slot-scope="scope">
             <!-- 待支付时，支付方式不显示 -->
             <span v-if="scope.row.consume_type == 1 && scope.row.consume_refund_status ==0 "></span>
-            <span v-else-if="scope.row.pay_type == 1">支付宝支付</span>
-            <span v-else-if="scope.row.pay_type == 2">微信支付</span>
-            <span v-else-if="scope.row.pay_type == 3">苹果支付</span>
+            <span v-else-if="scope.row.pay_type == 1">支付宝</span>
+            <span v-else-if="scope.row.pay_type == 2">微信</span>
+            <span v-else-if="scope.row.pay_type == 3">苹果</span>
+            <span v-else-if="scope.row.pay_type == 4">贝壳</span>
           </template>
         </el-table-column>
         <!-- 状态 -->

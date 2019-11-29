@@ -137,14 +137,18 @@ const fya_routerMap = {
   travelOrder: () => import('@/views/travelOrder/travelOrder'), // 出行记录
   videoExamine: () => import('@/views/videoExamine/videoExamine'), // 录制视频审核
   videoChoice: () => import('@/views/videoChoice/videoChoice'), // 工作间视频设置
+  customerService: () => import('@/views/customerService/customerService'), //客服管理
+  InvitationOnlineRecord: () => import('@/views/InvitationOnlineRecord/InvitationOnlineRecord'), //邀约上线记录
   // 客户管理     customer
   customInfo: () => import('@/views/customInfo/customInfo'), //用户查询
   consumeOrderUnion: () => import('@/views/consumeOrderUnion/consumeOrderUnion'), //消费记录
   customOrder: () => import('@/views/customOrder/customOrder'), //出行记录
+  virtualConsumeRecord: () => import('@/views/virtualConsumeRecord/virtualConsumeRecord'), //贝壳消费记录
   // 系统设置     system
   sysRole: () => import('@/views/sysRole/sysRole'), // 角色管理
-  sysUser: () => import('@/views/sysUser/sysUser'), // 平台账号管理
-  refusedCause: () => import('@/views/refusedCause/refusedCause') //审核原因
+  sysUser: () => import('@/views/sysUser/sysUser'), // 用户管理
+  refusedCause: () => import('@/views/refusedCause/refusedCause'), //审核原因
+  messageInfo: () => import('@/views/messageInfo/messageInfo')  //消息提示
 
 }
 

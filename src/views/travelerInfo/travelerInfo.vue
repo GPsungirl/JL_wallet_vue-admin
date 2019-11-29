@@ -1,166 +1,163 @@
 <template>
-    <!-- 向导管理>>向导查询 -->
-    <div class="pad_5">
-        <!-- M1 查询区域 -->
-        <div class="query_fields pad_b_no">
-            <el-form :inline="true" :model="queryForm" ref="queryForm" size="mini" class="demo-form-inline">
-                <!-- 所属机构 -->
-                <el-form-item label="所属机构" prop="agent_name">
-                    <el-input v-model="queryForm.agent_name" placeholder="请输入所属机构" class="wid_140"></el-input>
-                </el-form-item>
-                <!-- 校园代理 -->
-                <el-form-item label="校园代理" label-width="68px" prop="campus_agent">
-                    <el-select v-model="queryForm.campus_agent"
-                        class="wid_140"
-                        placeholder="选选择校园代理"
-                        >
-                        <el-option v-for="(item, index) in queryForm.campus_agents"
-                            :key="index"
-                            :label=" item.txt "
-                            :value=" item.id ">
-                        </el-option>
-                    </el-select>
-                </el-form-item>
-                <!-- 现居住地 -->
-                <el-form-item label="现居住地" >
-                    <el-col :span="12">
-                        <el-form-item prop="province_code">
-                            <el-select v-model="queryForm.province_code"
-                                placeholder="选择省"
-                                class="wid_140"
-                                @change="changeOption_province($event)">
-                                <el-option v-for="(item, index) in queryForm.regions"
-                                    :key="index"
-                                    :label=" item.province "
-                                    :value=" item.adcode ">
-                                </el-option>
-                            </el-select>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-form-item prop="city_code">
-                            <el-select v-model="queryForm.city_code"
-                                placeholder="选择市"
-                                class="wid_140"
-                                @change="changeOption_city($event)">
-                                <el-option v-for="(item, index) in queryForm.cities"
-                                    :key="index"
-                                    :label=" item.city "
-                                    :value=" item.adcode ">
-                                </el-option>
-                            </el-select>
-                        </el-form-item>
-                    </el-col>
-                </el-form-item>
-                <!-- 向导id -->
-                <el-form-item label="向导ID" prop="customid">
-                    <el-input v-model="queryForm.customid" placeholder="请输入向导ID" class="wid_140"></el-input>
-                </el-form-item>
-                <!-- 向导姓名 -->
-                <el-form-item label="向导姓名" prop="name">
-                    <el-input v-model="queryForm.name" placeholder="请输入向导姓名" class="wid_140"></el-input>
-                </el-form-item>
-                <!-- 向导状态 -->
-                <el-form-item label="向导状态" label-width="68px" prop="traveler_status">
-                    <el-select v-model="queryForm.traveler_status"
-                        class="wid_140"
-                        placeholder="选选择向导状态"
-                        @change="changeOption_traveler_status($event)">
-                        <el-option v-for="(item, index) in queryForm.traveler_statuss"
-                            :key="index"
-                            :label=" item.txt "
-                            :value=" item.id ">
-                        </el-option>
-                    </el-select>
-                </el-form-item>
-                <!-- 上级姓名 -->
-                <el-form-item label="上级姓名" prop="up_name">
-                    <el-input v-model="queryForm.up_name" placeholder="请输入上级姓名" class="wid_140"></el-input>
-                </el-form-item>
-                <!-- 上级ID -->
-                <el-form-item label="上级ID" prop="up_customid" label-width="68px">
-                    <el-input v-model="queryForm.up_customid" placeholder="请输入上级ID" class="wid_140"></el-input>
-                </el-form-item>
+<!-- 向导管理>>向导查询 -->
+<div class="pad_5">
+  <!-- M1 查询区域 -->
+  <div class="query_fields pad_b_no">
+    <el-form :inline="true" :model="queryForm" ref="queryForm" size="mini" class="demo-form-inline">
+      <!-- 所属机构 -->
+      <el-form-item label="所属机构" prop="agent_name">
+        <el-input v-model="queryForm.agent_name" placeholder="请输入所属机构" class="wid_140"></el-input>
+      </el-form-item>
+      <!-- 校园代理 -->
+      <el-form-item label="校园代理" label-width="68px" prop="campus_agent">
+        <el-select v-model="queryForm.campus_agent" class="wid_140" placeholder="选选择校园代理">
+          <el-option v-for="(item, index) in queryForm.campus_agents" :key="index" :label=" item.txt " :value=" item.id ">
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <!-- 现居住地 -->
+      <el-form-item label="现居住地">
+        <el-col :span="12">
+          <el-form-item prop="province_code">
+            <el-select v-model="queryForm.province_code" placeholder="选择省" class="wid_140" @change="changeOption_province($event)">
+              <el-option v-for="(item, index) in queryForm.regions" :key="index" :label=" item.province " :value=" item.adcode ">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item prop="city_code">
+            <el-select v-model="queryForm.city_code" placeholder="选择市" class="wid_140" @change="changeOption_city($event)">
+              <el-option v-for="(item, index) in queryForm.cities" :key="index" :label=" item.city " :value=" item.adcode ">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+      </el-form-item>
+      <!-- 向导id -->
+      <el-form-item label="向导ID" prop="customid">
+        <el-input v-model="queryForm.customid" placeholder="请输入向导ID" class="wid_140"></el-input>
+      </el-form-item>
+      <!-- 向导姓名 -->
+      <el-form-item label="向导姓名" prop="name">
+        <el-input v-model="queryForm.name" placeholder="请输入向导姓名" class="wid_140"></el-input>
+      </el-form-item>
+      <!-- 向导状态 -->
+      <el-form-item label="向导状态" label-width="68px" prop="traveler_status">
+        <el-select v-model="queryForm.traveler_status" class="wid_140" placeholder="选选择向导状态" @change="changeOption_traveler_status($event)">
+          <el-option v-for="(item, index) in queryForm.traveler_statuss" :key="index" :label=" item.txt " :value=" item.id ">
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <!-- 上级姓名 -->
+      <el-form-item label="上级姓名" prop="up_name">
+        <el-input v-model="queryForm.up_name" placeholder="请输入上级姓名" class="wid_140"></el-input>
+      </el-form-item>
+      <!-- 上级ID -->
+      <el-form-item label="上级ID" prop="up_customid" label-width="68px">
+        <el-input v-model="queryForm.up_customid" placeholder="请输入上级ID" class="wid_140"></el-input>
+      </el-form-item>
+      <!-- 人员类别 -->
+      <el-form-item label="人员类别" label-width="68px" prop="traveler_type">
+        <el-select v-model="queryForm.traveler_type" class="wid_140" placeholder="选选择人员类别" >
+          <el-option v-for="(item, index) in queryForm.traveler_types" :key="index" :label=" item.txt " :value=" item.id ">
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <!-- 查询 -->
+      <el-form-item>
+        <el-button type="primary" size='mini' @click="queryData">查询</el-button>
+        <el-button type="success" size='mini' @click="resetData('queryForm')">重置</el-button>
+        <!-- 新增客服 roleId 1 7有权限 主管和运营有权限-->
+        <el-button v-if="roleId == 1 || roleId == 7" type="primary" size='mini' @click="handle_add">新增客服</el-button>
+        <el-button type="primary" size='mini' @click="handle_refresh">刷新</el-button>
 
-                <!-- 查询 -->
-                <el-form-item>
-                    <el-button type="primary" size='mini' @click="queryData">查询</el-button>
-                    <el-button type="success" size='mini' @click="resetData('queryForm')">重置</el-button>
-                    <el-button type="primary" size='mini' @click="handle_refresh">刷新</el-button>
-                </el-form-item>
-            </el-form>
-        </div>
-        <!-- M2 主列表 -->
-        <div>
-            <!-- 表格 -->
-            <el-table :data="tableData" v-loading="tableLoading" border stripe style="width: 100%">
-                <el-table-column prop="customid" label="向导ID" width="" >
-                </el-table-column>
-                <el-table-column prop="name" label="向导姓名" width="80px">
-                </el-table-column>
-                <el-table-column prop="up_customid" label="上级ID" width="">
-                </el-table-column>
-                <el-table-column prop="" label="上级姓名" width="">
-                    <template slot-scope="scope">
-                        <el-button @click="handle_up_name(scope.row)" type="text" size="small">{{ scope.row.up_name }}</el-button>
-                    </template>
-                </el-table-column>
-                <el-table-column prop="" label="性别" width="50px">
-                    <template slot-scope="scope">
-                        <span v-if="scope.row.sex == '01'">男</span>
-                        <span v-else-if="scope.row.sex == '02'">女</span>
-                    </template>
-                </el-table-column>
+      </el-form-item>
+    </el-form>
+  </div>
+  <!-- M2 主列表 -->
+  <div>
+    <!-- 表格 -->
+    <el-table :data="tableData" v-loading="tableLoading" border stripe style="width: 100%">
+      <el-table-column prop="customid" label="向导ID" width="">
+      </el-table-column>
+      <el-table-column prop="name" label="向导姓名" width="80px">
+      </el-table-column>
+      <el-table-column prop="" label="人员类别" width="80px">
+        <template slot-scope="scope">
+          <span v-if="scope.row.traveler_type == 1">兼职向导</span>
+          <span v-else-if="scope.row.traveler_type == 2">全职向导</span>
+          <span v-else-if="scope.row.traveler_type == 3">角落客服</span>
+          <span v-else-if="scope.row.traveler_type == 0">申请人员</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="up_customid" label="上级ID" width="">
+      </el-table-column>
+      <el-table-column prop="" label="上级姓名" width="">
+        <template slot-scope="scope">
+            <el-button @click="handle_up_name(scope.row)" type="text" size="small">{{ scope.row.up_name }}</el-button>
+        </template>
+        </el-table-column>
+        <el-table-column prop="" label="性别" width="50px">
+<template slot-scope="scope">
+<span v-if="scope.row.sex == '01'">男</span>
+<span v-else-if="scope.row.sex == '02'">女</span>
+</template>
+        </el-table-column>
 
-                <el-table-column prop="" label="贝壳分成" width="80px">
-                    <template slot-scope="scope">
-                        {{ scope.row.virtual_rate +'%'}}
-                    </template>
-                </el-table-column>
-                <el-table-column prop="" label="出行分成" width="80px">
-                    <template slot-scope="scope">
-                        {{ scope.row.account_rate +'%'}}
-                    </template>
-                </el-table-column>
-                <el-table-column prop="birthday" label="出生日期"
-:show-overflow-tooltip="true" width="">
-                </el-table-column>
-                <el-table-column prop="" label="所属机构" width="">
-                    <template slot-scope="scope">
-                        <el-button @click="handle_agent_name(scope.row)" type="text" size="small">{{ scope.row.agent_name }}</el-button>
-                    </template>
+        <el-table-column prop="" label="贝壳分成" width="80px">
+<template slot-scope="scope">
+ {{ scope.row.virtual_rate +'%'}}
+</template>
+        </el-table-column>
+        <el-table-column prop="" label="出行分成" width="80px">
+<template slot-scope="scope">
+ {{ scope.row.account_rate +'%'}}
+</template>
+        </el-table-column>
+        <el-table-column prop="birthday" label="出生日期" :show-overflow-tooltip="true" width="">
+        </el-table-column>
+        <el-table-column prop="" label="所属机构" width="">
+<template slot-scope="scope">
+<el-button @click="handle_agent_name(scope.row)" type="text" size="small">
+  {{ scope.row.agent_name }}</el-button>
+</template>
                 </el-table-column>
                 <el-table-column prop="" label="居住地"
 :show-overflow-tooltip="true"  width="">
-                    <template slot-scope="scope">
-                        {{ scope.row.province + scope.row.city }}
-                    </template>
+<template slot-scope="scope">
+ {{ scope.row.province + scope.row.city }}
+</template>
                 </el-table-column>
                 <!-- 校园代表 -->
                 <el-table-column prop="" label="校园代表" width="">
-                    <template slot-scope="scope">
-                        <span v-if="scope.row.campus_agent == 1">否</span>
-                        <span v-else-if="scope.row.campus_agent == 2">是</span>
-                    </template>
+<template slot-scope="scope">
+<span v-if="scope.row.campus_agent == 1">否</span>
+<span v-else-if="scope.row.campus_agent == 2">是</span>
+</template>
                 </el-table-column>
                 <el-table-column prop="" label="状态" width="70px">
-                    <template slot-scope="scope">
-                        <span v-if="scope.row.traveler_status == 0">待审核</span>
-                        <span v-else-if="scope.row.traveler_status == 1">可用</span>
-                        <span v-else-if="scope.row.traveler_status == 2">审批拒绝</span>
-                        <span v-else-if="scope.row.traveler_status == 3">不可用</span>
-                    </template>
+<template slot-scope="scope">
+<span v-if="scope.row.traveler_status == 0">待审核</span>
+<span v-else-if="scope.row.traveler_status == 1">可用</span>
+<span v-else-if="scope.row.traveler_status == 2">审批拒绝</span>
+<span v-else-if="scope.row.traveler_status == 3">不可用</span>
+</template>
                 </el-table-column>
                 <!-- 注册时间 createtime-->
                 <el-table-column prop="createtime" label="注册时间" :show-overflow-tooltip="true" width="">
                 </el-table-column>
                 <el-table-column prop="" label="操作" width="">
-                <template slot-scope="scope">
-                    <el-button @click="handle_detail(scope.row)" type="text" size="small">详情</el-button>
-                    <!-- 1是可用状态；3是不可用状态 -->
-                    <el-button v-if="scope.row.traveler_status == 1" @click="handle_frozen(scope.row)" type="text" size="small">冻结</el-button>
-                    <el-button v-if="scope.row.traveler_status == 3" @click="handle_frozen(scope.row)" type="text" size="small">解冻</el-button>
-                </template>
+<template slot-scope="scope">
+<el-button v-if="roleId == 1" @click="resetPsw(scope.row)" type="text" size="small">重置密码</el-button>
+<el-button @click="handle_detail(scope.row)" type="text" size="small">
+  详情</el-button>
+<!-- 1是可用状态；3是不可用状态 -->
+<el-button v-if="scope.row.traveler_status == 1" @click="handle_frozen(scope.row)" type="text" size="small">冻结
+</el-button>
+<el-button v-if="scope.row.traveler_status == 3" @click="handle_frozen(scope.row)" type="text" size="small">解冻
+</el-button>
+</template>
                 </el-table-column>
             </el-table>
             <!-- 分页 -->
@@ -480,653 +477,917 @@
                 <el-button @click="up_detail_dialogVisible = false" size="mini">关 闭</el-button>
             </span>
         </el-dialog>
+        <!-- M7 dialog新增客服-->
+        <el-dialog
+            title="新增客服"
+            :visible.sync="add_dialogVisible"
+            width="55%"
+            top="8vh"
+            class=""
+            center
+            :close-on-click-modal="false"
+            v-loading="add_loading"
+            element-loading-text="拼命加载中"
+            element-loading-spinner="el-icon-loading"
+            element-loading-background="rgba(0, 0, 0, 0.8)"
+            >
+              <el-form :inline="true" :model="add_form_traveler" :rules="add_bank_traveler_rules" ref="add_form_traveler" label-width="80px" class="demo-form-inline valid_form">
+                  <el-form-item label="姓名" prop="name" >
+                      <el-input v-model="add_form_traveler.name" placeholder="姓名" class="wid_180"></el-input>
+                  </el-form-item>
+                  <el-form-item label="联系电话" prop="phone" >
+                      <el-input v-model="add_form_traveler.phone" placeholder="联系电话" class="wid_180"></el-input>
+                  </el-form-item>
+                  <el-form-item label="贝壳分成" prop="virtual_rate" >
+                      <el-input v-model.number="add_form_traveler.virtual_rate" placeholder="贝壳分成" class="wid_181"></el-input>%
+                  </el-form-item>
+                  <el-form-item label="向导ID" prop="customId" >
+                      <el-input v-model="add_form_traveler.customId" placeholder="向导ID" class="wid_130"></el-input>
+                      <el-button type="primary" size="mini" :loading="loading" @click="check_customId">检索</el-button>
+                      <span >{{ searchResult }}</span>
+                  </el-form-item>
+
+                  <!-- 贝壳提成分成 -->
+                  <el-form-item label="贝壳提成分成" prop="profit_virtual_rate" >
+                      <el-input v-model.number="add_form_traveler.profit_virtual_rate" placeholder="贝壳提成分成" class="wid_181"></el-input>%
+                  </el-form-item>
+                  <!-- 出行提成分成 -->
+                  <el-form-item label="出行提成分成" prop="profit_account_rate" >
+                      <el-input v-model.number="add_form_traveler.profit_account_rate" placeholder="出行提成分成" class="wid_181"></el-input>%
+                  </el-form-item>
+              </el-form>
+              <span slot="footer" class="dialog-footer">
+                  <el-button @click="add_dialogVisible = false" size="mini">取 消</el-button>
+                  <!-- 新增客服 -->
+                  <el-button type="primary"  @click="save_add" size="mini" :key="'vlyou'">确 定</el-button>
+              </span>
+        </el-dialog>
     </div>
 </template>
+
 <script>
-import provinces from '../../utils/area.js'
-import commonUrl from '../../utils/common'
-import {isvalidPhone} from '../../utils/validate'
+import provinces from "../../utils/area.js";
+import commonUrl from "../../utils/common";
+import { validNum100, validNum15, validDyNum, filterSpace} from '../../utils/validate'
+import {
+  isvalidPhone
+} from "../../utils/validate";
 
 export default {
-    name: 'travelerInfo',
-    data(){
-        return {
-            // 地图
-            districtSearch:'',
-            // 主列表
-            tableLoading:false,
-            tableData:[],
-            // 详情
-            detail_dialogVisible:false,
-            detail_loading:false,
-            up_detail_dialogVisible:false,
-            up_detail_loading:false,
-            agent_detail_dialogVisible:false,
-            agent_detail_loading:false,
-            // 分页
-            pageTotal: 0,
-            currentPage:1,
-            // 查询参数
-            queryForm: {
-                // 初始化 省 regions  市 cities
-                regions:'',
-                cities: [],
-                // 所属机构
-                agent_name:'',
-                // 省市
-                province_code: '',
-                city_code:'',
-                // 姓名
-                name:'',
-                // 向导id
-                customid:'',
-                // 向导状态
-                traveler_statuss:[
-                    {
-                        id:0,
-                        txt:'待审核'
-                    },
-                    {
-                        id:1,
-                        txt:'可用 '
-                    },
-                    {
-                        id:2,
-                        txt:'审批拒绝'
-                    },
-                    {
-                        id:3,
-                        txt:'不可用'
-                    }
-                ],
-                traveler_status:'',
-                // 上级姓名 上级id
-                up_customid:'',
-                up_name:'',
-
-                province_param:'',//作为收集参数
-                city_param: '',   //作为收集参数
-
-                // 校园代理
-                campus_agents:[
-                  {
-                    id:1,
-                    txt:'否'
-                  },
-                  {
-                    id:2,
-                    txt:'是'
-                  }
-                ],
-                campus_agent:'',
-
-            },
-            // 详情
-            detail_form:{
-                // 向导ID
-                customid:'',
-                // 向导姓名
-                name:'',
-                // 上级ID
-                up_customid:'',
-                // 上级姓名
-                up_name:'',
-                // 民族
-                traveler_native:'',
-                // 性别
-                sex:'',
-                // 居住地
-                juzhudi:'',
-                // 职业
-                profession:'',
-                // 详细地址
-                address:'',
-                // 身高
-                tall:'',
-                // 体重
-                weight:'',
-                // 手机号
-                phone:'',
-                // 微信号
-                webchat:'',
-                // 陌陌号
-                momo:'',
-                // 出生日期
-                birthday:'',
-                // 贝壳分成
-                virtual_rate:'',
-                // 出行分成
-                account_rate:'',
-
-            },
-            // 上级 详情
-            up_detail_form:{
-                // 向导ID
-                customid:'',
-                // 向导姓名
-                name:'',
-                // 上级ID
-                up_customid:'',
-                // 上级姓名
-                up_name:'',
-                // 民族
-                traveler_native:'',
-                // 性别
-                sex:'',
-                // 居住地
-                juzhudi:'',
-                // 职业
-                profession:'',
-                // 详细地址
-                address:'',
-                // 身高
-                tall:'',
-                // 体重
-                weight:'',
-                // 手机号
-                phone:'',
-                // 微信号
-                webchat:'',
-                // 陌陌号
-                momo:'',
-                // 出生日期
-                birthday:'',
-                // 贝壳分成
-                virtual_rate:'',
-                // 出行分成
-                account_rate:'',
-            },
-            bankInfo:'',
-            // 所属机构的详情
-            agent_detail_form:{
-                regions:[],
-                cities:[],
-                bankInfo:'',
-                // 机构编号
-                agentid:'',
-                // 机构名称
-                agent_name:'',
-                // 负责人
-                charger:'',
-                // 业务地区
-                province_code:'',
-                city_code:'',
-                // 联系地址
-                address:'',
-                // 贝壳分成
-                virtual_rate:'',
-                // 出行分成
-                account_rate:'',
-                // 电话
-                phone:'',
-                // 邮箱
-                email:'',
-                // 合同编号
-                contract_no:'',
-                // 开户行
-                bank_code:'',
-                // 开户名
-                account_user:'',
-                // 账号
-                account_no:'',
-                // 开户地
-                account_regions:'',
-                account_cities:[],
-                account_province_code:'',
-                account_city_code:'',
-            }
+  name: "travelerInfo",
+  data() {
+     // 校验手机号
+    let validPhone=(rule, value,callback)=>{
+        if (!value){
+            callback(new Error('请输入电话号码'))
+        }else  if (!isvalidPhone(value)){
+            callback(new Error('请输入正确手机号码'))
+        }else {
+            callback()
         }
-    },
-    created(){
-        // 初始化roleId
-        this.roleId = this.$store.getters.roleId
-        // 初始化 地图plugin
-        this.initMap();
-        // 初始化 银行信息
-        this.getBankList();
-        // 初始化 省份
-        this.initProvinces();
-        // 初始化 主列表
-        this.getTableDataList(1)
-    },
-    methods:{
-        // 初始化 银行信息
-        getBankList(){
-            this.$http.post(`${ commonUrl.baseUrl}/agent/addAgent`,{data:{
-                signInUserId: this.$store.getters.userId,
-                signInRoleId: this.$store.getters.roleId,
-            }}).then(res=>{
-                if(res.data.code == '0000'){
-
-                    this.bankInfo = this.agent_detail_form.bankInfo = res.data.data.bankList
-                    // 组合省份
-                    // let arr = [];
-                    // if(res.data.data.manageProvinceCodeList.length > 0){
-                    //     for(let item of res.data.data.manageProvinceCodeList){
-                    //         arr.push({
-                    //             adcode: item.province_code,
-                    //             province: provinces.province_list[item.province_code]
-                    //         })
-                    //     }
-                    // }
-                    // this.add_form.regions = arr;
-
-                }
-            }).catch(err=>{
-
-            })
-        },
-        // 获取主列表
-        getTableDataList(pageNum){
-            let param = {
-               data:{
-                    // 公有
-                    signInUserId: this.$store.getters.userId,
-                    signInRoleId: this.$store.getters.roleId,
-                    pageNum: pageNum,
-                    pageSize: 10,
-                    // 私有
-                    // 所属机构 姓名 向导状态 上级id  上级姓名
-                    agent_name:this.queryForm.agent_name,
-                    name:this.queryForm.name,
-                    // 向导id
-                    customid:this.queryForm.customid,
-                    traveler_status:this.queryForm.traveler_status,
-                    up_customid:this.queryForm.up_customid,
-                    up_name:this.queryForm.up_name,
-
-                    province_code:this.queryForm.province_code,
-                    city_code:this.queryForm.city_code,
-                    // 校园代理
-                    campus_agent:this.queryForm.campus_agent,
-               }
-            }
-            this.tableLoading = true
-            this.$http.post(`${ commonUrl.baseUrl }/travelerInfo/travelerInfoList`, param).then(res=>{
-                if(res.data.code == '0000'){
-                    console.log(res)
-                    this.tableData = res.data.data.travelerInfoList
-                    // 分页总数
-                    this.pageTotal = res.data.data.page.pageTotal;
-                    this.tableLoading = false
-                }
-            }).catch(err=>{
-
-            })
-        },
-        // 查询按钮
-        queryData(){
-            // console.log(this.queryForm)
-            // 根据参数进行查询
-            this.getTableDataList(1)
-        },
-        // 重置按钮
-        resetData(formName){
-            if(this.$refs[formName]){
-                this.$refs[formName].resetFields();
-            }
-        },
-        // 刷新按钮
-        handle_refresh(){
-            this.getTableDataList(1);
-            this.currentPage = 1
-        },
-        // 上级姓名操作
-        handle_up_name(row){
-            console.log(row.agentid)
-            let param = {
-                data:{
-                    up_customid:row.up_customid
-                }
-            }
-            this.up_detail_dialogVisible = true
-            this.up_detail_loading = true
-            this.$http.post(`${commonUrl.baseUrl}/travelerInfo/findByUpCustomId`, param).then(res=>{
-                if(res.data.code == '0000'){
-                    console.log(res)
-                    let result = res.data.data.travelerInfo
-
-                    // 向导姓名
-                    this.up_detail_form.name = result.name
-                    // 向导ID
-                    this.up_detail_form.customid = result.customid
-                    // 所属机构
-                    this.up_detail_form.agent_name = result.agent_name
-                    // 上级ID
-                    this.up_detail_form.up_customid = result.up_customid
-                    // 上级姓名
-                    this.up_detail_form.up_name = result.up_name
-                    // 民族 性别  居住地  职业 详细地址 身高 体重 手机号 微信号 陌陌号  出生日期
-                    this.up_detail_form.traveler_native = result.traveler_native
-                    this.up_detail_form.sex = result.sex == '01' ?'男' :'女'
-                    this.up_detail_form.juzhudi = result.province +  result.city
-                    // 判断职业
-                    // '职业类别 0其他 1学生 2都市白领 3导游 4自由职业
-                    let  _profession = '';
-                    switch(result.profession_type){
-                        case 0:
-                            _profession = '其他';
-                            break;
-                        case 1:
-                            _profession = '学生';
-                            break;
-                        case 2:
-                            _profession = '都市白领';
-                            break;
-                        case 3:
-                            _profession = '导游';
-                            break;
-                        case 4:
-                            _profession = '自由职业';
-                            break;
-                    }
-                    this.up_detail_form.profession = _profession
-                    this.up_detail_form.address = result.address
-                    this.up_detail_form.tall = result.tall + 'cm'
-                    this.up_detail_form.weight = result.weight + 'kg'
-                    this.up_detail_form.phone  = result.phone
-                    this.up_detail_form.webchat = result.webchat
-                    this.up_detail_form.momo = result.momo
-                    this.up_detail_form.birthday = result.birthday
-                    // 贝壳分成
-                    this.up_detail_form.virtual_rate = result.virtual_rate
-                    // 出行分成
-                    this.up_detail_form.account_rate = result.account_rate
-                    this.up_detail_loading = false
-                }
-            }).catch(err=>{})
-        },
-        // 所属机构操作
-        handle_agent_name(row){
-            let param = {
-                data:{
-                    agentid:row.agentid
-                }
-            }
-            this.agent_detail_dialogVisible = true
-            this.agent_detail_loading = true
-            this.$http.post(`${ commonUrl.baseUrl }/agent/selectAgentInfo`, {data:{agentid:row.agentid}}).then(res=>{
-                if(res.data.code == '0000'){
-                    console.log('机构信息：')
-                    console.log(res)
-                    let result = res.data.data.agentInfo
-                    // 机构id
-                    this.agent_detail_form.agentid = result.agentid
-                    // 机构名称
-                    this.agent_detail_form.agent_name = result.agent_name
-                    // 负责人
-                    this.agent_detail_form.charger = result.charger
-                    // 业务地区
-                    this.agent_detail_form.province_code = result.province_code
-                    // 根据省查询所有市
-                    this.queryCity(result.province, 'agent_detail_form')
-
-                    this.agent_detail_form.city_code = result.city_code
-                    // 联系地址
-                    this.agent_detail_form.address = result.address
-                    // 贝壳分成
-                    this.agent_detail_form.virtual_rate = result.virtual_rate
-                    // 出行分成
-                    this.agent_detail_form.account_rate = result.account_rate
-                    // 电话
-                    this.agent_detail_form.phone = result.phone
-                    // 邮箱
-                    this.agent_detail_form.email = result.email
-                    // 合同编号
-                    this.agent_detail_form.contract_no = result.contract_no
-                    // 开户行
-                    this.agent_detail_form.bank_code = result.bank_code
-                    // 开户名
-                    this.agent_detail_form.account_user = result.account_user
-                    // 账号
-                    this.agent_detail_form.account_no = result.account_no
-                    // 开户地
-                    // 查询开户行所在省份下的所有市列表
-                    this.queryBankCity(result.account_province, 'agent_detail_form')
-                    this.agent_detail_form.account_province_code = result.account_pro_code
-                    this.agent_detail_form.account_city_code = result.account_city_code
-
-                    this.agent_detail_loading = false
-                }
-            }).catch(err=>{})
-        },
-        // 冻结操作
-        handle_frozen(row){
-            console.log(row)
-            this.$confirm('是否冻结该向导?', '冻结', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning',
-                    size:'mini',
-                    center: true
-                })
-                .then(() => {
-                    let  _flag = '';
-                    if(row.traveler_status == 1){
-                        _flag = 3
-                    }else{
-                        _flag = 1
-                    }
-                    let param = {
-                        data:{
-                            traveler_status:_flag,
-                            travelerid:row.travelerid
-                        }
-                    }
-                    this.$http.post(`${ commonUrl.baseUrl }/travelerInfo/updateTravelerStatus`, param).then(res=>{
-                        if(res.data.code == '0000'){
-                            this.m_message(res.data.msg, 'success');
-
-                            // 刷新
-                            this.handle_refresh()
-                        }else{
-                             this.m_message(res.data.msg, 'warning');
-                        }
-                    }).catch(err=>{})
-                })
-        },
-        // 详情操作
-        handle_detail(row){
-            this.detail_dialogVisible = true
-            this.detail_loading = true
-            this.$http.post(`${ commonUrl.baseUrl }/travelerInfo/selectTravelerInfo`, {data:{travelerid:row.travelerid}}).then(res=>{
-                if(res.data.code == '0000'){
-                    console.log(res)
-                    let result = res.data.data.travelerInfo
-
-                    // 向导姓名
-                    this.detail_form.name = result.name
-                    // 向导ID
-                    this.detail_form.customid = result.customid
-                    // 所属机构
-                    this.detail_form.agent_name = result.agent_name
-                    // 上级ID
-                    this.detail_form.up_customid = result.up_customid
-                    // 上级姓名
-                    this.detail_form.up_name = result.up_name
-                    // 民族 性别  居住地  职业 详细地址 身高 体重 手机号 微信号 陌陌号  出生日期
-                    this.detail_form.traveler_native = result.traveler_native
-                    this.detail_form.sex = result.sex == '01' ?'男' :'女'
-                    this.detail_form.juzhudi = result.province +  result.city
-                    // 判断职业
-                    // '职业类别 0其他 1学生 2都市白领 3导游 4自由职业
-                    let  _profession = '';
-                    switch(result.profession_type){
-                        case 0:
-                            _profession = '其他';
-                            break;
-                        case 1:
-                            _profession = '学生';
-                            break;
-                        case 2:
-                            _profession = '都市白领';
-                            break;
-                        case 3:
-                            _profession = '导游';
-                            break;
-                        case 4:
-                            _profession = '自由职业';
-                            break;
-                    }
-                    this.detail_form.profession = _profession
-                    this.detail_form.address = result.address
-                    this.detail_form.tall = result.tall + 'cm'
-                    this.detail_form.weight = result.weight + 'kg'
-                    this.detail_form.phone  = result.phone
-                    this.detail_form.webchat = result.webchat
-                    this.detail_form.momo = result.momo
-                    this.detail_form.birthday = result.birthday
-                    // 贝壳分成
-                    this.detail_form.virtual_rate = result.virtual_rate
-                    // 出行分成
-                    this.detail_form.account_rate = result.account_rate
-                    this.detail_loading = false
-                }
-            }).catch(err=>{})
-        },
-        // 省份change事件
-        changeOption_province(e){
-            // 参数收集
-            this.queryForm.province_param = { adcode:e, txt: provinces.province_list[e] }
-            // console.log(e)
-            // console.log(provinces.province_list[e])
-            // 赋值cities (先清理 后赋值)
-            this.queryForm.cities = [];
-            this.queryForm.city_code = '';
-            this.queryCity(provinces.province_list[e], 'queryForm');
-        },
-        // 市区change事件
-        changeOption_city(e){
-
-        },
-        // 机构状态change事件
-        changeOption_traveler_status(e){
-            console.log(e);
-        },
-
-        // 开户地 省
-        changeOption_province_addBank(e){
-            this.detail_check_form.account_province_param = { provincename:provinces.province_list[e], adcode:e }
-            // 赋值cities (先清理 后赋值)
-            this.detail_check_form.account_cities = [];
-            this.detail_check_form.account_city_code = '';
-            this.queryBankCity(provinces.province_list[e],'detail_check_form');
-        },
-        // 开户地 市
-        changeOption_city_addBank(e){
-            for(let item of this.detail_check_form.account_cities){
-               if(item.adcode == e){
-
-                   this.detail_check_form.account_city_param = { cityname:item.city, adcode:e  }
-               }
-            }
-        },
-        // 选择开户行
-        changeOption_bank(e){
-
-            for(let item of this.detail_check_form.bankInfo){
-                if(item.bankcode == e ){
-                    this.detail_check_form.account_bank = item.bankname
-                }
-            }
-
-        },
-        // 提示信息 message:提示信息   type 提示类型
-        m_message(message,type){
-            this.$message({
-                message,
-                type
-            })
-        },
-        // 新增 校验规则
-        m_valid_addForm(formName) {
-            let  flag  = false ;
-            this.$refs[formName].validate((valid) => {
-                if (valid) {
-                flag = true;
-                return true
-                } else {
-                flag = false;
-                return false;
-                }
-            });
-            return flag;
-        },
-        // 查 市区 txt: String 省份名,dataOrigin 是指 add_form  或是queryeForm 这种 父级数据源
-        queryCity(txt,dataOrigin){
-
-            let vm = this
-            // 搜索所有省/直辖市信息
-
-            this.districtSearch.search(txt, function (status, result) {
-                // console.log(result)
-                // 查询成功时，result即为对应的行政区信息
-                for(let item of result.districtList[0].districtList){
-                    vm[dataOrigin].cities.push({
-                        adcode:item.adcode,
-                        city  :item.name
-                     })
-                }
-
-            })
-
-        },
-        // 针对 account_cities这个特殊（后期合并方法***）
-        queryBankCity(txt,dataOrigin){
-
-            let vm = this
-            // 搜索所有省/直辖市信息
-
-            this.districtSearch.search(txt, function (status, result) {
-
-                // 查询成功时，result即为对应的行政区信息
-                for(let item of result.districtList[0].districtList){
-                    vm[dataOrigin].account_cities.push({
-                        adcode:item.adcode,
-                        city  :item.name
-                     })
-                }
-
-            })
-
-        },
-        // 分页
-        handleCurrentChange(val){
-             this.currentPage = val
-            // 获取单前页数据列表
-            this.getTableDataList(val);
-        },
-        // 初始化 地图
-        initMap(){
-            let vm = this
-            //利用高德地图API 获取 所有省
-            AMap.plugin('AMap.DistrictSearch', function () {
-                vm.districtSearch = new AMap.DistrictSearch({
-                    // 关键字对应的行政区级别，country表示国家
-                    level: 'city',
-                    //  显示下级行政区级数，1表示返回下一级行政区
-                    subdistrict: 1
-                })
-            })
-
-
-        },
-        // 初始化 省份数据
-        initProvinces(){
-            // 处理一下 数据
-            let arr = [];
-            for(let i in provinces.province_list){
-                arr.push({
-                    adcode:i,
-                    province:provinces.province_list[i]
-                })
-            }
-            this.queryForm.regions = arr
-            // 详情
-            this.detail_form.regions = this.detail_form.account_regions = arr
-            // 详情并修改
-            this.agent_detail_form.regions = this.agent_detail_form.account_regions = arr
-        },
     }
-}
+    // 校验分成
+    let validRate=(val,value,callback)=>{
+        if (!value ){
+            callback(new Error('请输入值'))
+        }else  if (!validNum100(value)){
+            callback(new Error('请输入0-100之间的数'))
+        }else {
+            callback()
+        }
+    }
+    // 提成分成15
+    let validRate15=(val,value,callback)=>{
+        if (!value && value != 0){
+            callback(new Error('请输入值'))
+        }else  if (!validNum15(value)){
+            callback(new Error('请输入0-15之间的数'))
+        }else {
+            callback()
+        }
+    }
+    // 校验分成 动态上限 dyval是上限值
+    let validRateDy=(val,value,callback)=>{
+      let dyval = this.limit_virtual_rate
+      if (!value && value != 0){
+          callback(new Error('请输入值'))
+        }else  if (!validDyNum(value,dyval)){
+          callback(new Error('请输入0-'+dyval+'之间的数'))
+        }else {
+          callback()
+      }
+    }
+    return {
+      roleId:'',
+      loading:false,
+      searchResult:'',
+      // 新增客服弹框
+      add_dialogVisible: false,
+      add_loading:false,
+      limit_virtual_rate:'',
+      add_form_traveler:{
+        name:'',
+        customId:'',
+        virtual_rate:'',
+        profit_virtual_rate:'',
+        profit_account_rate:'',
+        phone:'',
+      },
+      add_bank_traveler_rules:{
+        name:[
+            { required: true, message: '请输入姓名', trigger: 'blur' }
+        ],
+        customId:[
+            { required: true, message: '请输入向导ID', trigger: 'blur' }
+        ],
+        // 贝壳分成
+        virtual_rate:[
+            { required: true, validator:validRateDy, trigger: 'blur' },
+            { type: 'number', message: '贝壳分成必须为数字'}
+        ],
+        // 贝壳提成分成
+        profit_virtual_rate:[
+            { required: true, validator:validRate15, trigger: 'blur' },
+            { type: 'number', message: '贝壳分成必须为数字'}
+        ],
+        // 出行提成分成
+        profit_account_rate:[
+            { required: true, validator:validRate15, trigger: 'blur' },
+            { type: 'number', message: '贝壳分成必须为数字'}
+        ],
+        phone:[
+            { required: true, validator:validPhone, trigger: 'blur' }
+        ],
+      },
+      // 地图
+      districtSearch: "",
+      // 主列表
+      tableLoading: false,
+      tableData: [],
+      // 详情
+      detail_dialogVisible: false,
+      detail_loading: false,
+      up_detail_dialogVisible: false,
+      up_detail_loading: false,
+      agent_detail_dialogVisible: false,
+      agent_detail_loading: false,
+      // 分页
+      pageTotal: 0,
+      currentPage: 1,
+      // 查询参数
+      queryForm: {
+        // 初始化 省 regions  市 cities
+        regions: "",
+        cities: [],
+        // 所属机构
+        agent_name: "",
+        // 省市
+        province_code: "",
+        city_code: "",
+        // 姓名
+        name: "",
+        // 向导id
+        customid: "",
+        // 向导状态
+        traveler_statuss: [{
+            id: 0,
+            txt: "待审核"
+          },
+          {
+            id: 1,
+            txt: "可用 "
+          },
+          {
+            id: 2,
+            txt: "审批拒绝"
+          },
+          {
+            id: 3,
+            txt: "不可用"
+          }
+        ],
+        traveler_status: "",
+        // 上级姓名 上级id
+        up_customid: "",
+        up_name: "",
+
+        province_param: "", //作为收集参数
+        city_param: "", //作为收集参数
+
+        // 校园代理
+        campus_agents: [{
+            id: 1,
+            txt: "否"
+          },
+          {
+            id: 2,
+            txt: "是"
+          }
+        ],
+        campus_agent: "",
+        // 人员类别
+        traveler_types:[
+          {
+            id:1,
+            txt:'兼职向导'
+          },
+          {
+            id:2,
+            txt:'全职向导'
+          },
+          {
+            id:3,
+            txt:'角落客服'
+          }
+        ],
+        traveler_type:''
+      },
+      // 详情
+      detail_form: {
+        // 向导ID
+        customid: "",
+        // 向导姓名
+        name: "",
+        // 上级ID
+        up_customid: "",
+        // 上级姓名
+        up_name: "",
+        // 民族
+        traveler_native: "",
+        // 性别
+        sex: "",
+        // 居住地
+        juzhudi: "",
+        // 职业
+        profession: "",
+        // 详细地址
+        address: "",
+        // 身高
+        tall: "",
+        // 体重
+        weight: "",
+        // 手机号
+        phone: "",
+        // 微信号
+        webchat: "",
+        // 陌陌号
+        momo: "",
+        // 出生日期
+        birthday: "",
+        // 贝壳分成
+        virtual_rate: "",
+        // 出行分成
+        account_rate: ""
+      },
+      // 上级 详情
+      up_detail_form: {
+        // 向导ID
+        customid: "",
+        // 向导姓名
+        name: "",
+        // 上级ID
+        up_customid: "",
+        // 上级姓名
+        up_name: "",
+        // 民族
+        traveler_native: "",
+        // 性别
+        sex: "",
+        // 居住地
+        juzhudi: "",
+        // 职业
+        profession: "",
+        // 详细地址
+        address: "",
+        // 身高
+        tall: "",
+        // 体重
+        weight: "",
+        // 手机号
+        phone: "",
+        // 微信号
+        webchat: "",
+        // 陌陌号
+        momo: "",
+        // 出生日期
+        birthday: "",
+        // 贝壳分成
+        virtual_rate: "",
+        // 出行分成
+        account_rate: ""
+      },
+      bankInfo: "",
+      // 所属机构的详情
+      agent_detail_form: {
+        regions: [],
+        cities: [],
+        bankInfo: "",
+        // 机构编号
+        agentid: "",
+        // 机构名称
+        agent_name: "",
+        // 负责人
+        charger: "",
+        // 业务地区
+        province_code: "",
+        city_code: "",
+        // 联系地址
+        address: "",
+        // 贝壳分成
+        virtual_rate: "",
+        // 出行分成
+        account_rate: "",
+        // 电话
+        phone: "",
+        // 邮箱
+        email: "",
+        // 合同编号
+        contract_no: "",
+        // 开户行
+        bank_code: "",
+        // 开户名
+        account_user: "",
+        // 账号
+        account_no: "",
+        // 开户地
+        account_regions: "",
+        account_cities: [],
+        account_province_code: "",
+        account_city_code: ""
+      }
+    };
+  },
+  created() {
+    // 初始化roleId
+    this.roleId = this.$store.getters.roleId;
+    // 初始化 地图plugin
+    this.initMap();
+    // 初始化 银行信息
+    this.getBankList();
+    // 初始化 省份
+    this.initProvinces();
+    // 初始化 主列表
+    this.getTableDataList(1);
+  },
+  methods: {
+    // 初始化 银行信息
+    getBankList() {
+      this.$http
+        .post(`${commonUrl.baseUrl}/agent/addAgent`, {
+          data: {
+            signInUserId: this.$store.getters.userId,
+            signInRoleId: this.$store.getters.roleId
+          }
+        })
+        .then(res => {
+          if (res.data.code == "0000") {
+            this.bankInfo = this.agent_detail_form.bankInfo =
+              res.data.data.bankList;
+            // 组合省份
+            // let arr = [];
+            // if(res.data.data.manageProvinceCodeList.length > 0){
+            //     for(let item of res.data.data.manageProvinceCodeList){
+            //         arr.push({
+            //             adcode: item.province_code,
+            //             province: provinces.province_list[item.province_code]
+            //         })
+            //     }
+            // }
+            // this.add_form.regions = arr;
+          }
+        })
+        .catch(err => {});
+    },
+    // 新增客服操作
+    handle_add(){
+      this.add_dialogVisible = true
+      this.add_loading = true
+      this.resetData('add_form_traveler')
+      let param = {
+        data:{}
+      }
+      // 初始化新增
+      this.$http.post(`${ commonUrl.baseUrl}/travelerInfo/addTravelAdvisoryPage`,param).then(res=>{
+          if(res.data.code == '0000'){
+            // 假设一个上限值
+            this.limit_virtual_rate = 12
+            this.add_loading = false
+
+          }
+      }).catch(err=>{  })
+    },
+    // 检索昵称
+    check_customId(){
+      let param = {
+          data:{
+              customId:this.add_form_traveler.customId
+          }
+      }
+      this.loading = true
+      this.$http.post(`${ commonUrl.baseUrl }/customInfo/selectNickname`, param).then(res=>{
+          if(res.data.code == '0000'){
+            console.log(res)
+            debugger
+              let result = res.data.data.nickname
+              this.searchResult = result.nickname
+              this.loading = false
+          }else{
+              this.m_message(res.data.msg, 'warning')
+              this.loading = false
+          }
+      }).catch(err=>{})
+        },
+    // 保存新增客服
+    save_add(){
+      if(this.m_valid_addForm('add_form_traveler')){
+        let param = {
+          data:{
+            // 私参
+            customId:this.add_form_traveler.customId,
+            name:this.add_form_traveler.name,
+            phone:this.add_form_traveler.phone,
+            virtual_rate:this.add_form_traveler.virtual_rate,
+            // 贝壳提成分成  出行提成分成
+            profit_virtual_rate:this.add_form_traveler.profit_virtual_rate,
+            profit_account_rate:this.add_form_traveler.profit_account_rate
+          }
+        }
+        this.add_loading = true
+        this.$http.post(`${ commonUrl.baseUrl }/travelerInfo/addTravelAdvisory`, param).then(res=>{
+            if(res.data.code == '0000'){
+                this.add_loading = false
+                this.add_dialogVisible = false
+                this.m_message(res.data.msg,'success')
+                this.handle_refresh();
+                // 清空旅游数据
+                this.searchResult = '' // 清空 查询结果
+                this.resetData('add_form_traveler')
+            }else{
+                this.add_loading = false
+                this.m_message(res.data.msg,'success')
+            }
+
+        }).catch(err=>{})
+      }
+    },
+    // 获取主列表
+    getTableDataList(pageNum) {
+      let param = {
+        data: {
+          // 公有
+          signInUserId: this.$store.getters.userId,
+          signInRoleId: this.$store.getters.roleId,
+          pageNum: pageNum,
+          pageSize: 10,
+          // 私有
+          // 所属机构 姓名 向导状态 上级id  上级姓名
+          agent_name: this.queryForm.agent_name,
+          name: this.queryForm.name,
+          // 向导id
+          customid: this.queryForm.customid,
+          traveler_status: this.queryForm.traveler_status,
+          up_customid: this.queryForm.up_customid,
+          up_name: this.queryForm.up_name,
+
+          province_code: this.queryForm.province_code,
+          city_code: this.queryForm.city_code,
+          // 校园代理
+          campus_agent: this.queryForm.campus_agent,
+          // 人员类别
+          traveler_type:this.queryForm.traveler_type
+        }
+      };
+      this.tableLoading = true;
+      this.$http
+        .post(`${commonUrl.baseUrl}/travelerInfo/travelerInfoList`, param)
+        .then(res => {
+          if (res.data.code == "0000") {
+            console.log(res);
+            this.tableData = res.data.data.travelerInfoList;
+            // 分页总数
+            this.pageTotal = res.data.data.page.pageTotal;
+            this.tableLoading = false;
+          }
+        })
+        .catch(err => {});
+    },
+    // 重置密码操作
+    resetPsw(row) {
+      this.$confirm("是否重置密码", "重置密码", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+        size: "mini",
+        center: true
+      }).then(() => {
+        let param = {
+          data: {
+            travelerid: row.travelerid,
+            signInRoleId:this.roleId
+          }
+        };
+        this.$http
+          .post(`${commonUrl.baseUrl}/travelerInfo/resetTravelerPassword`, param)
+          .then(res => {
+            if (res.data.code == "0000") {
+              this.m_message(res.data.msg, "success");
+              // 刷新
+              this.handle_refresh();
+            } else {
+              this.m_message(res.data.msg, "warning");
+            }
+          })
+          .catch(err => {});
+      });
+    },
+    // 查询按钮
+    queryData() {
+      // console.log(this.queryForm)
+      // 根据参数进行查询
+      this.getTableDataList(1);
+    },
+    // 重置按钮
+    resetData(formName) {
+      if (this.$refs[formName]) {
+        this.$refs[formName].resetFields();
+      }
+    },
+    // 刷新按钮
+    handle_refresh() {
+      this.getTableDataList(1);
+      this.currentPage = 1;
+    },
+    // 上级姓名操作
+    handle_up_name(row) {
+      console.log(row.agentid);
+      let param = {
+        data: {
+          up_customid: row.up_customid
+        }
+      };
+      this.up_detail_dialogVisible = true;
+      this.up_detail_loading = true;
+      this.$http
+        .post(`${commonUrl.baseUrl}/travelerInfo/findByUpCustomId`, param)
+        .then(res => {
+          if (res.data.code == "0000") {
+            console.log(res);
+            let result = res.data.data.travelerInfo;
+
+            // 向导姓名
+            this.up_detail_form.name = result.name;
+            // 向导ID
+            this.up_detail_form.customid = result.customid;
+            // 所属机构
+            this.up_detail_form.agent_name = result.agent_name;
+            // 上级ID
+            this.up_detail_form.up_customid = result.up_customid;
+            // 上级姓名
+            this.up_detail_form.up_name = result.up_name;
+            // 民族 性别  居住地  职业 详细地址 身高 体重 手机号 微信号 陌陌号  出生日期
+            this.up_detail_form.traveler_native = result.traveler_native;
+            this.up_detail_form.sex = result.sex == "01" ? "男" : "女";
+            this.up_detail_form.juzhudi = result.province + result.city;
+            // 判断职业
+            // '职业类别 0其他 1学生 2都市白领 3导游 4自由职业
+            let _profession = "";
+            switch (result.profession_type) {
+              case 0:
+                _profession = "其他";
+                break;
+              case 1:
+                _profession = "学生";
+                break;
+              case 2:
+                _profession = "都市白领";
+                break;
+              case 3:
+                _profession = "导游";
+                break;
+              case 4:
+                _profession = "自由职业";
+                break;
+            }
+            this.up_detail_form.profession = _profession;
+            this.up_detail_form.address = result.address;
+            this.up_detail_form.tall = result.tall + "cm";
+            this.up_detail_form.weight = result.weight + "kg";
+            this.up_detail_form.phone = result.phone;
+            this.up_detail_form.webchat = result.webchat;
+            this.up_detail_form.momo = result.momo;
+            this.up_detail_form.birthday = result.birthday;
+            // 贝壳分成
+            this.up_detail_form.virtual_rate = result.virtual_rate;
+            // 出行分成
+            this.up_detail_form.account_rate = result.account_rate;
+            this.up_detail_loading = false;
+          }
+        })
+        .catch(err => {});
+    },
+    // 所属机构操作
+    handle_agent_name(row) {
+      let param = {
+        data: {
+          agentid: row.agentid
+        }
+      };
+      this.agent_detail_dialogVisible = true;
+      this.agent_detail_loading = true;
+      this.$http
+        .post(`${commonUrl.baseUrl}/agent/selectAgentInfo`, {
+          data: {
+            agentid: row.agentid
+          }
+        })
+        .then(res => {
+          if (res.data.code == "0000") {
+            console.log("机构信息：");
+            console.log(res);
+            let result = res.data.data.agentInfo;
+            // 机构id
+            this.agent_detail_form.agentid = result.agentid;
+            // 机构名称
+            this.agent_detail_form.agent_name = result.agent_name;
+            // 负责人
+            this.agent_detail_form.charger = result.charger;
+            // 业务地区
+            this.agent_detail_form.province_code = result.province_code;
+            // 根据省查询所有市
+            this.queryCity(result.province, "agent_detail_form");
+
+            this.agent_detail_form.city_code = result.city_code;
+            // 联系地址
+            this.agent_detail_form.address = result.address;
+            // 贝壳分成
+            this.agent_detail_form.virtual_rate = result.virtual_rate;
+            // 出行分成
+            this.agent_detail_form.account_rate = result.account_rate;
+            // 电话
+            this.agent_detail_form.phone = result.phone;
+            // 邮箱
+            this.agent_detail_form.email = result.email;
+            // 合同编号
+            this.agent_detail_form.contract_no = result.contract_no;
+            // 开户行
+            this.agent_detail_form.bank_code = result.bank_code;
+            // 开户名
+            this.agent_detail_form.account_user = result.account_user;
+            // 账号
+            this.agent_detail_form.account_no = result.account_no;
+            // 开户地
+            // 查询开户行所在省份下的所有市列表
+            this.queryBankCity(result.account_province, "agent_detail_form");
+            this.agent_detail_form.account_province_code =
+              result.account_pro_code;
+            this.agent_detail_form.account_city_code = result.account_city_code;
+
+            this.agent_detail_loading = false;
+          }
+        })
+        .catch(err => {});
+    },
+    // 冻结操作
+    handle_frozen(row) {
+      console.log(row);
+      this.$confirm("是否冻结该向导?", "冻结", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+        size: "mini",
+        center: true
+      }).then(() => {
+        let _flag = "";
+        if (row.traveler_status == 1) {
+          _flag = 3;
+        } else {
+          _flag = 1;
+        }
+        let param = {
+          data: {
+            traveler_status: _flag,
+            travelerid: row.travelerid
+          }
+        };
+        this.$http
+          .post(`${commonUrl.baseUrl}/travelerInfo/updateTravelerStatus`, param)
+          .then(res => {
+            if (res.data.code == "0000") {
+              this.m_message(res.data.msg, "success");
+
+              // 刷新
+              this.handle_refresh();
+            } else {
+              this.m_message(res.data.msg, "warning");
+            }
+          })
+          .catch(err => {});
+      });
+    },
+    // 详情操作
+    handle_detail(row) {
+      this.detail_dialogVisible = true;
+      this.detail_loading = true;
+      this.$http
+        .post(`${commonUrl.baseUrl}/travelerInfo/selectTravelerInfo`, {
+          data: {
+            travelerid: row.travelerid
+          }
+        })
+        .then(res => {
+          if (res.data.code == "0000") {
+            console.log(res);
+            let result = res.data.data.travelerInfo;
+
+            // 向导姓名
+            this.detail_form.name = result.name;
+            // 向导ID
+            this.detail_form.customid = result.customid;
+            // 所属机构
+            this.detail_form.agent_name = result.agent_name;
+            // 上级ID
+            this.detail_form.up_customid = result.up_customid;
+            // 上级姓名
+            this.detail_form.up_name = result.up_name;
+            // 民族 性别  居住地  职业 详细地址 身高 体重 手机号 微信号 陌陌号  出生日期
+            this.detail_form.traveler_native = result.traveler_native;
+            this.detail_form.sex = result.sex == "01" ? "男" : "女";
+            this.detail_form.juzhudi = result.province + result.city;
+            // 判断职业
+            // '职业类别 0其他 1学生 2都市白领 3导游 4自由职业
+            let _profession = "";
+            switch (result.profession_type) {
+              case 0:
+                _profession = "其他";
+                break;
+              case 1:
+                _profession = "学生";
+                break;
+              case 2:
+                _profession = "都市白领";
+                break;
+              case 3:
+                _profession = "导游";
+                break;
+              case 4:
+                _profession = "自由职业";
+                break;
+            }
+            this.detail_form.profession = _profession;
+            this.detail_form.address = result.address;
+            this.detail_form.tall = result.tall + "cm";
+            this.detail_form.weight = result.weight + "kg";
+            this.detail_form.phone = result.phone;
+            this.detail_form.webchat = result.webchat;
+            this.detail_form.momo = result.momo;
+            this.detail_form.birthday = result.birthday;
+            // 贝壳分成
+            this.detail_form.virtual_rate = result.virtual_rate;
+            // 出行分成
+            this.detail_form.account_rate = result.account_rate;
+            this.detail_loading = false;
+          }
+        })
+        .catch(err => {});
+    },
+    // 省份change事件
+    changeOption_province(e) {
+      // 参数收集
+      this.queryForm.province_param = {
+        adcode: e,
+        txt: provinces.province_list[e]
+      };
+      // console.log(e)
+      // console.log(provinces.province_list[e])
+      // 赋值cities (先清理 后赋值)
+      this.queryForm.cities = [];
+      this.queryForm.city_code = "";
+      this.queryCity(provinces.province_list[e], "queryForm");
+    },
+    // 市区change事件
+    changeOption_city(e) {},
+    // 机构状态change事件
+    changeOption_traveler_status(e) {
+      console.log(e);
+    },
+
+    // 开户地 省
+    changeOption_province_addBank(e) {
+      this.detail_check_form.account_province_param = {
+        provincename: provinces.province_list[e],
+        adcode: e
+      };
+      // 赋值cities (先清理 后赋值)
+      this.detail_check_form.account_cities = [];
+      this.detail_check_form.account_city_code = "";
+      this.queryBankCity(provinces.province_list[e], "detail_check_form");
+    },
+    // 开户地 市
+    changeOption_city_addBank(e) {
+      for (let item of this.detail_check_form.account_cities) {
+        if (item.adcode == e) {
+          this.detail_check_form.account_city_param = {
+            cityname: item.city,
+            adcode: e
+          };
+        }
+      }
+    },
+    // 选择开户行
+    changeOption_bank(e) {
+      for (let item of this.detail_check_form.bankInfo) {
+        if (item.bankcode == e) {
+          this.detail_check_form.account_bank = item.bankname;
+        }
+      }
+    },
+    // 提示信息 message:提示信息   type 提示类型
+    m_message(message, type) {
+      this.$message({
+        message,
+        type
+      });
+    },
+    // 新增 校验规则
+    m_valid_addForm(formName) {
+      let flag = false;
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          flag = true;
+          return true;
+        } else {
+          flag = false;
+          return false;
+        }
+      });
+      return flag;
+    },
+    // 查 市区 txt: String 省份名,dataOrigin 是指 add_form  或是queryeForm 这种 父级数据源
+    queryCity(txt, dataOrigin) {
+      let vm = this;
+      // 搜索所有省/直辖市信息
+
+      this.districtSearch.search(txt, function(status, result) {
+        // console.log(result)
+        // 查询成功时，result即为对应的行政区信息
+        for (let item of result.districtList[0].districtList) {
+          vm[dataOrigin].cities.push({
+            adcode: item.adcode,
+            city: item.name
+          });
+        }
+      });
+    },
+    // 针对 account_cities这个特殊（后期合并方法***）
+    queryBankCity(txt, dataOrigin) {
+      let vm = this;
+      // 搜索所有省/直辖市信息
+
+      this.districtSearch.search(txt, function(status, result) {
+        // 查询成功时，result即为对应的行政区信息
+        for (let item of result.districtList[0].districtList) {
+          vm[dataOrigin].account_cities.push({
+            adcode: item.adcode,
+            city: item.name
+          });
+        }
+      });
+    },
+    // 分页
+    handleCurrentChange(val) {
+      this.currentPage = val;
+      // 获取单前页数据列表
+      this.getTableDataList(val);
+    },
+    // 初始化 地图
+    initMap() {
+      let vm = this;
+      //利用高德地图API 获取 所有省
+      AMap.plugin("AMap.DistrictSearch", function() {
+        vm.districtSearch = new AMap.DistrictSearch({
+          // 关键字对应的行政区级别，country表示国家
+          level: "city",
+          //  显示下级行政区级数，1表示返回下一级行政区
+          subdistrict: 1
+        });
+      });
+    },
+    // 初始化 省份数据
+    initProvinces() {
+      // 处理一下 数据
+      let arr = [];
+      for (let i in provinces.province_list) {
+        arr.push({
+          adcode: i,
+          province: provinces.province_list[i]
+        });
+      }
+      this.queryForm.regions = arr;
+      // 详情
+      this.detail_form.regions = this.detail_form.account_regions = arr;
+      // 详情并修改
+      this.agent_detail_form.regions = this.agent_detail_form.account_regions = arr;
+    }
+  }
+};
 </script>

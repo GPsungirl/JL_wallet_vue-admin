@@ -124,7 +124,7 @@ export default {
 
           // 存 real_name
           this.$store.commit('user/SET_REALNAME', res.data.data.user.real_name)
-          localStorage.setItem('pp_real_name',JSON.stringify(res.data.data.user.real_name))
+          localStorage.setItem('pp_real_name',res.data.data.user.real_name)
 
           this.loading = false
           this.$router.push({path: '/'}) //这里 这么写 ？

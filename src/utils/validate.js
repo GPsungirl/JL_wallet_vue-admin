@@ -35,7 +35,25 @@ export function validNum100(val){
   return reg.test(Number(val))
 
 }
+/**
+ * 工作分成 动态调整上限值
+ */
+export function validDyNum(val,dyVal){
+  // if(val >= 0 && val <= dyVal){
+  //   return
+  // }
+  // const reg =  new RegExp("^((?!0)\\d{1,2}|"+dyVal+")$")
+  // // const reg = eval("\/^((?!0)\\d{1,2}|"+dyVal+")$\/");
+  // return reg.test(Number(val))
+  return (val >= 0 && val <= dyVal)
+}
+/**
+ * 提成分成 <15
+ */
+export function validNum15(val){
+  return (val >= 0 && val <= 15)
 
+}
 /**
  * 过滤银行卡号中间的空格
  */

@@ -2,7 +2,7 @@
     <!-- 视频审核 (最初参考向导查询)-->
     <div class="pad_5">
         <!-- M1 查询区域 -->
-        <div class="query_fields pad_b_no">            
+        <div class="query_fields pad_b_no">
             <el-form :inline="true" :model="queryForm" ref="queryForm" size="mini" class="demo-form-inline">
                 <!-- 所属机构 -->
                 <el-form-item label="所属机构" prop="agentName">
@@ -12,47 +12,47 @@
                 <!-- <el-form-item label="现居住地" >
                     <el-col :span="12">
                         <el-form-item prop="province_code">
-                            <el-select v-model="queryForm.province_code"                         
-                                placeholder="选择省" 
-                                class="wid_140"  
+                            <el-select v-model="queryForm.province_code"
+                                placeholder="选择省"
+                                class="wid_140"
                                 @change="changeOption_province($event)">
-                                <el-option v-for="(item, index) in queryForm.regions"                             
+                                <el-option v-for="(item, index) in queryForm.regions"
                                     :key="index"
                                     :label=" item.province "
                                     :value=" item.adcode ">
-                                </el-option>                        
+                                </el-option>
                             </el-select>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
                         <el-form-item prop="city_code">
-                            <el-select v-model="queryForm.city_code"                         
-                                placeholder="选择市" 
-                                class="wid_140"  
+                            <el-select v-model="queryForm.city_code"
+                                placeholder="选择市"
+                                class="wid_140"
                                 @change="changeOption_city($event)">
-                                <el-option v-for="(item, index) in queryForm.cities"                             
+                                <el-option v-for="(item, index) in queryForm.cities"
                                     :key="index"
                                     :label=" item.city "
                                     :value=" item.adcode ">
-                                </el-option>                        
+                                </el-option>
                             </el-select>
                         </el-form-item>
-                    </el-col>                               
+                    </el-col>
                 </el-form-item> -->
                 <!-- 向导姓名 -->
                 <el-form-item label="向导姓名" prop="name">
                     <el-input v-model="queryForm.name" placeholder="请输入向导姓名" class="wid_140"></el-input>
-                </el-form-item>                           
-               
+                </el-form-item>
+
                 <!-- 上级姓名 -->
                 <!-- <el-form-item label="上级姓名" prop="up_name">
                     <el-input v-model="queryForm.up_name" placeholder="请输入上级姓名" class="wid_140"></el-input>
                 </el-form-item>                             -->
                 <!-- 查询 -->
                 <el-form-item>
-                    <el-button type="primary" size='mini' @click="queryData">查询</el-button>                  
-                    <el-button type="success" size='mini' @click="resetData('queryForm')">重置</el-button>  
-                    <el-button type="primary" size='mini' @click="handle_refresh">刷新</el-button>                
+                    <el-button type="primary" size='mini' @click="queryData">查询</el-button>
+                    <el-button type="success" size='mini' @click="resetData('queryForm')">重置</el-button>
+                    <el-button type="primary" size='mini' @click="handle_refresh">刷新</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -74,7 +74,7 @@
                 <el-table-column prop="" label="性别" width="50px">
                     <template slot-scope="scope">
                         <span v-if="scope.row.sex == '01'">男</span>
-                        <span v-else-if="scope.row.sex == '02'">女</span>                        
+                        <span v-else-if="scope.row.sex == '02'">女</span>
                     </template>
                 </el-table-column>
                 <!-- <el-table-column prop="" label="贝壳分成" width="80px">
@@ -89,107 +89,107 @@
                 </el-table-column>                -->
                 <el-table-column prop="birthday" label="出生日期" width="">
                 </el-table-column>
-                <el-table-column prop="agentName" label="所属机构" width="">                   
+                <el-table-column prop="agentName" label="所属机构" width="">
                 </el-table-column>
-                <el-table-column prop="address" label="居住地" width="">                   
+                <el-table-column prop="address" label="居住地" width="">
                 </el-table-column>
-                               
+
                 <el-table-column prop="" label="操作" width="">
-                    <template slot-scope="scope">              
-                        <el-button @click="handle_examine(scope.row)" type="text" size="small">视频审核</el-button>                   
+                    <template slot-scope="scope">
+                        <el-button @click="handle_examine(scope.row)" type="text" size="small">视频审核</el-button>
                     </template>
                 </el-table-column>
             </el-table>
             <!-- 分页 -->
-            <div class="block mar_t10">  
-                <el-pagination                
+            <div class="block mar_t10">
+                <el-pagination
                 @current-change="handleCurrentChange"
                 :current-page="currentPage"
-                :total="pageTotal"                      
+                :total="pageTotal"
                 background
                 layout="total, prev, pager, next, jumper"
                 >
                 </el-pagination>
             </div>
-        </div> 
+        </div>
         <!-- M3 审核视频dialog-->
         <el-dialog
             title="审核视频"
             :visible.sync="detail_dialogVisible"
             width="50%"
             center
-            append-to-body  
+            append-to-body
             :before-close="handle_close"
-            :close-on-click-modal="false" 
+            :close-on-click-modal="false"
             v-loading="detail_loading"
             element-loading-text="拼命加载中"
             element-loading-spinner="el-icon-loading"
-            element-loading-background="rgba(0, 0, 0, 0.8)"   
-            class="agent_detail"                  
-            >        
-            <!-- 业务信息 --> 
-            <p>共{{ video_num }}条视频记录</p>             
+            element-loading-background="rgba(0, 0, 0, 0.8)"
+            class="agent_detail"
+            >
+            <!-- 业务信息 -->
+            <p>共{{ video_num }}条视频记录</p>
             <el-table :data="detail_tableData" v-loading="detail_tableLoading" border stripe style="width: 100%">
                 <!-- 视频名 -->
                 <el-table-column prop="file_id" label="视频名" width="" >
-                   
+
                 </el-table-column>
                 <!-- 时长 -->
                 <el-table-column prop="duration" label="视频时长(秒)" width="">
                 </el-table-column>
                 <!-- 操作 -->
                 <el-table-column prop="" label="操作" width="">
-                    <template slot-scope="scope">              
-                        <el-button @click="handle_view(scope.row)" type="text" size="small">查看</el-button>                   
-                        <!-- <el-button @click="handle_use(scope.row)" type="text" size="small">可用</el-button>                   
+                    <template slot-scope="scope">
+                        <el-button @click="handle_view(scope.row)" type="text" size="small">查看</el-button>
+                        <!-- <el-button @click="handle_use(scope.row)" type="text" size="small">可用</el-button>
                         <el-button @click="handle_fobidden(scope.row)" type="text" size="small">删除</el-button>                    -->
                     </template>
                 </el-table-column>
-                
-            </el-table>                          
+
+            </el-table>
             <span slot="footer" class="dialog-footer">
-                <el-button @click="handle_close" size="mini">关 闭</el-button>                
+                <el-button @click="handle_close" size="mini">关 闭</el-button>
             </span>
             <!-- 视频框(内层) -->
-            <el-dialog 
+            <el-dialog
                 title="视频查看"
                 :visible.sync="video_dialogVisible"
                 width="50%"
                 center
-                append-to-body  
+                append-to-body
                 :before-close="handleDialogClose"
-                
-                :close-on-click-modal="false" 
+
+                :close-on-click-modal="false"
                 v-loading="video_loading"
                 element-loading-text="拼命加载中"
                 element-loading-spinner="el-icon-loading"
-                element-loading-background="rgba(0, 0, 0, 0.8)"   
+                element-loading-background="rgba(0, 0, 0, 0.8)"
                 class="agent_detail"
                 >
-                
-                <div id="dplayer" style="height:300px"></div>                
+
+                <div id="dplayer" style="height:300px"></div>
                 <span slot="footer" class="dialog-footer">
-                    <el-button @click="close_video" size="mini">关 闭</el-button>                
+                    <el-button @click="close_video" size="mini">关 闭</el-button>
                 </span>
             </el-dialog>
-        </el-dialog>        
+        </el-dialog>
         <!-- M5 dialog所属机构-->
         <el-dialog
             title="机构详情"
             :visible.sync="agent_detail_dialogVisible"
             width="50%"
             center
-            :close-on-click-modal="false" 
+            :close-on-click-modal="false"
             v-loading="agent_detail_loading"
             element-loading-text="拼命加载中"
             element-loading-spinner="el-icon-loading"
-            element-loading-background="rgba(0, 0, 0, 0.8)"   
-            class="agent_detail"       
-            >        
-            <!-- 业务信息 --> 
-            <el-form :inline="true" :model="agent_detail_form"   class="demo-form-inline " label-width="68px" disabled>                
+            element-loading-background="rgba(0, 0, 0, 0.8)"
+            class="agent_detail"
+            >
+            <!-- 业务信息 -->
+            <el-form :inline="true" :model="agent_detail_form"   class="demo-form-inline " label-width="68px" disabled>
                 <!-- 业务信息 -->
-                
+
                 <el-form-item label="机构名称" prop="agent_name">
                     <el-input v-model="agent_detail_form.agent_name" placeholder="审批人" class="wid_180"></el-input>
                 </el-form-item>
@@ -199,41 +199,41 @@
                 <el-form-item label="负责人" prop="charger" label-width="68px">
                     <el-input v-model="agent_detail_form.charger" placeholder="负责人" class="wid_180"></el-input>
                 </el-form-item>
-                <el-form-item label="业务地区"  class="marg_r0">  
+                <el-form-item label="业务地区"  class="marg_r0">
                     <el-col :span="11">
                         <el-form-item prop="province_code" class="marg_b0">
-                            <el-select v-model="agent_detail_form.province_code"                         
-                                placeholder="选择省" 
-                                class="wid_90"  
+                            <el-select v-model="agent_detail_form.province_code"
+                                placeholder="选择省"
+                                class="wid_90"
                                 @change="changeOption_province_addBusiness($event)">
-                                <el-option v-for="(item, index) in agent_detail_form.regions"                             
+                                <el-option v-for="(item, index) in agent_detail_form.regions"
                                     :key="index"
                                     :label=" item.province "
                                     :value=" item.adcode ">
-                                </el-option>                        
+                                </el-option>
                             </el-select>
                         </el-form-item>
                     </el-col>
                     <el-col :span="11">
                         <el-form-item prop="city_code" class="marg_b0">
-                            <el-select v-model="agent_detail_form.city_code"                         
-                                placeholder="选择市" 
-                                class="wid_90"  
+                            <el-select v-model="agent_detail_form.city_code"
+                                placeholder="选择市"
+                                class="wid_90"
                                 @change="changeOption_city_addBusiness($event)">
-                                <el-option v-for="(item, index) in agent_detail_form.cities"                             
+                                <el-option v-for="(item, index) in agent_detail_form.cities"
                                     :key="index"
                                     :label=" item.city "
                                     :value=" item.adcode ">
-                                </el-option>                        
+                                </el-option>
                             </el-select>
                         </el-form-item>
-                    </el-col>                                                       
+                    </el-col>
                 </el-form-item>
                 <el-form-item label="联系地址" prop="address">
                     <el-input v-model="agent_detail_form.address" placeholder="联系地址" class="wid_180"></el-input>
                 </el-form-item>
                 <el-form-item label="贝壳分成" prop="virtual_rate">
-                    <el-input v-model="agent_detail_form.virtual_rate" placeholder="贝壳分成" class="wid_181"></el-input>%                   
+                    <el-input v-model="agent_detail_form.virtual_rate" placeholder="贝壳分成" class="wid_181"></el-input>%
                 </el-form-item>
                 <el-form-item label="联系电话" prop="phone" >
                     <el-input v-model="agent_detail_form.phone" placeholder="联系电话" class="wid_180"></el-input>
@@ -246,21 +246,21 @@
                 </el-form-item>
                 <el-form-item label="合同编号" prop="contract_no">
                     <el-input v-model="agent_detail_form.contract_no" placeholder="合同编号" class="wid_180"></el-input>
-                </el-form-item> 
-                <div></div> 
+                </el-form-item>
+                <div></div>
                  <el-form-item label="开户名" prop="account_user" label-width="68px">
                     <el-input v-model="agent_detail_form.account_user" placeholder="开户名" class="wid_180"></el-input>
                 </el-form-item>
                 <el-form-item label="开户行" prop="bank_code" label-width="68px">
-                    <el-select v-model="agent_detail_form.bank_code"                         
-                        placeholder="开户行" 
-                        class="wid_190"  
+                    <el-select v-model="agent_detail_form.bank_code"
+                        placeholder="开户行"
+                        class="wid_190"
                         @change="changeOption_bank($event)">
-                        <el-option v-for="(item, index) in agent_detail_form.bankInfo"                             
+                        <el-option v-for="(item, index) in agent_detail_form.bankInfo"
                             :key="index"
                             :label=" item.bankname "
                             :value=" item.bankcode ">
-                        </el-option>                        
+                        </el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="账号" prop="account_no" label-width="68px">
@@ -269,37 +269,37 @@
                 <el-form-item label="开户地"  label-width="68px" class="marg_r0">
                     <el-col :span="11">
                         <el-form-item prop="account_province_code" class="marg_b0">
-                            <el-select v-model="agent_detail_form.account_province_code"                         
-                                placeholder="选择省" 
-                                class="wid_90"  
+                            <el-select v-model="agent_detail_form.account_province_code"
+                                placeholder="选择省"
+                                class="wid_90"
                                 @change="changeOption_province_addBank($event)">
-                                <el-option v-for="(item, index) in agent_detail_form.account_regions"                             
+                                <el-option v-for="(item, index) in agent_detail_form.account_regions"
                                     :key="index"
                                     :label=" item.province"
                                     :value=" item.adcode ">
-                                </el-option>                        
+                                </el-option>
                             </el-select>
                         </el-form-item>
                     </el-col>
                     <el-col :span="11">
                         <el-form-item prop="city_code" class="marg_b0">
-                            <el-select v-model="agent_detail_form.account_city_code"       
-                                placeholder="选择市" 
-                                class="wid_90"                                  
+                            <el-select v-model="agent_detail_form.account_city_code"
+                                placeholder="选择市"
+                                class="wid_90"
                                 @change="changeOption_city_addBank($event)">
-                                <el-option v-for="(item, index) in agent_detail_form.account_cities"                             
+                                <el-option v-for="(item, index) in agent_detail_form.account_cities"
                                     :key="index"
                                     :label=" item.city "
                                     :value=" item.adcode ">
-                                </el-option>                        
+                                </el-option>
                             </el-select>
                         </el-form-item>
-                    </el-col>                                        
-                </el-form-item>                                              
-            </el-form>     
-            
+                    </el-col>
+                </el-form-item>
+            </el-form>
+
             <span slot="footer" class="dialog-footer">
-                <el-button @click="agent_detail_dialogVisible = false" size="mini">关 闭</el-button>                
+                <el-button @click="agent_detail_dialogVisible = false" size="mini">关 闭</el-button>
             </span>
         </el-dialog>
         <!-- M6 dialog上级姓名-->
@@ -308,22 +308,22 @@
             :visible.sync="up_detail_dialogVisible"
             width="50%"
             center
-            :close-on-click-modal="false" 
+            :close-on-click-modal="false"
             v-loading="up_detail_loading"
             element-loading-text="拼命加载中"
             element-loading-spinner="el-icon-loading"
-            element-loading-background="rgba(0, 0, 0, 0.8)"   
-            class="agent_detail"                  
-            >        
-            <!-- 业务信息 --> 
-            <el-form :inline="true" :model="up_detail_form"   class="demo-form-inline " label-width="68px" disabled>                
-                
+            element-loading-background="rgba(0, 0, 0, 0.8)"
+            class="agent_detail"
+            >
+            <!-- 业务信息 -->
+            <el-form :inline="true" :model="up_detail_form"   class="demo-form-inline " label-width="68px" disabled>
+
                 <el-form-item label="向导ID" prop="customid">
                     <el-input v-model="up_detail_form.customid" placeholder="" class="wid_180"></el-input>
                 </el-form-item>
                 <el-form-item label="向导姓名" prop="name">
                     <el-input v-model="up_detail_form.name" placeholder="" class="wid_180"></el-input>
-                </el-form-item>   
+                </el-form-item>
                 <!-- 上级ID -->
                 <el-form-item label="上级ID" prop="up_customid">
                     <el-input v-model="up_detail_form.up_customid" placeholder="" class="wid_180"></el-input>
@@ -378,19 +378,19 @@
                 </el-form-item>
                 <!-- 分成 -->
                 <!-- <el-form-item label="贝壳分成" prop="virtual_rate">
-                    <el-input v-model="up_detail_form.virtual_rate" placeholder="贝壳分成" class="wid_181"></el-input>%                   
-                </el-form-item>                
+                    <el-input v-model="up_detail_form.virtual_rate" placeholder="贝壳分成" class="wid_181"></el-input>%
+                </el-form-item>
                 <el-form-item label="出行分成" prop="account_rate">
                     <el-input v-model="up_detail_form.account_rate" placeholder="出行分成" class="wid_181"></el-input>%
                 </el-form-item> -->
-                                                                                                                            
-            </el-form>     
-            
+
+            </el-form>
+
             <span slot="footer" class="dialog-footer">
-                <el-button @click="up_detail_dialogVisible = false" size="mini">关 闭</el-button>                
+                <el-button @click="up_detail_dialogVisible = false" size="mini">关 闭</el-button>
             </span>
-        </el-dialog> 
-        
+        </el-dialog>
+
     </div>
 </template>
 <script>
@@ -407,7 +407,7 @@ export default {
     name: 'videoExamine',
     data(){
         return {
-            dp:'',                        
+            dp:'',
             examine_row:'',
             video_num:'',
             // 地图
@@ -429,7 +429,7 @@ export default {
             up_detail_loading:false,
             agent_detail_dialogVisible:false,
             agent_detail_loading:false,
-            // 分页          
+            // 分页
             pageTotal: 0,
             currentPage:1,
             // 查询参数
@@ -440,8 +440,8 @@ export default {
                 // 所属机构
                 agentName:'',
                 // 省市
-                province_code: '', 
-                city_code:'', 
+                province_code: '',
+                city_code:'',
                 // 姓名
                 name:'',
                 // 向导状态
@@ -464,13 +464,13 @@ export default {
                     }
                 ],
                 traveler_status:'',
-                // 上级姓名 上级id  
+                // 上级姓名 上级id
                 up_customid:'',
                 up_name:'',
 
                 province_param:'',//作为收集参数
                 city_param: '',   //作为收集参数
-               
+
 
             },
             // 详情
@@ -484,7 +484,7 @@ export default {
                 // 上级姓名
                 up_name:'',
                 // 民族
-                traveler_native:'',                
+                traveler_native:'',
                 // 性别
                 sex:'',
                 // 居住地
@@ -509,7 +509,7 @@ export default {
                 virtual_rate:'',
                 // 出行分成
                 account_rate:'',
-                
+
             },
             // 上级 详情
             up_detail_form:{
@@ -522,7 +522,7 @@ export default {
                 // 上级姓名
                 up_name:'',
                 // 民族
-                traveler_native:'',                
+                traveler_native:'',
                 // 性别
                 sex:'',
                 // 居住地
@@ -592,13 +592,12 @@ export default {
     created(){
         // 初始化roleId
         this.roleId = this.$store.getters.roleId
-        
         // 初始化 主列表
         this.getTableDataList(1)
     },
-    methods:{  
-        
-        // 获取主列表 
+    methods:{
+
+        // 获取主列表
         getTableDataList(pageNum){
             let param = {
                data:{
@@ -608,19 +607,19 @@ export default {
                     pageNum: pageNum,
                     pageSize: 10,
                     // 私有
-                    // 所属机构 姓名 
+                    // 所属机构 姓名
                     agentName:this.queryForm.agentName,
                     name:this.queryForm.name,
-                    
-                           
+
+
                }
             }
             this.tableLoading = true
             this.$http.post(`${ commonUrl.baseUrl }/liveVideoRecord/getTravelerVideoExamine`, param).then(res=>{
                 if(res.data.code == '0000'){
-                    // console.log(res)  
-                    // debugger                     
-                    this.tableData = res.data.data.liveVideoRecordList                    
+                    // console.log(res)
+                    // debugger
+                    this.tableData = res.data.data.liveVideoRecordList
                     // 分页总数
                     this.pageTotal = res.data.data.page.pageTotal;
                     this.tableLoading = false
@@ -631,7 +630,7 @@ export default {
         },
         // 视频审核 查看
         handle_view(row){
-            
+
             let param = {
                 data:{
                     file_id:row.file_id
@@ -640,7 +639,7 @@ export default {
             this.detail_loading = true
             this.$http.post(`${commonUrl.baseUrl}/liveVideoRecord/getVideoPlay`, param).then(res=>{
                 if(res.data.code == '0000'){
-                    this.detail_loading = false                    
+                    this.detail_loading = false
                     // 打开内层弹框 播放视频
                     this.video_dialogVisible = true
                     // 为了解决首次初始化空白的问题，而采用异步的调用方式
@@ -663,7 +662,7 @@ export default {
                                 }
                             }
                         });
-                    },1)                                                                                                                                             
+                    },1)
                 }else{
                     this.m_message(res.data.msg, 'warning')
                 }
@@ -675,15 +674,15 @@ export default {
             //this.dp.pause()
             if(this.dp){
                 this.dp.destroy()
-            }        
+            }
             // 关闭
             this.video_dialogVisible = false
             // 刷新
             this.refresh_examineTableData()
         },
-        // 视频审核 可用 
+        // 视频审核 可用
         handle_use(row){
-            
+
             let param = {
                 data:{
                     video_status:1,
@@ -727,9 +726,9 @@ export default {
             }).catch(err=>{})
         },
         // 审核视频 操作
-        handle_examine(row){  
-            // 存一下row  
-            this.examine_row = row          
+        handle_examine(row){
+            // 存一下row
+            this.examine_row = row
             this.detail_dialogVisible = true
             this.detail_loading = true
             let param = {
@@ -739,21 +738,21 @@ export default {
                     signInRoleId: this.$store.getters.roleId,
                     // 私有
                     customid:row.customid,
-                    
+
                 }
             }
             this.$http.post(`${ commonUrl.baseUrl }/liveVideoRecord/getVideoExamine`, param).then(res=>{
                 if(res.data.code == '0000'){
-                    
-                    let result = res.data.data.liveVideoRecordList                    
+
+                    let result = res.data.data.liveVideoRecordList
                     this.detail_tableData = result
-                    
-                    this.video_num = result.length                   
+
+                    this.video_num = result.length
                     this.detail_loading = false
                 }
-            }).catch(err=>{})            
+            }).catch(err=>{})
         },
-        
+
         // 监听 关闭按钮(内层右上角)
         handleDialogClose(){
             // this.dp.destroy()
@@ -774,7 +773,7 @@ export default {
         // 查询按钮
         queryData(){
             // console.log(this.queryForm)
-            // 根据参数进行查询 
+            // 根据参数进行查询
             this.getTableDataList(1)
         },
         // 刷新 审核视频的dialog列表
@@ -794,8 +793,8 @@ export default {
             }
             this.$http.post(`${ commonUrl.baseUrl }/liveVideoRecord/getVideoExamine`, param).then(res=>{
                 if(res.data.code == '0000'){
-                    
-                    let result = res.data.data.liveVideoRecordList                    
+
+                    let result = res.data.data.liveVideoRecordList
                     this.detail_tableData = result
                     this.video_num = result.length
                     this.detail_loading = false
@@ -806,7 +805,7 @@ export default {
         resetData(formName){
             if(this.$refs[formName]){
                 this.$refs[formName].resetFields();
-            }   
+            }
         },
         // 刷新按钮
         handle_refresh(){
@@ -826,8 +825,8 @@ export default {
             this.$http.post(`${commonUrl.baseUrl}/travelerInfo/findByUpCustomId`, param).then(res=>{
                 if(res.data.code == '0000'){
                     console.log(res)
-                    let result = res.data.data.travelerInfo                    
-                    
+                    let result = res.data.data.travelerInfo
+
                     // 向导姓名
                     this.up_detail_form.name = result.name
                     // 向导ID
@@ -869,11 +868,11 @@ export default {
                     this.up_detail_form.phone  = result.phone
                     this.up_detail_form.webchat = result.webchat
                     this.up_detail_form.momo = result.momo
-                    this.up_detail_form.birthday = result.birthday                                                          
+                    this.up_detail_form.birthday = result.birthday
                     // 贝壳分成
-                    this.up_detail_form.virtual_rate = result.virtual_rate                     
-                    // 出行分成          
-                    this.up_detail_form.account_rate = result.account_rate                                                                      
+                    this.up_detail_form.virtual_rate = result.virtual_rate
+                    // 出行分成
+                    this.up_detail_form.account_rate = result.account_rate
                     this.up_detail_loading = false
                 }
             }).catch(err=>{})
@@ -897,37 +896,37 @@ export default {
                     // 机构名称
                     this.agent_detail_form.agent_name = result.agent_name
                     // 负责人
-                    this.agent_detail_form.charger = result.charger                   
+                    this.agent_detail_form.charger = result.charger
                     // 业务地区
                     this.agent_detail_form.province_code = result.province_code
                     // 根据省查询所有市
                     this.queryCity(result.province, 'agent_detail_form')
-                    
-                    this.agent_detail_form.city_code = result.city_code                                       
+
+                    this.agent_detail_form.city_code = result.city_code
                     // 联系地址
-                    this.agent_detail_form.address = result.address                     
+                    this.agent_detail_form.address = result.address
                     // 贝壳分成
-                    this.agent_detail_form.virtual_rate = result.virtual_rate                     
+                    this.agent_detail_form.virtual_rate = result.virtual_rate
                     // 出行分成
-                    this.agent_detail_form.account_rate = result.account_rate                     
+                    this.agent_detail_form.account_rate = result.account_rate
                     // 电话
-                    this.agent_detail_form.phone = result.phone                    
+                    this.agent_detail_form.phone = result.phone
                     // 邮箱
-                    this.agent_detail_form.email = result.email                     
+                    this.agent_detail_form.email = result.email
                     // 合同编号
-                    this.agent_detail_form.contract_no = result.contract_no                         
+                    this.agent_detail_form.contract_no = result.contract_no
                     // 开户行
-                    this.agent_detail_form.bank_code = result.bank_code                        
+                    this.agent_detail_form.bank_code = result.bank_code
                     // 开户名
-                    this.agent_detail_form.account_user = result.account_user                    
+                    this.agent_detail_form.account_user = result.account_user
                     // 账号
-                    this.agent_detail_form.account_no = result.account_no                      
-                    // 开户地    
+                    this.agent_detail_form.account_no = result.account_no
+                    // 开户地
                     // 查询开户行所在省份下的所有市列表
                     this.queryBankCity(result.account_province, 'agent_detail_form')
-                    this.agent_detail_form.account_province_code = result.account_pro_code 
-                    this.agent_detail_form.account_city_code = result.account_city_code    
-                    
+                    this.agent_detail_form.account_province_code = result.account_pro_code
+                    this.agent_detail_form.account_city_code = result.account_city_code
+
                     this.agent_detail_loading = false
                 }
             }).catch(err=>{})
@@ -954,7 +953,7 @@ export default {
                             traveler_status:_flag,
                             travelerid:row.travelerid
                         }
-                    }                        
+                    }
                     this.$http.post(`${ commonUrl.baseUrl }/travelerInfo/updateTravelerStatus`, param).then(res=>{
                         if(res.data.code == '0000'){
                             this.m_message(res.data.msg, 'success');
@@ -964,9 +963,9 @@ export default {
                         }else{
                              this.m_message(res.data.msg, 'warning');
                         }
-                    }).catch(err=>{})                   
-                })                     
-        },                       
+                    }).catch(err=>{})
+                })
+        },
         // 提示信息 message:提示信息   type 提示类型
         m_message(message,type){
             this.$message({
@@ -976,25 +975,25 @@ export default {
         },
         // 新增 校验规则
         m_valid_addForm(formName) {
-            let  flag  = false ;      
+            let  flag  = false ;
             this.$refs[formName].validate((valid) => {
-                if (valid) {  
-                flag = true;             
+                if (valid) {
+                flag = true;
                 return true
-                } else {   
-                flag = false;       
+                } else {
+                flag = false;
                 return false;
                 }
             });
             return flag;
-        },       
+        },
         // 分页
         handleCurrentChange(val){
-             this.currentPage = val       
+             this.currentPage = val
             // 获取单前页数据列表
             this.getTableDataList(val);
         },
-         
+
     }
 }
 </script>

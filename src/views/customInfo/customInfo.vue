@@ -51,11 +51,13 @@
       <!-- 表格 -->
       <el-table :data="tableData" v-loading="tableLoading" border stripe style="width: 100%">
         <el-table-column prop="customid" label="用户ID" width></el-table-column>
-        <el-table-column prop="nickname" label="昵称" width></el-table-column>
+        <el-table-column prop="nickname" label="昵称" :show-overflow-tooltip="true" width></el-table-column>
         <!-- 注册时间 -->
         <el-table-column prop="createtime" label="注册时间" :show-overflow-tooltip="true" width></el-table-column>
+        <!-- 会员到期 -->
+        <el-table-column prop="member_time" label="会员到期" :show-overflow-tooltip="true" width></el-table-column>
         <el-table-column prop="phone" label="电话" width></el-table-column>
-        <el-table-column prop label="性别" width>
+        <el-table-column prop label="性别" width="50">
           <template slot-scope="scope">
             <span v-if="scope.row.sex == 1">男</span>
             <span v-if="scope.row.sex == 2">女</span>
@@ -71,7 +73,7 @@
             <span v-else-if="scope.row.custom_type == 4">校园代理</span>
           </template>
         </el-table-column>
-        <el-table-column prop label="用户状态" width>
+        <el-table-column prop label="用户状态" width="80">
           <template slot-scope="scope">
             <span v-if="scope.row.custom_status == 1">可用</span>
             <span v-else-if="scope.row.custom_status == 2">不可用</span>
@@ -79,14 +81,17 @@
         </el-table-column>
         <el-table-column prop label="会员状态" width>
           <template slot-scope="scope">
-            <span v-if="scope.row.member_status == 1">普通会员</span>
-            <span v-else-if="scope.row.member_status == 2">超级会员</span>
+            <!-- 后台会员字段废除，根据会员到期日与当前时间点 -->
+            <span v-if="new Date().getTime() > new Date(scope.row.member_time).getTime()">普通会员</span>
+            <span v-else>超级会员</span>
           </template>
         </el-table-column>
 
         <el-table-column prop label="操作" width>
           <template slot-scope="scope">
             <el-button @click="handle_detail(scope.row)" type="text" size="small">详情</el-button>
+            <!-- 会员设置 -->
+            <el-button v-if="roleId == 1" @click="handle_vip(scope.row)" type="text" size="small">会员</el-button>
             <!-- 可用 -->
             <el-button
               v-if="scope.row.custom_status == 1"
@@ -115,6 +120,41 @@
         ></el-pagination>
       </div>
     </div>
+    <!-- M4 dialog 设置超级会员 -->
+    <el-dialog
+      title="设置超级会员"
+      :visible.sync="dialogVisible_vip"
+      width="30%"
+      class="addUsers_dialog"
+      center
+      v-loading="vip_loading"
+      element-loading-text="拼命加载中"
+      element-loading-spinner="el-icon-loading"
+      element-loading-background="rgba(0, 0, 0, 0.8)"
+    >
+      <!--新增 body -->
+      <div class="dialogBody_addPermission">
+        <div class="grid-content bg-purple-dark pad_t2">
+          <el-form
+            :inline="true"
+            :model="vipForm"
+            label-width="80px"
+            class="valid_form"
+            ref="vip_form"
+            :rules="vip_form_rules"
+          >
+            <el-form-item label="会员时长" prop="vip_date">
+              <el-input v-model.number="vipForm.vip_date"  class="wid_140" placeholder="输入会员时长"></el-input>
+              <span> 天 </span>
+            </el-form-item>
+          </el-form>
+        </div>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="info" @click="dialogVisible_vip = false" size="mini">关 闭</el-button>
+        <el-button type="primary" @click="save_vip" size="mini">确 定</el-button>
+      </span>
+    </el-dialog>
     <!-- M3 dialog 新增 -->
     <el-dialog
       :title="detailForm.detailForm_title"
@@ -206,6 +246,7 @@ export default {
       }
     };
     return {
+      roleId:'',
       // 主列表
       tableLoading: false,
       tableData: [],
@@ -233,10 +274,24 @@ export default {
         createtime:'',
         member_status: ""
       },
+      vipForm:{
+        vip_date:'',
+        customid:''
+      },
+      vip_form_rules:{
+        vip_date:[
+          { required: true, message: '会员时长不能为空', trigger:'blur'},
+          { type: 'number', message: '会员时长必须为数字值',trigger:'blur'}
+        ]
+      },
       value1: "",
       // 弹框
+
       dialogVisible_detail: false,
       add_loading: false,
+
+      vip_loading: false,
+      dialogVisible_vip:false,
       // 新增 弹框规则 修改也用该弹框
       detailForm: {
         // 标题
@@ -258,6 +313,9 @@ export default {
   created() {
     // 初始化 主列表数据
     this.getTableDataList(1);
+    // 获取roleId
+    this.roleId = this.$store.getters.roleId;
+
   },
   methods: {
     // 初始化 主列表数据
@@ -290,6 +348,44 @@ export default {
           }
         })
         .catch(err => {});
+    },
+    // 操作会员
+    handle_vip(row){
+      // 开弹框
+      this.dialogVisible_vip = true;
+
+      this.vipForm.customid = row.customid;
+      // 加载中
+      // this.vip_loading = true;
+
+    },
+    // 保存会员设置
+    save_vip(){
+
+      if(this.m_valid_addForm('vip_form')){
+        // 提交
+        let param = {
+          data:{
+            date:this.vipForm.vip_date,
+            customid:this.vipForm.customid
+          }
+        }
+        this.vip_loading = true;
+        this.$http.post(`${ commonUrl.baseUrl }/customInfo/updateMembeTime`, param).then(res=>{
+          if(res.data.code == '0000'){
+            this.vip_loading = false
+            this.m_message(res.data.msg, 'success')
+            this.resetData('vip_form')
+            this.dialogVisible_vip = false
+            // 刷新
+            this.handle_refresh();
+          }else{
+            this.vip_loading = false
+            this.m_message(res.data.msg, 'warning')
+            this.resetData('vip_form');
+          }
+        }).catch(err=>{})
+      }
     },
     // 查询按钮
     queryData() {
@@ -417,6 +513,20 @@ export default {
       // 获取单前页数据列表
       this.getTableDataList(val);
       //console.log(`当前页: ${val}`);
+    },
+     // 新增 校验规则
+    m_valid_addForm(formName) {
+        let  flag  = false ;
+        this.$refs[formName].validate((valid) => {
+            if (valid) {
+            flag = true;
+            return true
+            } else {
+            flag = false;
+            return false;
+            }
+        });
+        return flag;
     },
     // 提示信息 message:提示信息   type 提示类型
     m_message(message, type) {
