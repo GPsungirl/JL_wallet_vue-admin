@@ -75,7 +75,6 @@ export default {
         }
     }
     return {
-
       agent_name: "",
       agentid: "",
       // 昨日收益
@@ -169,7 +168,7 @@ export default {
       })
       .catch(err => { loading.close() })
     },
-   
+
     // 获取 昨日 日期
     getYestoday() {
       var day1 = new Date();

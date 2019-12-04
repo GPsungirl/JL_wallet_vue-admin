@@ -42,6 +42,10 @@
       <el-form-item label="向导姓名" prop="name">
         <el-input v-model="queryForm.name" placeholder="请输入向导姓名" class="wid_140"></el-input>
       </el-form-item>
+      <!-- 向导昵称 -->
+      <el-form-item label="向导昵称" prop="nickname">
+        <el-input v-model="queryForm.nickname" placeholder="请输入向导昵称" class="wid_140"></el-input>
+      </el-form-item>
       <!-- 向导状态 -->
       <el-form-item label="向导状态" label-width="68px" prop="traveler_status">
         <el-select v-model="queryForm.traveler_status" class="wid_140" placeholder="选选择向导状态" @change="changeOption_traveler_status($event)">
@@ -82,6 +86,9 @@
       <el-table-column prop="customid" label="向导ID" width="">
       </el-table-column>
       <el-table-column prop="name" label="向导姓名" width="80px">
+      </el-table-column>
+      <!-- 向导昵称 -->
+       <el-table-column prop="nickname" label="向导昵称" width="80px">
       </el-table-column>
       <el-table-column prop="" label="人员类别" width="80px">
         <template slot-scope="scope">
@@ -648,6 +655,8 @@ export default {
         name: "",
         // 向导id
         customid: "",
+        // 向导昵称
+        nickname:'',
         // 向导状态
         traveler_statuss: [{
             id: 0,
@@ -948,7 +957,7 @@ export default {
           traveler_status: this.queryForm.traveler_status,
           up_customid: this.queryForm.up_customid,
           up_name: this.queryForm.up_name,
-
+          nickname:this.queryForm.nickname,
           province_code: this.queryForm.province_code,
           city_code: this.queryForm.city_code,
           // 校园代理

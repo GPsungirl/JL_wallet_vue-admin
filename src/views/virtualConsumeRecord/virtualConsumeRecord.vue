@@ -62,9 +62,15 @@
     <div>
       <!-- 表格 -->
       <el-table :data="tableData" v-loading="tableLoading" border stripe style="width: 100%">
-        <el-table-column prop="customid" label="用户ID" width></el-table-column>
+        <el-table-column prop="" label="用户ID" width="80">
+          <template slot-scope="scope">
+            <!-- 流水类别 consume_type 1支付 2退款 -->
+            <span v-if="scope.row.consume_type == 2">{{ scope.row.dest_customid }}</span>
+            <span v-else-if="scope.row.consume_type == 1">{{ scope.row.customid }}</span>
+          </template>
+        </el-table-column>
         <el-table-column prop="nickname" label="昵称" width></el-table-column>
-        <el-table-column prop="money" label="消费金额(贝壳)" width></el-table-column>
+        <el-table-column prop="money" label="消费金额(贝壳)" width="120"></el-table-column>
         <el-table-column prop label="性别" width="50px">
           <template slot-scope="scope">
             <span v-if="scope.row.sex == '1'">男</span>
@@ -75,13 +81,20 @@
         <!-- 消费用途 1订单支付 2充值 3会员-->
         <el-table-column prop label="消费用途" width>
           <template slot-scope="scope">
-            <span v-if="scope.row.business_type == 1">订单支付</span>
-            <span v-else-if="scope.row.business_type == 2">充值</span>
-            <span v-else-if="scope.row.business_type == 3">会员</span>
-            <span v-else-if="scope.row.business_type == 4">邀请上线</span>
+            <span v-if="scope.row.business_type == 4">邀请上线</span>
           </template>
         </el-table-column>
-         <!-- 支付方式  1支付宝 2微信 -->
+        <!-- 支付状态 -->
+        <!--consume_refund_status 0待支付/退款 1支付/退款成功 2支付/退款失败 3支付/退款超时 -->
+        <!-- 流水类别 consume_type 1支付 2退款 -->
+        <el-table-column prop label="支付状态" width="80px">
+          <template slot-scope="scope">
+            <!-- 支付 -->
+            <span v-if="scope.row.consume_type == 1">支付</span>
+            <span v-else-if="scope.row.consume_type == 2">退款</span>
+          </template>
+        </el-table-column>
+        <!-- 支付方式  1支付宝 2微信 -->
         <el-table-column prop label="支付方式" width="80px">
           <template slot-scope="scope">
             <!-- 待支付时，支付方式不显示 -->
@@ -129,18 +142,6 @@ export default {
         customid:'',
         // 消费用途     1订单支付 2充值 3会员
         business_types: [
-          {
-            id: 1,
-            value: "订单支付"
-          },
-          {
-            id: 2,
-            value: "充值"
-          },
-          {
-            id: 3,
-            value: "会员"
-          },
           {
             id: 4,
             value: "邀请上线"

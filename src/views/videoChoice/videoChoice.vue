@@ -613,8 +613,6 @@ export default {
                 name:this.queryForm.name,
                 // 向导id
                 customid:this.queryForm.customid
-
-
                }
             }
             this.tableLoading = true

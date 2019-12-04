@@ -144,6 +144,7 @@ const fya_routerMap = {
   consumeOrderUnion: () => import('@/views/consumeOrderUnion/consumeOrderUnion'), //消费记录
   customOrder: () => import('@/views/customOrder/customOrder'), //出行记录
   virtualConsumeRecord: () => import('@/views/virtualConsumeRecord/virtualConsumeRecord'), //贝壳消费记录
+  chatInfoRecord: () => import('@/views/chatInfoRecord/chatInfoRecord'), // 即时聊天记录
   // 系统设置     system
   sysRole: () => import('@/views/sysRole/sysRole'), // 角色管理
   sysUser: () => import('@/views/sysUser/sysUser'), // 用户管理

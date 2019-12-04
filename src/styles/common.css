@@ -153,9 +153,9 @@ label {
 
 /* 控制table */
 /* 斑马纹 */
-.el-table--striped .el-table__body tr.el-table__row--striped td {
-  /* background-color: #E6EFFB; */
-}
+/* .el-table--striped .el-table__body tr.el-table__row--striped td {
+  background-color: #E6EFFB;
+} */
 
 /* 表格 */
 .el-table__header th {
@@ -227,4 +227,53 @@ body .el-table colgroup.gutter {
 }
 .cell .el-button+.el-button{
   margin-left: 1px;
+}
+/* 聊天记录列表 */
+.chat_dialog .el-dialog__body{
+  height:70vh;
+}
+.chat_dialog .chat_detail{
+  height:500px;
+  font-size: 12px;
+  font-weight: normal;
+  color:#222;
+}
+.chat_dialog .clearfloat:after{display:block;clear:both;content:"";visibility:hidden;height:0}
+.chat_dialog .clearfloat{zoom:1}
+.chat_dialog .detail_wrap .fr{
+  float:right;
+  text-align: right;
+}
+.chat_dialog .detai_wrap.fl{
+  float:left ;
+}
+.chat_dialog .chat_content{
+  width:40%;
+  padding: 4px;
+  border-radius: 4px;
+
+}
+.chat_content.fl{
+  background-color: #ddd;
+}
+.chat_content.fr{
+  text-align: right;
+  /* background-color: #2683F5;
+  color:#fff; */
+}
+.avatar{
+  width:12px;
+  height:12px;
+  border-radius: 100%;
+  vertical-align: middle;
+}
+/* 颜色设置 */
+.chat_title{
+  margin:5px 0;
+}
+.chat_title.text_l{
+  color:#2A85FE;
+}
+.chat_title.text_r{
+  color:#5ABD86;
 }
