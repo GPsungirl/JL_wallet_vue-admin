@@ -78,7 +78,7 @@
           <el-table-column prop="" label="操作" width="140">
             <template slot-scope="scope">
               <el-button @click="view_upload(scope.row)" type="text" size="small">查看入账凭证</el-button>
-              <el-button @click="handle_check(scope.row)" type="text" size="small">审核</el-button>
+              <el-button v-if="roleId == '9'" @click="handle_check(scope.row)" type="text" size="small">审核</el-button>
             </template>
           </el-table-column>
       </el-table>
