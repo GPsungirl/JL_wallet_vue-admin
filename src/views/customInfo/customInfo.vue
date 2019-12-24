@@ -23,6 +23,25 @@
             ></el-option>
           </el-select>
         </el-form-item>
+        <!-- 现居住地 -->
+        <el-form-item label="现居住地">
+          <el-col :span="12">
+            <el-form-item prop="province_code">
+              <el-select v-model="queryForm.province_code" placeholder="选择省" class="wid_140" @change="changeOption_province($event)">
+                <el-option v-for="(item, index) in queryForm.regions" :key="index" :label=" item.province " :value=" item.adcode ">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item prop="city_code">
+              <el-select v-model="queryForm.city_code" placeholder="选择市" class="wid_140" @change="changeOption_city($event)">
+                <el-option v-for="(item, index) in queryForm.cities" :key="index" :label=" item.city " :value=" item.adcode ">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-form-item>
         <!-- 用户ID -->
         <el-form-item label="用户ID" prop="customid">
           <el-input v-model="queryForm.customid" placeholder="请输入用户ID" class="wid_140"></el-input>
@@ -62,6 +81,12 @@
             <span v-if="scope.row.sex == 1">男</span>
             <span v-if="scope.row.sex == 2">女</span>
             <span v-if="scope.row.sex == 0">未知</span>
+          </template>
+        </el-table-column>
+        <!-- 现居住地 -->
+        <el-table-column prop label="现居住地" width="">
+          <template slot-scope="scope">
+            <span>{{scope.row.province+scope.row.city}}</span>
           </template>
         </el-table-column>
         <el-table-column prop label="客户类别" width>
@@ -221,6 +246,7 @@
           </el-form>
         </div>
       </div>
+
       <span slot="footer" class="dialog-footer">
         <el-button type="info" @click="dialogVisible_detail = false" size="mini">关 闭</el-button>
       </span>
@@ -228,6 +254,7 @@
   </div>
 </template>
 <script>
+import provinces from "../../utils/area.js";
 import commonUrl from "../../utils/common";
 
 export default {
@@ -247,6 +274,8 @@ export default {
     };
     return {
       roleId:'',
+       // 地图
+      districtSearch: "",
       // 主列表
       tableLoading: false,
       tableData: [],
@@ -272,7 +301,13 @@ export default {
         endTime:'',
         customid:'',
         createtime:'',
-        member_status: ""
+        member_status: "",
+        // 初始化 省 regions  市 cities
+        regions: "",
+        cities: [],
+        // 省市
+        province_code: "",
+        city_code: "",
       },
       vipForm:{
         vip_date:'',
@@ -315,6 +350,10 @@ export default {
     this.getTableDataList(1);
     // 获取roleId
     this.roleId = this.$store.getters.roleId;
+    // 初始化 地图plugin
+    this.initMap();
+    // 初始化 省份
+    this.initProvinces();
 
   },
   methods: {
@@ -329,6 +368,8 @@ export default {
           signInRole: this.$store.getters.roleId,
           // 用户id
           customid:this.queryForm.customid,
+          province_code:this.queryForm.province_code,
+          city_code:this.queryForm.city_code,
           // 注册时间
           startTime:this.queryForm.startTime,
           endTime:this.queryForm.endTime,
@@ -534,7 +575,68 @@ export default {
         message,
         type
       });
-    }
+    },
+    // 省份change事件
+    changeOption_province(e) {
+      // 参数收集
+      this.queryForm.province_param = {
+        adcode: e,
+        txt: provinces.province_list[e]
+      };
+      // console.log(e)
+      // console.log(provinces.province_list[e])
+      // 赋值cities (先清理 后赋值)
+      this.queryForm.cities = [];
+      this.queryForm.city_code = "";
+      this.queryCity(provinces.province_list[e], "queryForm");
+    },
+     // 查 市区 txt: String 省份名,dataOrigin 是指 add_form  或是queryeForm 这种 父级数据源
+    queryCity(txt, dataOrigin) {
+      let vm = this;
+      // 搜索所有省/直辖市信息
+
+      this.districtSearch.search(txt, function(status, result) {
+        // console.log(result)
+        // 查询成功时，result即为对应的行政区信息
+        for (let item of result.districtList[0].districtList) {
+          vm[dataOrigin].cities.push({
+            adcode: item.adcode,
+            city: item.name
+          });
+        }
+      });
+    },
+    // 市区change事件
+    changeOption_city(e) {},
+    // 初始化 省份数据
+    initProvinces() {
+      // 处理一下 数据
+      let arr = [];
+      for (let i in provinces.province_list) {
+        arr.push({
+          adcode: i,
+          province: provinces.province_list[i]
+        });
+      }
+      this.queryForm.regions = arr;
+      // 详情
+      //this.detail_form.regions = this.detail_form.account_regions = arr;
+      // 详情并修改
+      //this.agent_detail_form.regions = this.agent_detail_form.account_regions = arr;
+    },
+    // 初始化 地图
+    initMap() {
+      let vm = this;
+      //利用高德地图API 获取 所有省
+      AMap.plugin("AMap.DistrictSearch", function() {
+        vm.districtSearch = new AMap.DistrictSearch({
+          // 关键字对应的行政区级别，country表示国家
+          level: "city",
+          //  显示下级行政区级数，1表示返回下一级行政区
+          subdistrict: 1
+        });
+      });
+    },
   }
 };
 </script>

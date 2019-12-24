@@ -130,6 +130,9 @@ const fya_routerMap = {
   agentAccountExamine: () => import('@/views/agentAccountExamine/agentAccountExamine'), //机构受益划拨审核
   agentAccountRecord: () => import('@/views/agentAccountRecord/agentAccountRecord'), //机构受益划拨记录
   withdraw: () => import('@/views/withdraw/withdraw'), //向导提现
+  agentRechargeList: () => import('@/views/agentRechargeList/agentRechargeList'), //机构红包充值
+  rechargeCheckList: () => import('@/views/rechargeCheckList/rechargeCheckList'), //机构充值审核
+  rechargeRecordList: () => import('@/views/rechargeRecordList/rechargeRecordList'), //机构充值记录
 
   // 向导管理       guide
   travelerInfo: () => import('@/views/travelerInfo/travelerInfo'), //向导查询,

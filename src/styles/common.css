@@ -277,3 +277,7 @@ body .el-table colgroup.gutter {
 .chat_title.text_r{
   color:#5ABD86;
 }
+/* 红包相关 */
+.recharge_upload{
+  font-size: 14px;
+}
