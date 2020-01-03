@@ -1158,8 +1158,16 @@ export default {
     },
     // 冻结操作
     handle_frozen(row) {
-      console.log(row);
-      this.$confirm("是否冻结该向导?", "冻结", {
+      let dialog_title = ""
+      let dialog_content =""
+      if(row.traveler_status== 1){
+        dialog_title="冻结"
+        dialog_content="是否冻结该向导?"
+      }else{
+        dialog_title="解冻"
+        dialog_content="是否解冻该向导?"
+      }
+      this.$confirm(dialog_content, dialog_title, {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",

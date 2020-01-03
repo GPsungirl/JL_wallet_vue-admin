@@ -472,15 +472,18 @@ export default {
     // 冻结操作
     handle_frozen(row) {
       let _flag = "";
+      let _flag_title = ""
       let _flag_txt = "";
-      if (row.agent_status == 1) {
+      if (row.agent_status == 1) {//冻结
         _flag = 2;
+        _flag_title="冻结"
         _flag_txt = "是否冻结该机构?";
       } else {
         _flag = 1;
+        _flag_title="解冻"
         _flag_txt = "是否解冻该机构?";
       }
-      this.$confirm(_flag_txt, "冻结", {
+      this.$confirm(_flag_txt, _flag_title, {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
