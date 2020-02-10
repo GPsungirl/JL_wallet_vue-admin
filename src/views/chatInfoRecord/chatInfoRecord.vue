@@ -322,6 +322,7 @@ export default {
       // console.log(param);
       // console.log(this.queryForm)
       this.getTableDataList(1);
+      this.currentPage = 1
     },
     // 重置按钮
     resetData(formName) {
@@ -335,8 +336,8 @@ export default {
     },
     // 刷新按钮
     handle_refresh() {
-      this.getTableDataList(1);
-      this.currentPage = 1;
+      this.getTableDataList(this.currentPage);
+      // this.currentPage = 1;
     },
     // 详情操作
     handle_detail(row) {

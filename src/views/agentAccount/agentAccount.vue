@@ -61,7 +61,7 @@
           <el-table-column prop="virtualMonthTotal" label="贝壳收益(元)" width="">
           </el-table-column>
           <el-table-column prop="totalAmont" label="总收益(元)" width="" >
-           
+
           </el-table-column>
           <!-- <el-table-column prop="virtual_src_total" label="贝壳数" width="" >
           </el-table-column>
@@ -306,11 +306,12 @@ export default {
     // 查询按钮
     queryData(){
       this.getTableDataList(1);
+      this.currentPage = 1
     },
     // 刷新 主列表
     handle_refresh(){
-        this.getTableDataList(1);
-        this.currentPage = 1
+        this.getTableDataList(this.currentPage);
+        // this.currentPage = 1
     },
     // 预检 上传
     beforeInvoiceUpload(file){

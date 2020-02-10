@@ -515,6 +515,7 @@ export default {
     // 查询按钮
     queryData() {
       this.getTableDataList(1);
+      this.currentPage = 1;
     },
     // 重置查询条件
     resetData(formName) {
@@ -524,8 +525,8 @@ export default {
     },
     // 刷新按钮
     handle_refresh() {
-      this.getTableDataList(1);
-      this.currentPage = 1;
+      this.getTableDataList(this.currentPage);
+      // this.currentPage = 1;
     },
     // 省份change事件
     changeOption_province(e) {

@@ -833,13 +833,14 @@ export default {
         },
         // 刷新 主列表
         handle_refresh(){
-            this.getTableDataList(1);
-            this.currentPage = 1
+            this.getTableDataList(this.currentPage);
+            // this.currentPage = 1
         },
         // 查询按钮
         queryData(){
             // 根据参数进行查询
             this.getTableDataList(1);
+            this.currentPage = 1
         },
         // 详情 操作
         handle_detail(row){

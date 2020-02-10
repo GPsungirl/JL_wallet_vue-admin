@@ -1351,6 +1351,7 @@ export default {
       // console.log(this.queryForm)
       // 根据参数进行查询
       this.getTableDataList(1);
+      this.currentPage = 1
     },
     // 查询按钮——工作记录
     queryData_workRecord() {
@@ -1365,13 +1366,13 @@ export default {
     },
     // 刷新按钮-主列表
     handle_refresh() {
-      this.getTableDataList(1);
-      this.currentPage = 1;
+      this.getTableDataList(this.currentPage);
+      // this.currentPage = 1;
     },
     // 刷新按钮-工作记录
     handle_refresh_workRecord() {
-      this.getTableDataList_workRecord(1);
-      this.currentPage_workRecord = 1;
+      this.getTableDataList_workRecord(this.currentPage_workRecord);
+      // this.currentPage_workRecord = 1;
     },
     // 冻结操作
     handle_frozen(row) {

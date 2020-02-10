@@ -405,8 +405,8 @@ export default {
         },
         // 刷新 主列表
         handle_refresh(){
-            this.getTableDataList(1);
-            this.currentPage = 1
+            this.getTableDataList(this.currentPage);
+            // this.currentPage = 1
         },
         // 初始化 银行信息
         getBankList(){
@@ -535,6 +535,7 @@ export default {
         queryData(){
             console.log(this.queryForm)
             this.getTableDataList(1)
+            this.currentPage = 1;
         },
         // 重置查询条件
         resetData(formName){

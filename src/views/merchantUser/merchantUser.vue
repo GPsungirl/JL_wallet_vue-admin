@@ -2,7 +2,7 @@
     <!-- 招商中心业务人员管理 (该页面拷贝于:区域经理的业务人员)-->
     <div class="pad_5">
         <!-- M1 查询区域 -->
-        <div class="query_fields">                
+        <div class="query_fields">
             <el-form :inline="true" :model="queryForm" :rules="queryForm_rules" ref="queryForm" size="mini" class="demo-form-inline ">
                 <el-form-item label="姓名" prop="real_name">
                     <el-input v-model="queryForm.real_name" placeholder="请输入姓名"></el-input>
@@ -11,21 +11,21 @@
                     <el-input v-model.number="queryForm.phone" placeholder="请输入手机号"></el-input>
                 </el-form-item> -->
                 <!-- <el-form-item label="业务区域" prop="management_area">
-                    <el-select v-model="queryForm.management_area"                         
-                        placeholder="请选择业务区域" 
+                    <el-select v-model="queryForm.management_area"
+                        placeholder="请选择业务区域"
                         >
-                        <el-option v-for="(item, index) in queryForm.regions"                             
+                        <el-option v-for="(item, index) in queryForm.regions"
                             :key="index"
                             :label=" item.province "
                             :value=" item.adcode ">
                         </el-option>
-                        
+
                     </el-select>
                 </el-form-item> -->
                 <el-form-item>
                     <el-button type="primary" size='mini' @click="queryData">查询</el-button>
                     <el-button type="success" size='mini' @click="resetData('queryForm')">重置</el-button>
-                    <el-button type="primary" size='mini' @click="handle_refresh">刷新</el-button> 
+                    <el-button type="primary" size='mini' @click="handle_refresh">刷新</el-button>
                     <!-- 新增权限：招商人员  5-->
                     <el-button v-if="roleId == 5" type="success" size='mini' @click="handle_add">新增业务人员</el-button>
                 </el-form-item>
@@ -56,11 +56,11 @@
                 </el-table-column>
             </el-table>
             <!-- 分页 -->
-            <div class="block mar_t10">  
-                <el-pagination                
+            <div class="block mar_t10">
+                <el-pagination
                 @current-change="handleCurrentChange"
                 :current-page="currentPage"
-                :total="pageTotal"                      
+                :total="pageTotal"
                 background
                 layout="total, prev, pager, next, jumper"
                 >
@@ -70,15 +70,15 @@
         <!-- M3 dialog 新增/修改-->
         <el-dialog
             title="新增招商业务人员"
-            :visible.sync="add_dialog"  
-            width="30%"          
-            center 
-            class="valid_form" 
+            :visible.sync="add_dialog"
+            width="30%"
+            center
+            class="valid_form"
             v-loading="add_loading"
             element-loading-text="拼命加载中"
             element-loading-spinner="el-icon-loading"
-            element-loading-background="rgba(0, 0, 0, 0.8)"         
-            > 
+            element-loading-background="rgba(0, 0, 0, 0.8)"
+            >
             <!-- body -->
             <div class="wid_b75">
                 <el-form  :model="add_formInline" :rules="rules" ref="add_formInline" label-width="50px"  class="demo-ruleForm">
@@ -94,41 +94,41 @@
                     <!-- 新增时隐藏，修改时显示该项 showIs_del-->
                     <el-form-item label="状态" prop="is_del" v-if="add_formInline.showIs_del">
                         <el-select v-model="add_formInline.is_del" placeholder="请选择状态">
-                            <el-option 
+                            <el-option
                                 v-for="(item, index) in add_formInline.is_dels"
                                 :key="index"
-                                :label="item" 
+                                :label="item"
                                 :value="index"
                                 >
                             </el-option>
-                            
+
                         </el-select>
                     </el-form-item>
                     <!-- <el-form-item label="区域" prop="region" class="modiWidth_select">
                         <el-select v-model="add_formInline.region"
-                            multiple 
+                            multiple
                             placeholder="请选择区域"
                             @change="add_changeOption($event)">
-                            <el-option v-for="(item, index) in add_formInline.regions"                             
+                            <el-option v-for="(item, index) in add_formInline.regions"
                             :key="index"
                             :label=" item.province "
                             :value=" item.adcode "
-                            >                                    
+                            >
                             </el-option>
                         </el-select>
                     </el-form-item> -->
                 </el-form>
-            </div>   
+            </div>
              <!-- footer  -->
             <span slot="footer" class="dialog-footer">
             <el-button @click="add_dialog = false" size='mini'>取 消</el-button>
             <el-button v-show="add_formInline.id == ''" type="primary" @click="save_add" size='mini'>确 定</el-button>
             <el-button v-show="add_formInline.id != ''" type="primary" @click="save_modi" size='mini'>确 定</el-button>
-            
+
             </span>
         </el-dialog>
-        
-        
+
+
     </div>
 </template>
 <script>
@@ -164,14 +164,14 @@ export default {
                 real_name:'',
                 // 电话
                 phone:'',
-                
-                  
+
+
             },
             // 查询 参数
             query_param: {
                 // 姓名
                 real_name:'',
-                
+
                 // 区域(省)
                 management_area:'',
             },
@@ -190,12 +190,12 @@ export default {
             // 弹框
             add_dialog: false,
             modi_diaog: false,
-            
+
             // 新增弹框的数据
             modi_phone:false,
             add_formInline: {
                 real_name: '',
-               
+
                 phone: '',
                 email: '',
                 is_dels:[
@@ -210,7 +210,7 @@ export default {
             // 新增 解禁，修改封禁
             modi_user:false,
             rules: {
-                real_name: [                  
+                real_name: [
                     { required: true, message:'请输入姓名', trigger: 'blur' }
                 ],
                 phone: [
@@ -241,10 +241,10 @@ export default {
         // 初始化招商中心编号
         this.merchant_center_code = this.$store.getters.merchant_center_code;
         // 初始化 省份数据
-        // this.initProvinces();  
+        // this.initProvinces();
         // 初始化主列表数据
         this.getTableDataList(1);
-        
+
     },
     methods: {
         // 初始化主列表数据
@@ -258,20 +258,20 @@ export default {
                     pageNum: pageNum,
                     pageSize: 10,
                     merchant_center_code:this.$store.getters.merchant_center_code,
-                    // 私有     姓名  电话                                    
+                    // 私有     姓名  电话
                     real_name:this.queryForm.real_name,
                     phone:this.queryForm.phone,
                 }
             }
             // 请求
             this.tableLoading = true
-            this.$http.post(`${ commonUrl.baseUrl }/merchantCenter/selectMerchantSalesman`, param).then(res=>{                
-                if(res.data.code == '0000'){    
-                    // console.log(res)                                    
-                    this.tableData =  res.data.data.userList  
+            this.$http.post(`${ commonUrl.baseUrl }/merchantCenter/selectMerchantSalesman`, param).then(res=>{
+                if(res.data.code == '0000'){
+                    // console.log(res)
+                    this.tableData =  res.data.data.userList
                     // 分页 总数
                     this.pageTotal = res.data.data.page.pageTotal;
-                    // 关闭加载  
+                    // 关闭加载
                     this.tableLoading = false
                 }
             }).catch(err=>{})
@@ -284,19 +284,20 @@ export default {
                 arr.push({
                     adcode:i,
                     province:provinces.province_list[i]
-                })                
-            }            
+                })
+            }
             this.queryForm.regions = arr
             this.add_formInline.regions = arr
         },
         // 查询按钮
-        queryData(){            
+        queryData(){
             this.getTableDataList(1);
+            this.currentPage = 1
         },
         // 省份change事件
         changeOption(e){
-            
-            this.query_param.province = { adcode:e, txt: provinces.province_list[e] }                                    
+
+            this.query_param.province = { adcode:e, txt: provinces.province_list[e] }
         },
         // 新增按钮 招商中心业务人员
         handle_add(){
@@ -319,7 +320,7 @@ export default {
                     this.add_loading = false
                     // 处理数据  。。。。。
                 }
-            }).catch(err=>{})                                                         
+            }).catch(err=>{})
         },
         // 修改操作
         handle_modi(row){
@@ -335,16 +336,16 @@ export default {
             this.add_dialog = true
             this.add_loading = true
             this.$http.post(`${ commonUrl.baseUrl }/merchantCenter/updateMerchantSalesman`, param).then(res=>{
-                if(res.data.code == '0000'){    
-                    // console.log(res)                
+                if(res.data.code == '0000'){
+                    // console.log(res)
                     let result = res.data.data.merchantSalesmanInfo
-                    // 赋值  姓名  电话 邮箱                                        
+                    // 赋值  姓名  电话 邮箱
                     this.add_formInline.real_name = result.real_name
                     this.add_formInline.phone = result.phone
-                    this.add_formInline.email = result.email  
-                    this.add_formInline.is_del= result.is_del   
+                    this.add_formInline.email = result.email
+                    this.add_formInline.is_del= result.is_del
                     // 封禁电话
-                    this.modi_user = true                                                                                                                         
+                    this.modi_user = true
                     this.add_loading = false
                 }
             }).catch(err=>{
@@ -357,17 +358,17 @@ export default {
         },
         // 分页
         handleCurrentChange(val){
-            this.currentPage = val       
-            // 获取主页列表数据(loading状态)  
-            this.getTableDataList(val);         
+            this.currentPage = val
+            // 获取主页列表数据(loading状态)
+            this.getTableDataList(val);
             //console.log(`当前页: ${val}`);
         },
         // 新增的dialog内选区域
         add_changeOption(e){
-            
+
             this.add_formInline.region_name = []
             for(let item of this.add_formInline.region){
-                this.add_formInline.region_name.push(provinces.province_list[item]) 
+                this.add_formInline.region_name.push(provinces.province_list[item])
             }
             // console.log(this.add_formInline.region)
             // console.log(this.add_formInline.region_name)
@@ -382,24 +383,24 @@ export default {
                     data: {
                         // 公有
                         signInUserId: this.$store.getters.userId,
-                        signInRoleId: this.$store.getters.roleId,                        
+                        signInRoleId: this.$store.getters.roleId,
                         // 私有
                         email:this.add_formInline.email,
-                        phone:this.add_formInline.phone,                        
+                        phone:this.add_formInline.phone,
                         real_name:this.add_formInline.real_name,
                         is_del:this.add_formInline.is_del,
                     }
                 }
                 this.add_loading = true
-                this.$http.post(`${ commonUrl.baseUrl }/merchantCenter/saveMerchantSaleman`, param).then(res=>{                                                       
-                    if(res.data.code == '0000'){                                               
+                this.$http.post(`${ commonUrl.baseUrl }/merchantCenter/saveMerchantSaleman`, param).then(res=>{
+                    if(res.data.code == '0000'){
                         this.add_loading = false
                         // 关闭弹框
                         this.add_dialog = false
                         // 提示 新增成功
                         this.m_message(res.data.msg, 'success')
                         // 加载数据列表
-                        this.getTableDataList(1)    
+                        this.getTableDataList(1)
                     }else{
                         this.add_loading = false
                         this.m_message(res.data.msg, 'warning')
@@ -410,7 +411,7 @@ export default {
             }
             // 接口
             // 关弹框
-            
+
 
         },
         // 保存 修改
@@ -422,25 +423,25 @@ export default {
                     data: {
                         // 公有
                         signInUserId: this.$store.getters.userId,
-                        signInRoleId: this.$store.getters.roleId,                        
+                        signInRoleId: this.$store.getters.roleId,
                         // 私有
                         email:this.add_formInline.email,
-                        phone:this.add_formInline.phone,                        
+                        phone:this.add_formInline.phone,
                         real_name:this.add_formInline.real_name,
                         id:this.add_formInline.id,
                         is_del:this.add_formInline.is_del,
                     }
                 }
                 this.add_loading = true
-                this.$http.post(`${ commonUrl.baseUrl }/merchantCenter/saveMerchantSaleman`, param).then(res=>{                                                       
-                    if(res.data.code == '0000'){                                               
+                this.$http.post(`${ commonUrl.baseUrl }/merchantCenter/saveMerchantSaleman`, param).then(res=>{
+                    if(res.data.code == '0000'){
                         this.add_loading = false
                         // 关闭弹框
                         this.add_dialog = false
                         // 提示 新增成功
                         this.m_message(res.data.msg, 'success')
                         // 加载数据列表
-                        this.getTableDataList(1)    
+                        this.getTableDataList(1)
                     }else{
                         this.add_loading = false
                         this.m_message(res.data.msg, 'warning')
@@ -450,15 +451,15 @@ export default {
                 })
             }
         },
-        // 校验规则        
+        // 校验规则
         valid_form(formName) {
             let  flag  = false ;
             this.$refs[formName].validate((valid) => {
-                if (valid) {  
-                flag = true;             
+                if (valid) {
+                flag = true;
                 return true
-                } else {   
-                flag = false;       
+                } else {
+                flag = false;
                 return false;
                 }
             });
@@ -473,15 +474,15 @@ export default {
         },
         // dialog 表单清空操作
         clear_formData(){
-            
+
         },
-        // 重置查询条件         
+        // 重置查询条件
         resetData(formName){
             if(this.$refs[formName]){
-                this.$refs[formName].resetFields();  
+                this.$refs[formName].resetFields();
             }
-                      
-        },          
+
+        },
         // 提示信息 message:提示信息   type 提示类型
         m_message(message,type){
             this.$message({
@@ -491,8 +492,8 @@ export default {
         },
         // 刷新 主列表
         handle_refresh(){
-            this.getTableDataList(1);
-            this.currentPage = 1
+            this.getTableDataList(this.currentPage);
+            // this.currentPage = 1
         },
     }
 }

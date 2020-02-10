@@ -259,8 +259,8 @@ export default {
         },
         // 刷新
         handle_refresh(){
-            this.getTabelDataList(1)
-            this.currentPage = 1
+            this.getTabelDataList(this.currentPage)
+            // this.currentPage = 1
         },
         // 处理待出账
         handle_upload(row){
@@ -296,6 +296,7 @@ export default {
         queryData(){
           // console.log(this.queryForm)
           this.getTabelDataList(1);
+          this.currentPage = 1;
         },
         // 重置按钮
         resetData(formName){

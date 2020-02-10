@@ -448,11 +448,12 @@ export default {
     // 查询按钮
     queryData(){
       this.getTableDataList(1);
+      this.currentPage = 1
     },
     // 刷新 主列表
     handle_refresh(){
-        this.getTableDataList(1);
-        this.currentPage = 1
+        this.getTableDataList(this.currentPage);
+        // this.currentPage = 1
     },
     // 预检 上传
     beforeInvoiceUpload(file){

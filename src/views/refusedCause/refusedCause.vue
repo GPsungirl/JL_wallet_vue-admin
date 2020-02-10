@@ -195,9 +195,9 @@ export default {
     // 刷新界面(目前刷新 数据列表)
     refreshData(){
       // 初始化数据列表
-      this.getTableList(1);
+      this.getTableList(this.currentPage);
       // 分页 回到第一页
-      this.currentPage = 1
+      // this.currentPage = 1
     },
     // 新增按钮 (新增拒绝原因)
     handle_addRefuseCause() {

@@ -152,8 +152,10 @@ const fya_routerMap = {
   sysRole: () => import('@/views/sysRole/sysRole'), // 角色管理
   sysUser: () => import('@/views/sysUser/sysUser'), // 用户管理
   refusedCause: () => import('@/views/refusedCause/refusedCause'), //审核原因
-  messageInfo: () => import('@/views/messageInfo/messageInfo')  //消息提示
+  messageInfo: () => import('@/views/messageInfo/messageInfo'),  //消息提示
 
+  // 推送管理    push
+  IMpush: () => import('@/views/IMpush/IMpush')  //信息推送
 }
 
 function generateAsyncRouter(routerMap, serverRouterMap) {
@@ -185,8 +187,8 @@ const actions = {
 
       const fya_list = setServeMap(list)
       const gp_list = modifyKeys(fya_list)
-      console.dir(gp_list)
-      debugger
+      // console.dir(gp_list)
+      // debugger
 
       // 测试 后台 传来的 路由表
       const asyncRouterMap = generateAsyncRouter(fya_routerMap, gp_list)
