@@ -155,8 +155,7 @@
       v-loading="vip_loading"
       element-loading-text="拼命加载中"
       element-loading-spinner="el-icon-loading"
-      element-loading-background="rgba(0, 0, 0, 0.8)"
-    >
+      element-loading-background="rgba(0, 0, 0, 0.8)">
       <!--新增 body -->
       <div class="dialogBody_addPermission">
         <div class="grid-content bg-purple-dark pad_t2">
@@ -190,8 +189,7 @@
       v-loading="add_loading"
       element-loading-text="拼命加载中"
       element-loading-spinner="el-icon-loading"
-      element-loading-background="rgba(0, 0, 0, 0.8)"
-    >
+      element-loading-background="rgba(0, 0, 0, 0.8)">
       <!--新增 body -->
       <div class="dialogBody_addPermission">
         <div class="grid-content bg-purple-dark pad_t2">
@@ -365,7 +363,7 @@ export default {
           member_status: this.queryForm.member_status,
 
           signInUserId: this.$store.getters.userId,
-          signInRole: this.$store.getters.roleId,
+          signInRoleId: this.$store.getters.roleId,
           // 用户id
           customid:this.queryForm.customid,
           province_code:this.queryForm.province_code,
@@ -467,7 +465,7 @@ export default {
         data: {
           // 公有
           signInUserId: this.$store.getters.userId,
-          signInRole: this.$store.getters.roleId,
+          signInRoleId: this.$store.getters.roleId,
           // 参数 私有
           custom_status: row.custom_status == 1 ? 2 : 1,
           customid: row.customid
@@ -494,7 +492,7 @@ export default {
         data: {
           // 公有
           signInUserId: this.$store.getters.userId,
-          signInRole: this.$store.getters.roleId,
+          signInRoleId: this.$store.getters.roleId,
           // 私有 当前id
           customid: row.customid
         }

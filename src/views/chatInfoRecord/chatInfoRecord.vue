@@ -292,7 +292,7 @@ export default {
       let param = {
         data: {
           signInUserId: this.$store.getters.userId,
-          signInRole: this.$store.getters.roleId,
+          signInRoleId: this.$store.getters.roleId,
           // 用户id
           customid:this.queryForm.customid,
           nickname: this.queryForm.nickname,

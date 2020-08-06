@@ -15,15 +15,15 @@
 
     <el-table-column prop="role_name" label="角色名称" width="">
     </el-table-column>
-    <el-table-column prop="role_describe" label="角色描述" width="">
+    <el-table-column prop="role_chinese_name" label="角色描述" width="">
 
     </el-table-column>
-    <el-table-column prop="" label="权限" width="">
+    <!-- <el-table-column prop="" label="权限" width="">
       <template slot-scope="scope">
         <span v-if="scope.row.permission.indexOf('view')>-1">查看</span>
         <span v-if="scope.row.permission.indexOf('edit')>-1">编辑</span>
       </template>
-    </el-table-column>
+    </el-table-column> -->
 
     <el-table-column prop="" label="操作" width="">
       <template slot-scope="scope">
@@ -68,20 +68,20 @@
               <el-form-item label="角色名称" prop="name">
                 <el-input v-model="valid_modiForm.name"></el-input>
               </el-form-item>
-              <el-form-item label="角色描述" prop="txt">
-                <el-input v-model="valid_modiForm.txt"></el-input>
+              <el-form-item label="角色描述" prop="role_chinese_name">
+                <el-input v-model="valid_modiForm.role_chinese_name"></el-input>
               </el-form-item>
-              <el-form-item label="角色权限" prop="permission">
+              <!-- <el-form-item label="角色权限" prop="permission">
                 <el-select v-model="valid_modiForm.permission" multiple="" placeholder="角色权限">
                   <el-option
                     v-for="(item, index) in valid_modiForm.permissions"
                     :key="index"
-                    :label="item.txt"
+                    :label="item.role_chinese_name"
                     :value="item.id"
                     ></el-option>
                 </el-select>
 
-              </el-form-item>
+              </el-form-item> -->
             </el-form>
           </div>
         </el-col>
@@ -136,8 +136,8 @@
               <el-form-item label="角色名称" prop="name">
                 <el-input v-model="valid_addForm.name" placeholder="角色名称"></el-input>
               </el-form-item>
-              <el-form-item label="角色描述" prop="txt">
-                <el-input v-model="valid_addForm.txt" placeholder="角色描述"></el-input>
+              <el-form-item label="角色描述" prop="role_chinese_name">
+                <el-input v-model="valid_addForm.role_chinese_name" placeholder="角色描述"></el-input>
               </el-form-item>
               <el-form-item label="角色权限" prop="permission">
                 <el-select v-model="valid_addForm.permission" multiple placeholder="选择角色权限">
@@ -148,7 +148,6 @@
                     :value="item.id"
                     ></el-option>
                 </el-select>
-
               </el-form-item>
             </el-form>
           </div>
@@ -202,7 +201,7 @@ export default {
         // 角色名称
         name: '',
         // 角色描述
-        txt: '',
+        role_chinese_name: '',
         // 角色权限
         permission: ''
       },
@@ -216,7 +215,7 @@ export default {
       // 新增 弹框规则
       valid_addForm: {
         name: '',
-        txt: '',
+        role_chinese_name: '',
         permission:[],
         // 角色权限
         permissions:[
@@ -234,27 +233,27 @@ export default {
         name: [
           { required: true, message: '请输入角色名称', trigger: 'blur' },
         ],
-        txt: [
+        role_chinese_name: [
           { required: true, message: '请输入角色描述', trigger: 'blur' },
-        ],
-        permission: [
-          { required: true, message: '请选择角色权限', trigger: 'change' },
-        ],
+        ]
+        // permission: [
+        //   { required: true, message: '请选择角色权限', trigger: 'change' },
+        // ],
 
       },
       // 修改权限
       valid_modiForm:{
         name: '',
-        txt: '',
+        role_chinese_name: '',
         permission:[],
         permissions:[
           {
             id:'edit',
-            txt:'编辑'
+            role_chinese_name:'编辑'
           },
           {
             id:'view',
-            txt:'查看'
+            role_chinese_name:'查看'
           }
         ],
       },
@@ -262,12 +261,12 @@ export default {
         name: [
           { required: true, message: '请输入角色名称', trigger: 'blur' },
         ],
-        txt: [
+        role_chinese_name: [
           { required: true, message: '请输入角色描述', trigger: 'blur' },
-        ],
-        permission: [
-          { required: true, message: '请选择角色权限', trigger: 'change' },
-        ],
+        ]
+        // permission: [
+        //   { required: true, message: '请选择角色权限', trigger: 'change' },
+        // ],
 
       },
       // 待修改的 用户信息
@@ -276,7 +275,7 @@ export default {
         role_name: '',
         id: '',
         permission:'',
-        role_describe: ''
+        role_chinese_name: ''
       },
       modi_loading:false,
       add_loading: false,
@@ -287,19 +286,9 @@ export default {
     this.getList_userPermission(1);
     // 获取当前登录者权限
     //this.getData_onePermission();
-    // 测试数据
-    // this.test();
+
   },
   methods: {
-    test(){
-      let treeStr = JSON.parse('[{"checked":false,"icon":"verify","id":749,"name":"审核管理","pId":0,"parentMenu":null,"sort":1,"nodes":[{"checked":false,"icon":"","id":750,"name":"审核管理","pId":749,"parentMenu":null,"sort":1,"nodes":[],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=750"}],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=749"},{"checked":false,"icon":"ad","id":751,"name":"广告管理","pId":0,"parentMenu":null,"sort":2,"nodes":[{"checked":false,"icon":"","id":752,"name":"广告管理","pId":751,"parentMenu":null,"sort":1,"nodes":[],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=752"},{"checked":false,"icon":"","id":753,"name":"广告位管理","pId":751,"parentMenu":null,"sort":2,"nodes":[],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=753"}],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=751"},{"checked":false,"icon":"news","id":754,"name":"消息管理","pId":0,"parentMenu":null,"sort":3,"nodes":[{"checked":false,"icon":"","id":755,"name":"消息管理","pId":754,"parentMenu":null,"sort":1,"nodes":[],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=755"}],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=754"},{"checked":false,"icon":"users","id":756,"name":"用户管理","pId":0,"parentMenu":null,"sort":4,"nodes":[{"checked":false,"icon":"","id":757,"name":"用户管理","pId":756,"parentMenu":null,"sort":1,"nodes":[],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=757"}],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=756"},{"checked":false,"icon":"messages","id":758,"name":"留言管理","pId":0,"parentMenu":null,"sort":5,"nodes":[{"checked":false,"icon":"","id":759,"name":"留言管理","pId":758,"parentMenu":null,"sort":1,"nodes":[],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=759"}],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=758"},{"checked":false,"icon":"complaint","id":760,"name":"投诉管理","pId":0,"parentMenu":null,"sort":6,"nodes":[{"checked":false,"icon":"","id":761,"name":"投诉管理","pId":760,"parentMenu":null,"sort":1,"nodes":[],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=761"}],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=760"},{"checked":false,"icon":"function","id":762,"name":"功能建议","pId":0,"parentMenu":null,"sort":7,"nodes":[{"checked":false,"icon":"","id":763,"name":"功能建议","pId":762,"parentMenu":null,"sort":1,"nodes":[],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=763"}],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=762"},{"checked":false,"icon":"back","id":764,"name":"后台用户管理","pId":0,"parentMenu":null,"sort":8,"nodes":[{"checked":false,"icon":"","id":765,"name":"用户管理","pId":764,"parentMenu":null,"sort":1,"nodes":[],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=765"},{"checked":false,"icon":"","id":766,"name":"角色管理","pId":764,"parentMenu":null,"sort":2,"nodes":[],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=766"},{"checked":false,"icon":"","id":767,"name":"菜单管理","pId":764,"parentMenu":null,"sort":3,"nodes":[],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=767"}],"target":"treeFrame","type":"","url":"/menu/toEdit.do?id=764"}]')
-      console.log(treeStr)
-      debugger
-      let arr = []
-      for(let i=0;i<treeStr.length;i++){
-
-      }
-    },
     // 刷新
     refreshData(){
       // 初始化数据列表
@@ -321,7 +310,7 @@ export default {
       }
       const res = await this.$http.post(`${commonUrl.baseUrl}/sysRole/selectSysRole`, param)
       if (res.data.code == '0000') {
-
+        console.log(res)
         let result = res.data.data.sysRoleList
         // 隐藏管理员
         // for(let i=0;i<result.length;i++){
@@ -329,7 +318,7 @@ export default {
         //     result.splice(i,1)
         //   }
         // }
-        console.log(result)
+        // console.log(result)
         this.tableData = result
         // 分页 总数
         this.pageTotal = res.data.data.page.pageTotal;
@@ -378,7 +367,7 @@ export default {
         this.modiDialog_tree = menuList
       }
     },
-
+    
     // 新增=保存按钮  (点击弹框中的《确定》)
     save_addSysRole(){
       // valid  右侧必选！  左侧必填！
@@ -407,7 +396,7 @@ export default {
             //  权限  介绍 名称
             mid:treeIds.join(','),
             permission:this.valid_addForm.permission.join(','),
-            role_describe:this.valid_addForm.txt,
+            role_chinese_name:this.valid_addForm.role_chinese_name,
             role_name:this.valid_addForm.name
           }
         }
@@ -445,7 +434,7 @@ export default {
       // 存储当前行数据
       this.d_modi_userPermission.permission = row.permission;
       this.d_modi_userPermission.role_name = row.role_name;
-      this.d_modi_userPermission.role_describe = row.role_describe;
+      this.d_modi_userPermission.role_chinese_name = row.role_chinese_name;
       this.d_modi_userPermission.id = row.id;
       // 先清空  选中
       this.modi_default_ids = []
@@ -495,8 +484,8 @@ export default {
           // 角色名称 描述  权限 赋值
           let result = res2.data.data.sysRole
           this.valid_modiForm.name = result.role_name
-          this.valid_modiForm.txt = result.role_describe
-          this.valid_modiForm.permission = result.permission.split(',')
+          this.valid_modiForm.role_chinese_name = result.role_chinese_name
+          //this.valid_modiForm.permission = result.permission.split(',')
           // 加载完成
           this.modi_loading = false
 
@@ -530,8 +519,8 @@ export default {
             //  权限  介绍 名称
             id:this.d_modi_userPermission.id,
             mid:treeIds.join(','),
-            permission:this.valid_modiForm.permission.join(','),
-            role_describe:this.valid_modiForm.role_describe,
+            //permission:this.valid_modiForm.permission.join(','),
+            role_chinese_name:this.valid_modiForm.role_chinese_name,
             role_name:this.valid_modiForm.name,
           }
         }

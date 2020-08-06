@@ -1,80 +1,41 @@
 <template>
   <div class="main_content">
     <el-row>
-      <el-col :span="8" :offset="4">
-        <div class="grid-content bg-purple box_shadow">
-          <p class="jl_layout_center">上月收益</p>
-          <el-row style="margin-bottom:10px;margin-top:30px">
-            <el-col :span="10" style="text-align:right">
-              <span>贝壳收入：</span>
-            </el-col>
-            <el-col :span="14" style="text-align:left;padding-left:10px">
-              <span>{{ lastMonth_virtualamount }}</span>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="10" style="text-align:right">
-              <span>出行收入：</span>
-            </el-col>
-            <el-col :span="14" style="text-align:left;padding-left:10px">
-              <span>{{ lastMonth_accountamount }}</span>
-            </el-col>
-          </el-row>
-        </div>
-      </el-col>
-      <el-col :span="8">
-        <div class="grid-content bg-purple box_shadow">
-          <p class="jl_layout_center">昨日收益</p>
-          <el-row style="margin-bottom:10px;margin-top:30px">
-            <el-col :span="10" style="text-align:right">
-              <span>贝壳收入：</span>
-            </el-col>
-            <el-col :span="14" style="text-align:left;padding-left:10px">
-              <span>{{ yesterday_virtualamount }}</span>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="10" style="text-align:right">
-              <span>出行收入：</span>
-            </el-col>
-            <el-col :span="14" style="text-align:left;padding-left:10px">
-              <span>{{ yesterday_accountamount }}</span>
-            </el-col>
-          </el-row>
-        </div>
-      </el-col>
-      <!-- <el-col :span="8">
-        <div class="grid-content bg-purple box_shadow">
-          <p class="jl_layout_center">本月收益</p>
-        </div>
-      </el-col>-->
+      <p style="text-align:center">
+        <span>{{$store.getters.real_name}}</span>
+      </p>
+      <p style="text-align:center">欢迎登录小角钱包运营管理系统</p>
+      <p style="text-align:center">{{ invite_code }}</p>
     </el-row>
-
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import commonUrl from '../../utils/common';
-import qs from 'qs';
-import { validNum100, validNum15, validDyNum, filterSpace} from '../../utils/validate'
+import { mapGetters } from "vuex";
+import commonUrl from "../../utils/common";
+import qs from "qs";
 import {
-  isvalidPhone
+  validNum100,
+  validNum15,
+  validDyNum,
+  filterSpace
 } from "../../utils/validate";
+import { isvalidPhone } from "../../utils/validate";
 export default {
-  name: 'Dashboard',
+  name: "Dashboard",
   data() {
-     // 校验手机号
-    let validPhone=(rule, value,callback)=>{
-        if (!value){
-            callback(new Error('请输入电话号码'))
-        }else  if (!isvalidPhone(value)){
-            callback(new Error('请输入正确手机号码'))
-        }else {
-            callback()
-        }
-    }
+    // 校验手机号
+    let validPhone = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error("请输入电话号码"));
+      } else if (!isvalidPhone(value)) {
+        callback(new Error("请输入正确手机号码"));
+      } else {
+        callback();
+      }
+    };
     return {
+      invite_code:'',
       agent_name: "",
       agentid: "",
       // 昨日收益
@@ -86,17 +47,51 @@ export default {
     };
   },
   created() {
-    // 初始化数据
-    this.getEarnings()
+    // 初始化数据:邀请码 只针对机构
+    if(this.$store.getters.roleId == 2){
+      this.getAgentInviteCode();
+    }
+
   },
   computed: {
-    ...mapGetters([
-      'name',
-      'roles'
-    ])
+    ...mapGetters(["name", "roles"])
   },
 
   methods: {
+    // 获取邀请码
+    getAgentInviteCode() {
+
+      let param = {
+        data: {
+          signInUserId: this.$store.getters.userId,
+          signInRoleId: this.$store.getters.roleId
+        }
+      };
+      const loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
+      this.$http
+        .post(
+          `${commonUrl.baseUrl}/inviteCodeInfo/getAgentInviteCode`,
+          param
+        )
+        .then(res => {
+          console.log(res)
+          if (res.data.code == "0000") {
+            let codeid = res.data.data.inviteCode.invite_codeid
+            this.invite_code = `机构邀请码：${ codeid }`
+            loading.close()
+          } else {
+            //this.m_message(res.data.msg, "warning");
+            // 关闭加载
+            loading.close()
+          }
+        })
+        .catch(err => {});
+    },
     // 获取昨日收益 上月收益
     getEarnings() {
       const loading = this.$loading({
@@ -104,16 +99,22 @@ export default {
         text: "Loading",
         spinner: "el-icon-loading",
         background: "rgba(0, 0, 0, 0.7)"
-      })
+      });
       // 昨日收益 出行收益 贝壳收益
       let _param1 = {
         data: {
           signInRoleId: this.$store.getters.roleId,
-          yesterday:this.getYestoday()
+          yesterday: this.getYestoday()
         }
-      }
-      let _pro1 = this.$http.post(`${commonUrl.baseUrl}/accountProfitPlatform/selectAccountProfitPlatform`,_param1)
-      let _pro2 = this.$http.post(`${commonUrl.baseUrl}/virtualProfitPlatform/selectVirtualProfitPlatform`,_param1)
+      };
+      let _pro1 = this.$http.post(
+        `${commonUrl.baseUrl}/accountProfitPlatform/selectAccountProfitPlatform`,
+        _param1
+      );
+      let _pro2 = this.$http.post(
+        `${commonUrl.baseUrl}/virtualProfitPlatform/selectVirtualProfitPlatform`,
+        _param1
+      );
 
       // 上月收益 出行收益 贝壳收益
       let _param2 = {
@@ -121,52 +122,60 @@ export default {
           signInRoleId: this.$store.getters.roleId,
           lastMonth: this.getLastMonth()
         }
-      }
-      let _pro3 = this.$http.post(`${commonUrl.baseUrl}/accountProfitPlatform/selectLastMonthAccountProfitPlatform`,_param2)
-      let _pro4 = this.$http.post(`${commonUrl.baseUrl}/virtualProfitPlatform/selectLastMonthVirtualProfitPlatform`,_param2)
+      };
+      let _pro3 = this.$http.post(
+        `${commonUrl.baseUrl}/accountProfitPlatform/selectLastMonthAccountProfitPlatform`,
+        _param2
+      );
+      let _pro4 = this.$http.post(
+        `${commonUrl.baseUrl}/virtualProfitPlatform/selectLastMonthVirtualProfitPlatform`,
+        _param2
+      );
 
-      Promise.all([_pro1,_pro2,_pro3,_pro4])
-      .then(res => {
-        let [res1, res2, res3, res4] = res
-        // console.log(res);
-        // debugger
-        // 昨日 出行收益 贝壳收益
-        if(res1.data.code == '0000'){
-          let result = res1.data.data.accountProfitPlatform
-          // 昨日出行
-          this.yesterday_accountamount = result.accountAmout  + ' 元'
-        }else{
-          // setTimeout(()=>{this.m_message(res1.data.msg, 'warning')},1)
-        }
+      Promise.all([_pro1, _pro2, _pro3, _pro4])
+        .then(res => {
+          let [res1, res2, res3, res4] = res;
+          // console.log(res);
+          // debugger
+          // 昨日 出行收益 贝壳收益
+          if (res1.data.code == "0000") {
+            let result = res1.data.data.accountProfitPlatform;
+            // 昨日出行
+            this.yesterday_accountamount = result.accountAmout + " 元";
+          } else {
+            // setTimeout(()=>{this.m_message(res1.data.msg, 'warning')},1)
+          }
 
-        if(res2.data.code == '0000'){
-          let result = res2.data.data.virtualProfitPlatform
-          // 昨日贝壳
-          this.yesterday_virtualamount = result.virtualAmount + ' 贝壳'
-        }else{
-          // setTimeout(()=>{this.m_message(res2.data.msg, 'warning')},1)
-        }
+          if (res2.data.code == "0000") {
+            let result = res2.data.data.virtualProfitPlatform;
+            // 昨日贝壳
+            this.yesterday_virtualamount = result.virtualAmount + " 贝壳";
+          } else {
+            // setTimeout(()=>{this.m_message(res2.data.msg, 'warning')},1)
+          }
 
-        // 上月 出行收益 贝壳收益
-        if(res3.data.code == '0000'){
-          let result = res3.data.data.lastMonthAccountProfitPlatform
-          // 上月 出行
-          this.lastMonth_accountamount = result.accountAmountTotal  + ' 元'
-        }else{
-          // setTimeout(()=>{this.m_message(res3.data.msg, 'warning')},1)
-        }
+          // 上月 出行收益 贝壳收益
+          if (res3.data.code == "0000") {
+            let result = res3.data.data.lastMonthAccountProfitPlatform;
+            // 上月 出行
+            this.lastMonth_accountamount = result.accountAmountTotal + " 元";
+          } else {
+            // setTimeout(()=>{this.m_message(res3.data.msg, 'warning')},1)
+          }
 
-        if(res4.data.code == '0000'){
-          let result = res4.data.data.lastMonthVirtualProfitPlatform
-          // 上月 贝壳
-          this.lastMonth_virtualamount = result.virtualAmountTotal +' 贝壳'
-        }else{
-          // setTimeout(()=>{this.m_message(res4.data.msg, 'warning')},1)
-        }
+          if (res4.data.code == "0000") {
+            let result = res4.data.data.lastMonthVirtualProfitPlatform;
+            // 上月 贝壳
+            this.lastMonth_virtualamount = result.virtualAmountTotal + " 贝壳";
+          } else {
+            // setTimeout(()=>{this.m_message(res4.data.msg, 'warning')},1)
+          }
 
-        loading.close();
-      })
-      .catch(err => { loading.close() })
+          loading.close();
+        })
+        .catch(err => {
+          loading.close();
+        });
     },
 
     // 获取 昨日 日期
@@ -178,7 +187,7 @@ export default {
           ? "0" + (day1.getMonth() + 1)
           : day1.getMonth() + 1;
       var _date = day1.getDate() < 10 ? "0" + day1.getDate() : day1.getDate();
-      var s1 = day1.getFullYear() +''+ _month +''+ _date;
+      var s1 = day1.getFullYear() + "" + _month + "" + _date;
       return s1;
     },
     // 获取 上月
@@ -203,10 +212,9 @@ export default {
         message,
         type
       });
-    },
-
+    }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

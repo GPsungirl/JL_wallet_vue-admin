@@ -40,7 +40,10 @@ service.interceptors.request.use(
 service.interceptors.response.use(
 
   response => {
-
+    // 流文件下载
+    if (response.headers['content-type'] === 'application/octet-stream;charset=utf-8') {
+      return response.data
+    }
 
     if (response.data.code === '0000') {
 

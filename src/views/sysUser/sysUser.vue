@@ -16,7 +16,7 @@
       <!-- 所属角色 -->
       <el-table-column prop="rName" label="所属角色" width></el-table-column>
       <el-table-column prop="phone" label="电话" width></el-table-column>
-      <el-table-column prop="sex" label="性别" width></el-table-column>
+      <!-- <el-table-column prop="sex" label="性别" width></el-table-column> -->
       <!-- 状态 is_del 0可用 1不可用-->
       <el-table-column prop label="状态" width>
         <template slot-scope="scope">
@@ -69,8 +69,7 @@
       v-loading="modi_loading"
       element-loading-text="拼命加载中"
       element-loading-spinner="el-icon-loading"
-      element-loading-background="rgba(0, 0, 0, 0.8)"
-    >
+      element-loading-background="rgba(0, 0, 0, 0.8)">
       <!--修改 body -->
       <div>
         <el-row>
@@ -102,8 +101,7 @@
       v-loading="add_loading"
       element-loading-text="拼命加载中"
       element-loading-spinner="el-icon-loading"
-      element-loading-background="rgba(0, 0, 0, 0.8)"
-    >
+      element-loading-background="rgba(0, 0, 0, 0.8)">
       <!--新增 body -->
       <div class="dialogBody_addPermission">
         <div class="grid-content bg-purple-dark pad_t2">
@@ -188,8 +186,7 @@
       v-loading="modiUser_loading"
       element-loading-text="拼命加载中"
       element-loading-spinner="el-icon-loading"
-      element-loading-background="rgba(0, 0, 0, 0.8)"
-    >
+      element-loading-background="rgba(0, 0, 0, 0.8)">
       <!--修改 body -->
       <div class="dialogBody_addPermission">
         <div class="grid-content bg-purple-dark pad_t2">
@@ -380,7 +377,7 @@ export default {
         role_name: "",
         id: "",
         permission: "",
-        role_describe: ""
+        role_chinese_name: ""
       }
     };
   },
@@ -506,7 +503,7 @@ export default {
           let arr = [];
           if (res.data.code === "0000") {
             for (let item of res.data.data.sysRoleList) {
-              arr.push({ id: item.id, role_name: item.role_describe });
+              arr.push({ id: item.id, role_name: item.role_chinese_name });
             }
             this.valid_addForm.role_names = arr;
             this.valid_modiForm.role_names = arr;
@@ -544,7 +541,7 @@ export default {
             console.log(res);
             // 角色名称
             for (let item of res.data.data.sysRoleList) {
-              arr.push({ id: item.id, role_name: item.role_describe });
+              arr.push({ id: item.id, role_name: item.role_chinese_name });
             }
             this.valid_addForm.role_names = arr;
 
@@ -694,12 +691,13 @@ export default {
             // 角色名称
             let arr1 = [];
             for (let item of res1.data.data.sysRoleList) {
-              arr1.push({ id: item.id, role_name: item.role_describe });
+              arr1.push({ id: item.id, role_name: item.role_chinese_name });
             }
             this.valid_modiForm.role_names = arr1;
             //&2 p_modi 数据回显
+            console.log(res2)
             let result = res2.data.data;
-            this.modiSys_dialogTitle = "修改" + result.sysUser.real_name;
+            this.modiSys_dialogTitle = "修改" + (result.sysUser.real_name || row.real_name);
             this.valid_modiForm.real_name = result.sysUser.real_name;
             this.valid_modiForm.role_id = result.sysUserRole.rid;
             this.valid_modiForm.sex = result.sysUser.sex;
@@ -738,7 +736,7 @@ export default {
           id: this.d_modi_userPermission.id,
           mid: treeIds.join(","),
           permission: this.d_modi_userPermission.permission,
-          role_describe: this.d_modi_userPermission.role_describe,
+          role_chinese_name: this.d_modi_userPermission.role_chinese_name,
           role_name: this.d_modi_userPermission.role_name
         }
       };

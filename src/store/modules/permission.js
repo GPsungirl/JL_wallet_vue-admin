@@ -16,6 +16,7 @@ function hasPermission(roles, route) {
     return true
   }
 }
+
 //处理 动态路由数据
 function setServeMap(routerMap) {
   console.log(routerMap)
@@ -118,12 +119,6 @@ const fya_routerMap = {
   agentAccount: () => import('@/views/agentAccount/agentAccount'), //上传机构发票
   manageAreaAgent: () => import('@/views/manageAreaAgent/manageAreaAgent'), //区域机构管理
 
-  // 机构管理      mechanism
-  agentCheck: () => import('@/views/agentCheck/agentCheck'), //机构审核
-  agentDetails: () => import('@/views/agentDetails/agentDetails'), //机构列表
-  subordinateAgent: () => import('@/views/subordinateAgent/subordinateAgent'), // 机构下属查询
-  travelerCheck: () => import('@/views/travelerCheck/travelerCheck'), // 角落向导审核
-
   // 财务管理       finance
   virtualProfit: () => import('@/views/virtualProfit/virtualProfit'), //贝壳收益
   accountProfit: () => import('@/views/accountProfit/accountProfit'), // 其他收益
@@ -148,12 +143,42 @@ const fya_routerMap = {
   customOrder: () => import('@/views/customOrder/customOrder'), //出行记录
   virtualConsumeRecord: () => import('@/views/virtualConsumeRecord/virtualConsumeRecord'), //贝壳消费记录
   chatInfoRecord: () => import('@/views/chatInfoRecord/chatInfoRecord'), // 即时聊天记录
-  // 系统设置     system
-  sysRole: () => import('@/views/sysRole/sysRole'), // 角色管理
-  sysUser: () => import('@/views/sysUser/sysUser'), // 用户管理
+
+
+
+  // **1系统管理(system)   #角色管理 #平台账号管理
+  sysRole: () => import('@/views/sysRole/sysRole'), // **角色管理
+  sysUser: () => import('@/views/sysUser/sysUser'), // **平台账号管理
+
   refusedCause: () => import('@/views/refusedCause/refusedCause'), //审核原因
   messageInfo: () => import('@/views/messageInfo/messageInfo'),  //消息提示
 
+  // **2机构管理(mechanism)  #添加/审核机构   #机构查询  #分润查询
+  addOrCheckAgent: () => import('@/views/addOrCheckAgent/addOrCheckAgent'), //**添加/审核机构
+  agentList: () => import('@/views/agentList/agentList'), //**机构查询
+  payoffList: () => import('@/views/payoffList/payoffList'), //**分润查询
+  openAccountProfit:() => import('@/views/openAccountProfit/openAccountProfit'), //**开户分成
+
+  agentCheck: () => import('@/views/agentCheck/agentCheck'), //机构审核
+  agentDetails: () => import('@/views/agentDetails/agentDetails'), //机构列表
+  subordinateAgent: () => import('@/views/subordinateAgent/subordinateAgent'), // 机构下属查询
+  travelerCheck: () => import('@/views/travelerCheck/travelerCheck'), // 角落向导审核
+
+  // **3用户管理(customer)  #用户查询   #交易查询    #收益查询    #提现记录
+  userList: () => import('@/views/userList/userList'), //**用户查询
+  transactionList: () => import('@/views/transactionList/transactionList'), //**交易查询
+  incomeList: () => import('@/views/incomeList/incomeList'), //**收益查询
+  withdrawList: () => import('@/views/withdrawList/withdrawList'), //**提现记录
+  transferaccounts: () => import('@/views/transferaccounts/transferaccounts'), //**转账记录
+  identityCheckList: () => import('@/views/identityCheckList/identityCheckList'), //**认证审核
+  // **4风控管理()  #用户风控   #资金风控    #资金冻结订单查询
+  userWind: () => import('@/views/userWind/userWind'), //**用户风控
+  fundsWind: () => import('@/views/fundsWind/fundsWind'), //**资金风控
+  freezeOrderList: () => import('@/views/freezeOrderList/freezeOrderList'), //**资金冻结订单查询
+  // **5财务管理()  #交易对账   #出款对账    #数据导出
+  transactionCheck: () => import('@/views/transactionCheck/transactionCheck'), //**交易对账
+  paymentCheck: () => import('@/views/paymentCheck/paymentCheck'), //**出款对账
+  dataExport: () => import('@/views/dataExport/dataExport'), //**数据导出
   // 推送管理    push
   IMpush: () => import('@/views/IMpush/IMpush')  //信息推送
 }

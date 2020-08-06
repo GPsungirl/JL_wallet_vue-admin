@@ -16,6 +16,7 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 import service from './utils/request'
+import $ from 'jquery'
 
 import md5 from 'js-md5';
 Vue.prototype.$md5 = md5;
